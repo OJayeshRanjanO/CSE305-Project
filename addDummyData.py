@@ -49,6 +49,45 @@ def init_Car():
     connection.commit()
     connection.close()
 
+def init_Flight():
+    #4 Beijing
+    #1 Moscow
+    #2 New York
+    #3 New Delhi
+    connection = connect_db()
+    Flight_Carrier = ['Aeroflot','Aeroflot','China Eastern','China Eastern','Aeroflot','Aeroflot','China Eastern','China Eastern']
+    Src_Location = [2,1,2,4,1,3,1,4]
+    Dst_Location = [1,2,4,2,3,1,4,1]
+    Fare = [100,200,300,400,500,600,700,800]
+    Class = ['Economy',"Business"]
+    for i in range(len(Flight_Carrier)):
+        for j in Class:
+            query = "INSERT INTO Transportation (Transportation_Type) VALUES ('Flight');"
+            cursor = connection.cursor()
+            cursor.execute(query)
+            print(query)
+
+            query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
+            cursor = connection.cursor()
+            cursor.execute(query)
+            data = (cursor.fetchall())[0]
+            print(query)
+
+            id = data['TransportationID']
+            query = "INSERT INTO Flight (FlightID,Flight_Carrier,Src_Location,Dst_Location,Class,Fare) " \
+                    "VALUES (" + str(id) + ",\'" + Flight_Carrier[i] + "\'," + str(Src_Location[i]) + "," \
+                    "" + str(Dst_Location[i]) + ",\'" + j + "\'," + ( str(Fare[i]/2) if j == 'Economy' else str(Fare[i]) ) + ");"
+
+            # price += 10
+            cursor = connection.cursor()
+            cursor.execute(query)
+            print(query)
+
+            print()
+
+    connection.commit()
+    connection.close()
+
 def init_Location():
     city = ['Moscow','Queens','New Delhi','Beijing']
     state = ['Moscow','New York','New Delhi','Hebei']
@@ -70,4 +109,5 @@ def init_Location():
 
 if __name__ == '__main__':
     # init_Location()
-    init_Car()
+    # init_Car()
+    init_Flight()
