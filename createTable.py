@@ -67,7 +67,7 @@ LocationID INT NOT NULL AUTO_INCREMENT,
 City VARCHAR(255) NOT NULL,
 State VARCHAR(255) NOT NULL,
 Country VARCHAR(255) NOT NULL,
-UNIQUE(LocationID, City, State, Country),
+UNIQUE (City, State, Country),
 PRIMARY KEY(LocationID)
 );
 """
@@ -100,6 +100,7 @@ Car_Type Enum('Economy','Compact','Mid-Size','Full-Size','Premium','Luxury','Min
 Rent DOUBLE NOT NULL,
 CHECK (Rent >= 0),
 UNIQUE (CarID),
+UNIQUE (Car_Type,Rent),
 FOREIGN KEY (CarID) REFERENCES Transportation (TransportationID)
 );
 """
@@ -187,7 +188,6 @@ Salary DOUBLE NOT NULL,
 CHECK (Date_Joined <= now()),
 CHECK (Salary >= 0),
 PRIMARY KEY (EmployeeID),
-FOREIGN KEY (SupervisorID) REFERENCES Employee (EmployeeID),
 UNIQUE (Email)
 );
 """
