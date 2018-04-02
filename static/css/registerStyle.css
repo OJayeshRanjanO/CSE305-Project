@@ -4,7 +4,7 @@ body{
     width: 100vw;
     height: 100vh;
     background-color: white;
-    background-image: url(adventure2.png);
+    background-image: url(../images/adventure2.png);
     background-size: 100vw 100vh;
 }
 

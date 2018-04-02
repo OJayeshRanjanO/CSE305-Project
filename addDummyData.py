@@ -262,7 +262,7 @@ def init_Party():
     Party_Size = [5,5,3]
     connection = connect_db()
     for i in range(len(Party_Leader)):
-        query = "INSERT INTO Party(Party_Leader, Party_Size) VALUES ("+ str(Party_Leader[i])+","+ str(Party_Size[i])+");"
+        query = "INSERT INTO Party(Party_Leader, Party_Size, Active) VALUES ("+ str(Party_Leader[i])+","+ str(Party_Size[i])+",1);"
         print(query)
         cursor = connection.cursor()
         cursor.execute(query)

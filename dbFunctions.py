@@ -4,7 +4,7 @@ from dbConnect import connect_db
 def register_user():
     #This is just test CODE
     connection = connect_db()
-    query = "INSERT into TEST (A,B) values (2, 2)"
+    query = "CREATE TABLE TEST (A INT, B INT)"
     cursor = connection.cursor()
     cursor.execute(query)
     connection.commit()

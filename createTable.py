@@ -28,6 +28,7 @@ CREATE TABLE Party (
 PartyID INTEGER NOT NULL AUTO_INCREMENT,
 Party_Size INT NOT NULL,
 Party_Leader INT NOT NULL,
+Active TINYINT(1) NOT NULL DEFAULT 1,
 CHECK (Party_Size > 0),
 PRIMARY KEY (PartyID),
 FOREIGN KEY (Party_Leader) References Passenger (PassengerID)
@@ -99,7 +100,6 @@ Car_Type Enum('Economy','Premium','SUV') NOT NULL,
 Rent DOUBLE NOT NULL,
 CHECK (Rent >= 0),
 UNIQUE (CarID),
-UNIQUE (Car_Type,Rent),
 FOREIGN KEY (CarID) REFERENCES Transportation (TransportationID)
 );
 """
@@ -186,13 +186,12 @@ def Employee():
     query = """
 CREATE TABLE Employee (
 EmployeeID INT NOT NULL AUTO_INCREMENT,
-SupervisorID INT NOT NULL,
+SupervisorID INT NOT NULL DEFAULT 1,
 Email VARCHAR(255) NOT NULL,
 Password VARCHAR(255) NOT NULL,
 Role ENUM('CSR','Admin') NOT NULL,
 Date_Joined DATE NOT NULL,
 Salary DOUBLE NOT NULL,
-CHECK (Date_Joined <= now()),
 CHECK (Salary >= 0),
 PRIMARY KEY (EmployeeID),
 UNIQUE (Email)
