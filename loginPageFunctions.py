@@ -1,6 +1,6 @@
 from dbConnect import *
 
-def checkUserCredentials(email,password):
+def checkPassengerCredentials(email,password):
     try:
         connection = connect_db()
         query = "SELECT * FROM Passenger where Email = %s AND Password = Password( %s )"
@@ -14,3 +14,6 @@ def checkUserCredentials(email,password):
     except:
         connection.close()
         return False
+
+def registerPassenger():
+    return None

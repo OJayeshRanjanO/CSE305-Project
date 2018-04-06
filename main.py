@@ -15,7 +15,7 @@ def checkLogin():
     recvJson = request.get_json()
     email = recvJson['email']
     password = recvJson['pwd']
-    returnValue = checkUserCredentials(email,password)
+    returnValue = checkPassengerCredentials(email,password)
     return str(json.dumps({"login":"true"})) if returnValue else str(json.dumps({"login":"false"}))
 
 
