@@ -6,56 +6,159 @@ body{
 
 
 
-li{
-    width: 200px;
-    text-align: center;
-    background: linear-gradient(to bottom, #ffffff 0%, #000000 99%);
-
-}
-
-a{
-    color: white;
-}
-
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
-/*    color:black;*/
-    background: linear-gradient(to bottom left, #ff9900 0%, #ffff99 100%);
-}
-
-
-#resourceTypeWrapper{
+.resourceTypeWrapper{
     width: 100%;
     height: 90px;
     background-color: black;
     background-repeat:round;
-    position: relative;
-    float:left;
-    
+    position: relative;    
 }
 
-#resourceType{
+.resouceBanner{
     position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:5px;
+    float: left;
+    height: 90px;
+    float:left;
+    color:white;
+    font-family: 'Shrikhand', cursive;
+    font-size: 50px;
+}
+
+.resourceType{
+    position: absolute;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left:5px;
     float: left;
     width: calc(205px * 4);
     height: 90px;
-/*    transform: translateX(50%);*/
+    float:left;
+    left:50%;
+    transform: translateX(-50%);
 }
 
-#accountInfo{
+.resourceTabs{
+    width: 200px;
+    height: 50px;
+    background: none;
+    color: white;
+    border: 2px solid white;
+    
+}
+
+.resourceTabs:hover{
+        box-shadow:inset 0 0 100px #FFF;
+}
+
+.accountInfo{
     position: relative;
     float:right;
     padding: 20px;
     height: 90px;
 }
 
-#resourceData{
+.resourceDataWrapper{
     position: relative;
     height: calc(100% - 90px);
-    top:90px;
     background-image: url(../images/comic.jpg);
     background-size: 100%;
+    
+}
+
+.resourceData{
+    position: relative;
+    left:50%;
+    top:10%;
+    transform: translateX(-50%);
+    width: 750px;
+    height: 500px;
+    background-color: rgba(78, 0, 104, 0.2);
+    border: 1px solid white;
+    padding: 30px;
+/*    opacity: 0.3;*/
+/*    box-shadow:inset 0 0 400px #000;;   */
+}
+
+.resourceDataSelector{
+    float:left;
+    margin-top: 10px;
+    margin-left: 5px;
+    width:100px;
+}
+
+.leavingDate{
+    width:40px;
+    position: relative;
+    float: left;
+    width: 175px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.numPassengers{
+    position: relative;
+    float: left;
+    width: 120px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.searchResults{
+    background: none;
+    position: relative;
+    float:left;
+    width: 100%;
+    max-height: 80%;
+    
+}
+.card{
+    position: relative;
+    height: 50px;
+    width: 100% !important;
+/*    background-color: white;*/
+/*    border: 2px solid black;*/
+    margin-top: 10px;
+    color: white;
+}
+
+.cardBodyFlight{
+    position: relative;
+    width: 30%;
+    height: 50px;
+    float:left;
+    text-align: center;
+    font-size: 40px;
+
+    
+    
+}
+
+.cardBodyDeparture{
+    position: relative;
+    width: 40%;
+    height: 50px;
+    float:left;
+    text-align: center;
+    font-size: 40px;
+/*    color:white;*/
+        border-left: 1px solid black;
+
+
+    
+}
+
+.cardBodyPrice{
+    position: relative;
+    width: 30%;
+    height: 50px;
+    float:left;
+    text-align: center;
+    font-size: 40px;
+    border-left: 1px solid black;
+
+
     
 }

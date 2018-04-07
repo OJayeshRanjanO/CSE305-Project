@@ -9,24 +9,71 @@
         <link rel="stylesheet" type="text/css" href="./css/homePage.css">
 <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">    </head>
 <script type="text/javascript" src="./js/homePage.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <body>
-        <div id=resourceTypeWrapper>
-            <div id="resourceType">
-                <ul class="nav nav-pills red">
-                  <li role="presentation" class="active"><a href="#">Accommodation</a></li>
-                  <li role="presentation"><a href="#">Flights</a></li>
-                  <li role="presentation"><a href="#">Cruise</a></li>
-                  <li role="presentation"><a href="#">Car</a></li>
-                </ul>
+        <div class=resourceTypeWrapper>
+            <div class="resouceBanner">
+                Resort Hub
             </div>
-            <div id=accountInfo>
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-
+            <div class="resourceType">
+                <button class=resourceTabs>Hotels</button>
+                <button class=resourceTabs>Flights</button>
+                <button class=resourceTabs>Cruise</button>
+                <button class=resourceTabs>Cars</button>
+            </div>
+            <div class=accountInfo>
+                <i class="material-icons" style="font-size:50px;color:white">account_circle</i>
+                <i class="material-icons" style="font-size:50px;color:white">exit_to_app</i>
             </div>   
         </div>
-        <div id=resourceData>
-        
+        <div class=resourceDataWrapper>
+            <div class=resourceData >
+                <div class="form-group resourceDataSelector">
+                  <select class="form-control dropdown">
+                    <option value="" disabled selected hidden>From</option>
+                    <option>Moscow</option>
+                    <option>Beijing</option>
+                    <option>New York</option>
+                  </select>
+                </div>
+                <div class="form-group resourceDataSelector">
+                  <select class="form-control dropdown">
+                    <option value="" disabled selected hidden style="color:grey">To</option>
+                    <option>Moscow</option>
+                    <option>Beijing</option>
+                    <option>New York</option>
+                  </select>
+                </div>
+                <input required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
+                <div class="form-group resourceDataSelector">
+                  <select class="form-control dropdown">
+                    <option>Class</option>
+                    <option>Business</option>
+                    <option>Economy</option>
+                  </select>
+                </div>
+                <input class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers">
+                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;"><span class="glyphicon glyphicon-search"></span></button>       
+                <div class=searchResults>
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-body">
+                          <div class="cardBodyFlight" style="background-image: url(./images/airchina.jpg);background-repeat: no-repeat;background-size: 100% 50px"></div>
+                          <div class="cardBodyDeparture">12:00</div>
+                          <div class="cardBodyPrice">$2600</div>
+
+                      </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-body">
+                          <div class="cardBodyFlight" style="background-image: url(./images/aeroflot.jpg);background-repeat: no-repeat;background-size: 100% 50px"></div>
+                          <div class="cardBodyDeparture">00:00</div>
+                            <div class="cardBodyPrice">$2600</div>
+
+                      </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </body>
