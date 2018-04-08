@@ -1,10 +1,10 @@
-from flask import Flask, request, render_template, session
+from flask import Flask, request, render_template, session,redirect,url_for
 from dbFunctions import *
 import json
 from loginPageFunctions import *
 
 app = Flask(__name__)
-app.secret_key = "TEST"
+app.secret_key = "CSE305Team1"
 
 @app.route('/')
 # @app.route("/<user>")
@@ -23,9 +23,21 @@ def checkLogin():
 
 @app.route('/home')
 def home():
-    print(session['email'])
-    return render_template("home.html")
+    if 'email' in session:
+        print(session['email'])
+        return render_template("home.html")
+    else:
+        return redirect(url_for('index'))
 
+
+@app.route('/logout')
+def logout():
+    print(session)
+    if 'email' in session:
+        print(session['email'])
+        session.pop('email', None)
+        print(session)
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

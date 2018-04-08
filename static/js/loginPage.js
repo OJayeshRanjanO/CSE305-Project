@@ -1,7 +1,7 @@
 function login(){
     var formData = $('#loginForm').serialize();
     formData = toJSON(formData);
-    alert(formData)
+    // alert(formData)
     $.ajax({
       type: "POST",
       url: "/checkLogin",
