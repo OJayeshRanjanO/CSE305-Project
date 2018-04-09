@@ -30,13 +30,17 @@ def home():
     print(session['email'])
     return render_template("home.html")
 
+@app.route('/getLocation',methods=['POST'])
+def getLocation():
+    returnValue = getLocationList()
+    return str(json.dumps({"location":returnValue}))
 
 @app.route('/searchFlights',methods=['POST'])
 def searchFlights():
-    if 'email' not in session:
-        return redirect(url_for('index'))
+    # if 'email' not in session:
+    #     return redirect(url_for('index'))
     recvJson = request.get_json()
-
+    print(recvJson)
     flightFrom = recvJson["flightFrom"]
     flightTo = recvJson["flightTo"]
     flightLeavingDate = recvJson["flightLeavingDate"]
@@ -46,6 +50,19 @@ def searchFlights():
 
     returnValue = checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers)
     return str(json.dumps({"flightDetails":returnValue}))
+
+
+@app.route('/searchCruises',methods=['POST'])
+def searchCrusies():
+    #{"cruiseFrom":"Moscow","cruiseTo":"Beijing","cruiseLeavingDate":"2018-04-07","cruisePassengers":1}
+    recvJson = request.get_json()
+    cruiseFrom = recvJson["cruiseFrom"]
+    cruiseTo = recvJson["cruiseTo"]
+    cruiseLeavingDate = recvJson["cruiseLeavingDate"]
+    cruisePassengers = recvJson["cruisePassengers"]
+
+    returnValue = checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers)
+    return str(json.dumps({"cruiseDetails":returnValue}))
 
 
 

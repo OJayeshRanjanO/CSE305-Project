@@ -4,7 +4,6 @@ import datetime
 def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers):
     # try:
         connection = connect_db()
-
         query = "SELECT * FROM Location WHERE City = %s"
         cursor = connection.cursor()
         cursor.execute(query,(flightFrom))
@@ -37,3 +36,44 @@ def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flig
     # except:
     #     print("Fail")
     #     connection.close()
+
+def getLocationList():
+    connection = connect_db()
+
+    query = "SELECT * FROM Location"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    locations = cursor.fetchall()
+    connection.close()
+
+    return locations
+
+def checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers):
+    connection = connect_db()
+    query = "SELECT * FROM Location WHERE City = %s"
+    cursor = connection.cursor()
+    cursor.execute(query,(cruiseFrom))
+    src_location = int((cursor.fetchall()[0])['LocationID'])
+    connection.close()
+
+    connection = connect_db()
+    query = "SELECT * FROM Location WHERE City = %s"
+    cursor = connection.cursor()
+    cursor.execute(query,(cruiseTo))
+    dst_location = int(cursor.fetchall()[0]['LocationID'])
+    connection.close()
+
+
+    connection = connect_db()
+    query = "SELECT * FROM Cruise WHERE Src_Location = " + str(src_location) +" AND Dst_Location = " + str(dst_location) + ";"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    cruiseList = cursor.fetchall()
+    connection.close()
+
+    for eachCruise in cruiseList:
+        eachCruise['Schedule_Date'] = eachCruise['Schedule_Date'].strftime('%Y-%m-%d')
+
+        print(eachCruise)
+    return cruiseList
+
