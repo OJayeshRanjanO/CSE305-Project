@@ -1,4 +1,5 @@
-function login(){
+function login()
+{
     var formData = $('#loginForm').serialize();
     formData = toJSON(formData);
     // alert(formData)

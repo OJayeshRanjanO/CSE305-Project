@@ -22,6 +22,15 @@ def checkLogin():
         session['email'] = email
     return str(json.dumps({"login":"true"})) if returnValue else str(json.dumps({"login":"false"}))
 
+@app.route('/register-user',methods=['POST'])
+def register_user():
+    recv_json = request.get_json()
+    email = recv_json['email']
+    password = recv_json['pwd']
+    returnValue = checkPassengerCredentials(email,password)
+    if returnValue:
+        session['email'] = email
+    return str(json.dumps({"login":"true"})) if returnValue else str(json.dumps({"login":"false"}))
 
 @app.route('/home')
 def home():
@@ -29,6 +38,10 @@ def home():
         return redirect(url_for('index'))
     print(session['email'])
     return render_template("home.html")
+
+@app.route('/register-page')
+def register():
+    return render_template("register.html")
 
 @app.route('/getLocation',methods=['POST'])
 def getLocation():
@@ -63,7 +76,6 @@ def searchCrusies():
 
     returnValue = checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers)
     return str(json.dumps({"cruiseDetails":returnValue}))
-
 
 
 @app.route('/logout')
