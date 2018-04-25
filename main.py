@@ -22,15 +22,22 @@ def checkLogin():
         session['email'] = email
     return str(json.dumps({"login":"true"})) if returnValue else str(json.dumps({"login":"false"}))
 
-@app.route('/register-user',methods=['POST'])
-def register_user():
-    recv_json = request.get_json()
-    email = recv_json['email']
-    password = recv_json['pwd']
-    returnValue = checkPassengerCredentials(email,password)
+@app.route('/registerUser',methods=['POST'])
+def registerUser():
+    registered_json = request.get_json()
+    # Store name
+    name = registered_json['name']
+    # Store gender
+    gender = registered_json['gender']
+    # Store age
+    age = registered_json['age']
+    # Store email
+    email = registered_json['email']
+    # Store password
+    password = registered_json['pwd']
+    returnValue = registerPassenger(name, gender, age, email, password)
     if returnValue:
-        session['email'] = email
-    return str(json.dumps({"login":"true"})) if returnValue else str(json.dumps({"login":"false"}))
+        return str(json.dumps({"registered":"true"})) if returnValue else str(json.dumps({"registered":"false"}))
 
 @app.route('/home')
 def home():
