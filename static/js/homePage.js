@@ -8,7 +8,7 @@ function searchFlights(){
   var flightLeavingDate = $("#flightLeavingDate").val().toString();
   var flightClass = $("#flightClass").find(":selected").text();
   var flightPassengers = $("#flightPassengers").val();
-  alert(flightFrom + " " + flightTo+ " " + flightLeavingDate + " " + flightClass+ " "+ flightPassengers);
+  // alert(flightFrom + " " + flightTo+ " " + flightLeavingDate + " " + flightClass+ " "+ flightPassengers);
   var checkoutInfo = 
   {
     "resource":"flight",
@@ -19,7 +19,7 @@ function searchFlights(){
     "flightPassengers":flightPassengers
   };
 
-  alert(JSON.stringify(checkoutInfo));
+  // alert(JSON.stringify(checkoutInfo));
   $.ajax({
       type: "POST",
       url: "/searchFlights",
@@ -47,6 +47,51 @@ function searchFlights(){
 
 }
 
+function searchCruises(){
+  alert("TEST");
+  var cruiseFrom = $("#cruiseFrom").find(":selected").text();
+  var cruiseTo = $("#cruiseTo").find(":selected").text();
+  var cruiseLeavingDate = $("#cruiseLeavingDate").val().toString();
+  var cruisePassengers = $("#cruisePassengers").val();
+  alert(cruiseFrom + " " + cruiseTo+ " " + cruiseLeavingDate + " "+ cruisePassengers);
+  var checkoutInfo = 
+  {
+    "resource":"cruise",
+    "cruiseFrom":cruiseFrom, 
+    "cruiseTo":cruiseTo,
+    "cruiseLeavingDate":cruiseLeavingDate,
+    "cruisePassengers":cruisePassengers
+  };
+
+  alert(JSON.stringify(checkoutInfo));
+  $.ajax({
+      type: "POST",
+      url: "/searchCruises",
+      data: JSON.stringify(checkoutInfo),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+        alert(JSON.stringify(data));
+        var data = $.parseJSON(JSON.stringify(data)).cruiseDetails;
+        stringToAppend = "";
+        // {"cruiseDetails": [{"CruiseID": 9, "Cruise_Name": "Caribbean Princess", "Schedule_Date": "2018-03-31", "Src_Location": 1, "Dst_Location": 4, "Fare": 700.0}]}
+        for (var i = 0; i < data.length; i++){
+          stringToAppend = 
+            `<div class="card" style="width: 18rem;">
+              <div class="card-body">
+                  <div class="cardBodyFlight">` + data[i].Cruise_Name +`</div>
+                  <div class="cardBodyDeparture">` + data[i].Schedule_Date +`</div>
+                  <div class="cardBodyPrice">$`+ data[i].Fare +`</div>
+              </div>
+            </div>`
+        }
+        alert(data)
+
+        $("#cruiseSearchResults").append(stringToAppend);
+    });
+ 
+
+}
 
 function redirectTo(id){
   // alert(id);
@@ -56,3 +101,4 @@ function redirectTo(id){
   if (id === "car"){window.location.href = "/cars"};
 
 }
+

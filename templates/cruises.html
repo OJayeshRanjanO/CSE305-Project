@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <title>This is a test</title>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
+<!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css')}}"> -->
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -30,7 +30,7 @@
         <div class=resourceDataWrapper>
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
-                  <select id="flightFrom" class="form-control dropdown">
+                  <select id="cruiseFrom" class="form-control dropdown">
                     <option value="" disabled selected hidden>From</option>
                     <option>Moscow</option>
                     <option>Beijing</option>
@@ -38,24 +38,17 @@
                   </select>
                 </div>
                 <div class="form-group resourceDataSelector">
-                  <select id="flightTo" class="form-control dropdown">
+                  <select id="cruiseTo" class="form-control dropdown">
                     <option value="" disabled selected hidden style="color:grey">To</option>
                     <option>Moscow</option>
                     <option>Beijing</option>
                     <option>Queens</option>
                   </select>
                 </div>
-                <input id="flightLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
-                <div class="form-group resourceDataSelector">
-                  <select id="flightClass" class="form-control dropdown">
-                    <option value="" disabled selected hidden style="color:grey">Class</option>
-                    <option>Business</option>
-                    <option>Economy</option>
-                  </select>
-                </div>
-                <input id="flightPassengers" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers">
-                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchFlights();"><span class="glyphicon glyphicon-search"></span></button>       
-                <div id="flightSearchResults" class=searchResults>
+                <input id="cruiseLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
+                <input id="cruisePassengers" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers">
+                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchCruises();"><span class="glyphicon glyphicon-search"></span></button>       
+                <div id="cruiseSearchResults" class=searchResults>
                 </div>
             </div>
         </div>
