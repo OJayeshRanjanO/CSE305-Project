@@ -24,11 +24,11 @@ def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flig
         flightList = cursor.fetchall()
         connection.close()
 
+        # Use this loop to convert datetime
         for eachFlight in flightList:
             eachFlight['Schedule_Date'] = eachFlight['Schedule_Date'].strftime('%Y-%m-%d')
 
             print(eachFlight)
-
 
 
         return flightList
@@ -47,6 +47,12 @@ def listAllFlights():
         connection.commit()
         flightList = cursor.fetchall()
         connection.close()
+        # This is a list of dictionaries, Each row is a dictionary
+        # Use this loop to convert datetime
+        for eachFlight in flightList:
+            eachFlight['Schedule_Date'] = eachFlight['Schedule_Date'].strftime('%Y-%m-%d')
+
+            print(eachFlight)
         return flightList
     except:
         connection.close()

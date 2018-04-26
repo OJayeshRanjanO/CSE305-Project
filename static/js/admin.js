@@ -5,11 +5,13 @@ function logout()
 
 function listFlights()
 {
+    // All active flights
   $.ajax({
       type: "GET",
-      url: "/listFlights",
+      url: "/listFlights"
     }).done(function (data, textStatus, jqXHR) {
-        var data = $.parseJSON(JSON.stringify(data)).flightDetails;
+        var data = $.parseJSON(data).flightList;
+        console.log(data);
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           stringToAppend = 

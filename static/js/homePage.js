@@ -29,6 +29,7 @@ function searchFlights(){
     }).done(function (data, textStatus, jqXHR) {
       $("#flightSearchResults").empty();
         // alert(JSON.stringify(data));
+      console.log(data);
         var data = $.parseJSON(JSON.stringify(data)).flightDetails;
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
