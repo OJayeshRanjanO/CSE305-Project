@@ -90,6 +90,11 @@ def searchFlights():
     returnValue = checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers)
     return str(json.dumps({"flightDetails":returnValue}))
 
+@app.route('/listFlights',methods=['GET'])
+def listFlights():
+    returnValue = listAllFlights()
+    return str(json.dumps({"list": returnValue})) if returnValue else str(json.dumps({"list": "false"}))
+
 @app.route('/cruises')
 def cruises():
     if 'email' not in session:
