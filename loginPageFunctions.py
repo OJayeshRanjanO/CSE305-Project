@@ -17,7 +17,6 @@ def checkPassengerCredentials(email,password):
 
 def registerPassenger(name, gender, age, email, password):
     try:
-        print("BEFORE INSERT TO DB: ", name)
         connection = connect_db()
         query = "INSERT INTO Passenger (Name, Gender, Age, Email, Password) VALUES (%s, %s, %s, %s, Password(\'"+ password +"\'))"
 

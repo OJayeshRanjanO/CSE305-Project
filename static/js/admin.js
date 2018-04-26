@@ -3,32 +3,12 @@ function logout()
   window.location.href = "/logout"
 }
 
-function searchFlights(){
-  var flightFrom = $("#flightFrom").find(":selected").text();
-  var flightTo = $("#flightTo").find(":selected").text();
-  var flightLeavingDate = $("#flightLeavingDate").val().toString();
-  var flightClass = $("#flightClass").find(":selected").text();
-  var flightPassengers = $("#flightPassengers").val();
-  // alert(flightFrom + " " + flightTo+ " " + flightLeavingDate + " " + flightClass+ " "+ flightPassengers);
-  var checkoutInfo = 
-  {
-    "resource":"flight",
-    "flightFrom":flightFrom, 
-    "flightTo":flightTo,
-    "flightLeavingDate":flightLeavingDate,
-    "flightClass":flightClass,
-    "flightPassengers":flightPassengers
-  };
-
-  // alert(JSON.stringify(checkoutInfo));
+function listFlights()
+{
   $.ajax({
-      type: "POST",
-      url: "/searchFlights",
-      data: JSON.stringify(checkoutInfo),
-      dataType: "json",
-      contentType : "application/json"
+      type: "GET",
+      url: "/listFlights",
     }).done(function (data, textStatus, jqXHR) {
-        alert(JSON.stringify(data));
         var data = $.parseJSON(JSON.stringify(data)).flightDetails;
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
@@ -44,8 +24,6 @@ function searchFlights(){
 
         $("#flightSearchResults").append(stringToAppend);
     });
- 
-
 }
 
 function searchCruises(){
