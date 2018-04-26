@@ -48,6 +48,13 @@ def employeePage():
     # print(session['email'])
     return render_template("employee.html")
 
+@app.route('/admin')
+def admin():
+    # if 'email' not in session:
+    #     return redirect(url_for('index'))
+    # print(session['email'])
+    return render_template("admin.html")
+
 
 @app.route('/getLocation',methods=['POST'])
 def getLocation():
