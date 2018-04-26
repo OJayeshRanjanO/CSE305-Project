@@ -125,6 +125,7 @@ def searchCars():
     Car_Company = recvJson["carCompany"]
 
     returnValue = checkAvailableCars(Car_Company,Car_Type)
+    print(returnValue)
     return str(json.dumps({"carDetails":returnValue}))    # {"carDetails": [{"CarID": 1, "Car_Company": "Hertz", "Car_Type": "Economy", "Rent": 25.0}]}
 
 

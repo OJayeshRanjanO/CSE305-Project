@@ -30,32 +30,21 @@
         <div class=resourceDataWrapper>
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
-                  <select id="flightFrom" class="form-control dropdown">
-                    <option value="" disabled selected hidden>From</option>
-                    <option>Moscow</option>
-                    <option>Beijing</option>
-                    <option>Queens</option>
+                  <select id="carCompany" class="form-control dropdown">
+                    <option value="" disabled selected hidden>Company</option>
+                    <option>Hertz</option>
                   </select>
                 </div>
                 <div class="form-group resourceDataSelector">
-                  <select id="flightTo" class="form-control dropdown">
-                    <option value="" disabled selected hidden style="color:grey">To</option>
-                    <option>Moscow</option>
-                    <option>Beijing</option>
-                    <option>Queens</option>
-                  </select>
-                </div>
-                <input id="flightLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
-                <div class="form-group resourceDataSelector">
-                  <select id="flightClass" class="form-control dropdown">
-                    <option value="" disabled selected hidden style="color:grey">Class</option>
-                    <option>Business</option>
+                  <select id="carType" class="form-control dropdown">
+                    <option value="" disabled selected hidden style="color:grey">Type</option>
                     <option>Economy</option>
+                    <option>Premium</option>
+                    <option>SUV</option>
                   </select>
                 </div>
-                <input id="flightPassengers" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers">
-                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchFlights();"><span class="glyphicon glyphicon-search"></span></button>       
-                <div id="flightSearchResults" class=searchResults>
+                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchCars();"><span class="glyphicon glyphicon-search"></span></button>       
+                <div id="carSearchResults" class=searchResults>
                 </div>
             </div>
         </div>
