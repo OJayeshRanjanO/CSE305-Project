@@ -4,9 +4,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/css/registerStyle.css">
-<link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">    </head>
-<script type="text/javascript" src="/static/js/registerPage.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
+    </head>
+    <script type="text/javascript" src="/static/js/registerPage.js"></script>
     <body>
+    <div id="registerLabel">Create your Resort Hub Account</div>
         <div id="registerBox">
             <div id="test">
                   <form id=registerForm>
@@ -33,7 +35,7 @@
                       <label for="pwd">Password:</label>
                       <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
                     </div>
-                    <button type="submit" class="btn btn-default" id="register_btn" onclick="register();">Register</button>
+                    <button type="submit" class="btn btn-default" id="register_btn" onclick="validate_form();">Register</button>
                   </form>
             </div>
 

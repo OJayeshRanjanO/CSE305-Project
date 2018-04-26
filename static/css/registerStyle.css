@@ -26,3 +26,18 @@ body{
         color: white;
    box-shadow:         inset 0 0 1000px #000000;
 }
+
+label {
+    color: white;
+}
+
+#registerLabel{
+    position: relative;
+font-family: 'Shrikhand', cursive;
+    font-size: 50px;
+    color: white;
+    top: 20%;
+    width: 850px;
+    left:50%;
+    transform: translateX(-50%);
+}
