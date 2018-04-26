@@ -60,6 +60,9 @@ body{
     float:left;
     margin-top: 10px;
     margin-left: 5px;
-    width:1000px;
+    width:100px;
 }
 
+.choices{
+    width:100px;
+}
