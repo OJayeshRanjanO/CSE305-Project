@@ -12,7 +12,7 @@
                   <form id=registerForm>
                     <div class="form-group">
                       <label for="name">Name:</label>
-                      <input type="text" class="form-control" id="name" placeholder="Your name" name="name">
+                      <input type="text" class="form-control" id="name" placeholder="Your name" name="name" required>
                     </div>
                     <div class="form-group">
                       <label for="gender">Select Gender:</label>
@@ -23,17 +23,17 @@
                     </div>
                     <div class="form-group">
                       <label for="age">Age:</label>
-                      <input type="number" class="form-control" id="age" placeholder="Enter age" name="age">
+                      <input type="number" class="form-control" id="age" placeholder="Enter age" name="age" required>
                     </div>
                     <div class="form-group">
                       <label for="email">Email:</label>
-                      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
                     </div>
                     <div class="form-group">
                       <label for="pwd">Password:</label>
-                      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" required>
                     </div>
-                    <button type="submit" class="btn btn-default" onclick="register();">Register</button>
+                    <button type="submit" class="btn btn-default" id="register_btn" onclick="register();">Register</button>
                   </form>
             </div>
 

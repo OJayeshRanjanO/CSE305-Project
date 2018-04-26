@@ -216,7 +216,7 @@ def init_Passenger():
     connection = connect_db()
     for i in range(len(email)):
         query = "INSERT INTO Passenger (Name,Gender,Age,Email,Password) VALUES " \
-        "(\'"+ str(Name[i]) +"\',\'"+ Gender[i] +"\',"+ str(Age[i]) +",\'"+ email[i] +"\',Password(\'"+ email[i] +"\'));"
+        "(\'"+str( Name[i]) +"\',\'"+ Gender[i] +"\',"+ str(Age[i]) +",\'"+ email[i] +"\', Password(\'"+ email[i] +"\'));"
         print(query)
         cursor = connection.cursor()
         cursor.execute(query)

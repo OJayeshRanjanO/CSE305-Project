@@ -28,7 +28,8 @@ function register()
     });
 }
 
-function toJSON(data){
+function toJSON(data)
+{
   data = data.split("&");
   var obj={};
     for(i = 0; i < data.length; i++)

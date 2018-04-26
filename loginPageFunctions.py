@@ -18,9 +18,9 @@ def checkPassengerCredentials(email,password):
 def registerPassenger(name, gender, age, email, password):
     try:
         connection = connect_db()
-        query = "INSERT INTO Passenger (PassengerID, Name, Gender, Age, Email, Password) VALUES (%s, %s, %s, %s, %s, %s)"
+        query = "INSERT INTO Passenger (Name, Gender, Age, Email, Password) VALUES (%s, %s, %s, %s, Password(\'"+ password +"\'))"
 
-        data = (4, name, gender, age, email, password)
+        data = (name, gender, age, email)
         cursor = connection.cursor()
         cursor.execute(query, data)
         connection.commit()
