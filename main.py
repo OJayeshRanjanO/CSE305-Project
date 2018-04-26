@@ -131,14 +131,13 @@ def hotels():
 
 @app.route('/searchHotels',methods=['POST'])
 def searchHotels():
-    # {"accommodationType":"Suite","Location":"Economy"}
+    # {"accommodationType":"Economy","location":"Moscow"}
     recvJson = request.get_json()
-    Car_Type = recvJson["carType"]
-    Car_Company = recvJson["carCompany"]
+    Accommodation_Type = recvJson["accommodationType"]
+    Location = recvJson["location"]
 
-    returnValue = checkAvailableCars(Car_Company,Car_Type)
-    return str(json.dumps({"carDetails":returnValue}))    # {"carDetails": [{"CarID": 1, "Car_Company": "Hertz", "Car_Type": "Economy", "Rent": 25.0}]}
-
+    returnValue = checkAvailableHotel(Accommodation_Type,Location)
+    return str(json.dumps({"hotelDetails":returnValue})) #{"hotelDetails": [{"AccommodationID": 1, "Accommodation_Type": "Economy", "Rate": 100.0, "Facilities": "2 Beds", "Discount": 0.0, "Location": 1, "Size": 2, "Active": 1}]}
 
 
 @app.route('/logout')
