@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.secret_key = "CSE305Team1"
 
 @app.route('/')
-# @app.route("/<user>")
 def index():
     return render_template("login.html")
 
@@ -21,6 +20,10 @@ def checkLogin():
     if returnValue:
         session['email'] = email
     return str(json.dumps({"login":"true"})) if returnValue else str(json.dumps({"login":"false"}))
+
+@app.route('/register-page')
+def register():
+    return render_template("register.html")
 
 @app.route('/registerUser',methods=['POST'])
 def registerUser():
@@ -36,8 +39,7 @@ def registerUser():
     # Store password
     password = registered_json['pwd']
     returnValue = registerPassenger(name, gender, age, email, password)
-    if returnValue:
-        return str(json.dumps({"registered":"true"})) if returnValue else str(json.dumps({"registered":"false"}))
+    return str(json.dumps({"registered":"true"})) if returnValue else str(json.dumps({"registered":"false"}))
 
 @app.route('/home')
 def home():
@@ -45,10 +47,6 @@ def home():
         return redirect(url_for('index'))
     print(session['email'])
     return render_template("home.html")
-
-@app.route('/register-page')
-def register():
-    return render_template("register.html")
 
 @app.route('/getLocation',methods=['POST'])
 def getLocation():
@@ -71,6 +69,27 @@ def searchFlights():
     returnValue = checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers)
     return str(json.dumps({"flightDetails":returnValue}))
 
+
+@app.route('/cruises')
+def cruises():
+    if 'email' not in session:
+        return redirect(url_for('cruises'))
+    print(session['email'])
+    return render_template("cruises.html")
+
+@app.route('/cars')
+def cars():
+    if 'email' not in session:
+        return redirect(url_for('cars'))
+    print(session['email'])
+    return render_template("cars.html")
+
+@app.route('/hotels')
+def hotels():
+    if 'email' not in session:
+        return redirect(url_for('hotels'))
+    print(session['email'])
+    return render_template("hotels.html")
 
 @app.route('/searchCruises',methods=['POST'])
 def searchCrusies():
