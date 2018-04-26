@@ -41,17 +41,25 @@ def registerUser():
     returnValue = registerPassenger(name, gender, age, email, password)
     return str(json.dumps({"registered":"true"})) if returnValue else str(json.dumps({"registered":"false"}))
 
+@app.route('/employeePage')
+def employeePage():
+    # if 'email' not in session:
+    #     return redirect(url_for('index'))
+    # print(session['email'])
+    return render_template("employee.html")
+
+
+@app.route('/getLocation',methods=['POST'])
+def getLocation():
+    returnValue = getLocationList()
+    return str(json.dumps({"location":returnValue}))
+
 @app.route('/home')
 def home():
     if 'email' not in session:
         return redirect(url_for('index'))
     print(session['email'])
     return render_template("home.html")
-
-@app.route('/getLocation',methods=['POST'])
-def getLocation():
-    returnValue = getLocationList()
-    return str(json.dumps({"location":returnValue}))
 
 @app.route('/searchFlights',methods=['POST'])
 def searchFlights():
@@ -69,27 +77,12 @@ def searchFlights():
     returnValue = checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers)
     return str(json.dumps({"flightDetails":returnValue}))
 
-
 @app.route('/cruises')
 def cruises():
     if 'email' not in session:
         return redirect(url_for('cruises'))
     print(session['email'])
     return render_template("cruises.html")
-
-@app.route('/cars')
-def cars():
-    if 'email' not in session:
-        return redirect(url_for('cars'))
-    print(session['email'])
-    return render_template("cars.html")
-
-@app.route('/hotels')
-def hotels():
-    if 'email' not in session:
-        return redirect(url_for('hotels'))
-    print(session['email'])
-    return render_template("hotels.html")
 
 @app.route('/searchCruises',methods=['POST'])
 def searchCrusies():
@@ -102,6 +95,43 @@ def searchCrusies():
 
     returnValue = checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers)
     return str(json.dumps({"cruiseDetails":returnValue}))
+
+
+@app.route('/cars')
+def cars():
+    if 'email' not in session:
+        return redirect(url_for('cars'))
+    print(session['email'])
+    return render_template("cars.html")
+
+@app.route('/searchCars',methods=['POST'])
+def searchCars():
+    # {"carCompany":"Hertz","carType":"Economy"}
+    recvJson = request.get_json()
+    Car_Type = recvJson["carType"]
+    Car_Company = recvJson["carCompany"]
+
+    returnValue = checkAvailableCars(Car_Company,Car_Type)
+    return str(json.dumps({"carDetails":returnValue}))    # {"carDetails": [{"CarID": 1, "Car_Company": "Hertz", "Car_Type": "Economy", "Rent": 25.0}]}
+
+
+@app.route('/hotels')
+def hotels():
+    if 'email' not in session:
+        return redirect(url_for('hotels'))
+    print(session['email'])
+    return render_template("hotels.html")
+
+@app.route('/searchHotels',methods=['POST'])
+def searchHotels():
+    # {"accommodationType":"Suite","Location":"Economy"}
+    recvJson = request.get_json()
+    Car_Type = recvJson["carType"]
+    Car_Company = recvJson["carCompany"]
+
+    returnValue = checkAvailableCars(Car_Company,Car_Type)
+    return str(json.dumps({"carDetails":returnValue}))    # {"carDetails": [{"CarID": 1, "Car_Company": "Hertz", "Car_Type": "Economy", "Rent": 25.0}]}
+
 
 
 @app.route('/logout')

@@ -77,3 +77,14 @@ def checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers
         print(eachCruise)
     return cruiseList
 
+
+def checkAvailableCars(Car_Company,Car_Type):
+    connection = connect_db()
+    query = "SELECT * FROM Car WHERE Car_Company = '" + str(Car_Company) +"' AND Car_Type = '" + str(Car_Type) + "';"
+    print(query)
+    cursor = connection.cursor()
+    cursor.execute(query)
+    carList = cursor.fetchall()
+    connection.close()
+
+    return carList
