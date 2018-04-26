@@ -55,8 +55,10 @@ function toJSON(data)
     for(i = 0; i < data.length; i++)
     {
         var x = data[i].split("=");
+        x[1] = x[1].replace(/%20/g," ");
         obj[x[0]] = x[1].replace("%40","@");
     }
+    console.log(obj);
   // obj['username'] = localStorage['username']
   return JSON.stringify(obj);
 }
