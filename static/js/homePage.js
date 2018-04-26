@@ -73,7 +73,7 @@ function searchCruises(){
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
         // alert(JSON.stringify(data));
-        $("#flightSearchResults").empty();
+        $("#cruiseSearchResults").empty();
         var data = $.parseJSON(JSON.stringify(data)).cruiseDetails;
         stringToAppend = "";
         // {"cruiseDetails": [{"CruiseID": 9, "Cruise_Name": "Caribbean Princess", "Schedule_Date": "2018-03-31", "Src_Location": 1, "Dst_Location": 4, "Fare": 700.0}]}
@@ -90,6 +90,48 @@ function searchCruises(){
         // alert(data)
 
         $("#cruiseSearchResults").append(stringToAppend);
+    });
+ 
+
+}
+
+function searchCars(){
+  var carCompany = $("#carCompany").find(":selected").text();
+  var carType = $("#carType").find(":selected").text();
+  // alert(flightFrom + " " + flightTo+ " " + flightLeavingDate + " " + flightClass+ " "+ flightPassengers);
+  var checkoutInfo = 
+  {
+    "resource":"car",
+    "carType":carType, 
+    "carCompany":carCompany
+  };
+
+  // alert(JSON.stringify(checkoutInfo));
+  $.ajax({
+      type: "POST",
+      url: "/searchCars",
+      data: JSON.stringify(checkoutInfo),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+      $("#carSearchResults").empty();
+        // alert(JSON.stringify(data));
+        alert(JSON.stringify(data));
+        var data = $.parseJSON(JSON.stringify(data)).carDetails;
+        stringToAppend = "";
+        for (var i = 0; i < data.length; i++){
+          // alert(data[i].Car_Company + " " + data[i].Car_Type + " " + data[i].Rent);
+          stringToAppend = 
+            `<div class="card" style="width: 18rem;">
+              <div class="card-body">
+                  <div class="cardBodyFlight">` + data[i].Car_Company +`</div>
+                  <div class="cardBodyDeparture">` + data[i].Car_Type +`</div>
+                  <div class="cardBodyPrice">$`+ data[i].Rent +`</div>
+              </div>
+            </div>`
+        }
+
+        $("#carSearchResults").append(stringToAppend);
     });
  
 

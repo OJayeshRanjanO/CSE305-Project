@@ -37,6 +37,22 @@ def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flig
     #     print("Fail")
     #     connection.close()
 
+def listAllFlights():
+    try:
+        connection = connect_db()
+        query = "SELECT * FROM Flight"
+
+        cursor = connection.cursor()
+        cursor.execute(query)
+        connection.commit()
+        flightList = cursor.fetchall()
+        connection.close()
+        return flightList
+    except:
+        connection.close()
+        return False
+
+
 def getLocationList():
     connection = connect_db()
 

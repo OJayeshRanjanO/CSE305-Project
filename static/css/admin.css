@@ -44,6 +44,7 @@ body
 
 .resourceTabs
 {
+    /*Fix the size of the tabs*/
     @media only screen
     width: 200px;
     height: 50px;

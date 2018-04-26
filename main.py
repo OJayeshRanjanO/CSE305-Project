@@ -90,6 +90,11 @@ def searchFlights():
     returnValue = checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers)
     return str(json.dumps({"flightDetails":returnValue}))
 
+@app.route('/listFlights',methods=['GET'])
+def listFlights():
+    returnValue = listAllFlights()
+    return str(json.dumps({"list": returnValue})) if returnValue else str(json.dumps({"list": "false"}))
+
 @app.route('/cruises')
 def cruises():
     if 'email' not in session:
@@ -125,6 +130,7 @@ def searchCars():
     Car_Company = recvJson["carCompany"]
 
     returnValue = checkAvailableCars(Car_Company,Car_Type)
+    print(returnValue)
     return str(json.dumps({"carDetails":returnValue}))    # {"carDetails": [{"CarID": 1, "Car_Company": "Hertz", "Car_Type": "Economy", "Rent": 25.0}]}
 
 
