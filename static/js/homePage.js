@@ -27,7 +27,8 @@ function searchFlights(){
       dataType: "json",
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
-        alert(JSON.stringify(data));
+      $("#flightSearchResults").empty();
+        // alert(JSON.stringify(data));
         var data = $.parseJSON(JSON.stringify(data)).flightDetails;
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
@@ -48,12 +49,12 @@ function searchFlights(){
 }
 
 function searchCruises(){
-  alert("TEST");
+  // alert("TEST");
   var cruiseFrom = $("#cruiseFrom").find(":selected").text();
   var cruiseTo = $("#cruiseTo").find(":selected").text();
   var cruiseLeavingDate = $("#cruiseLeavingDate").val().toString();
   var cruisePassengers = $("#cruisePassengers").val();
-  alert(cruiseFrom + " " + cruiseTo+ " " + cruiseLeavingDate + " "+ cruisePassengers);
+  // alert(cruiseFrom + " " + cruiseTo+ " " + cruiseLeavingDate + " "+ cruisePassengers);
   var checkoutInfo = 
   {
     "resource":"cruise",
@@ -63,7 +64,7 @@ function searchCruises(){
     "cruisePassengers":cruisePassengers
   };
 
-  alert(JSON.stringify(checkoutInfo));
+  // alert(JSON.stringify(checkoutInfo));
   $.ajax({
       type: "POST",
       url: "/searchCruises",
@@ -71,7 +72,9 @@ function searchCruises(){
       dataType: "json",
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
-        alert(JSON.stringify(data));
+        // alert(JSON.stringify(data));
+      $("#flightSearchResults").empty();
+
         var data = $.parseJSON(JSON.stringify(data)).cruiseDetails;
         stringToAppend = "";
         // {"cruiseDetails": [{"CruiseID": 9, "Cruise_Name": "Caribbean Princess", "Schedule_Date": "2018-03-31", "Src_Location": 1, "Dst_Location": 4, "Fare": 700.0}]}
@@ -85,7 +88,7 @@ function searchCruises(){
               </div>
             </div>`
         }
-        alert(data)
+        // alert(data)
 
         $("#cruiseSearchResults").append(stringToAppend);
     });
