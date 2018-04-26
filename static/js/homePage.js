@@ -73,8 +73,7 @@ function searchCruises(){
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
         // alert(JSON.stringify(data));
-      $("#flightSearchResults").empty();
-
+        $("#flightSearchResults").empty();
         var data = $.parseJSON(JSON.stringify(data)).cruiseDetails;
         stringToAppend = "";
         // {"cruiseDetails": [{"CruiseID": 9, "Cruise_Name": "Caribbean Princess", "Schedule_Date": "2018-03-31", "Src_Location": 1, "Dst_Location": 4, "Fare": 700.0}]}
