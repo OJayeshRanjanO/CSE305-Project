@@ -55,6 +55,12 @@ def admin():
     # print(session['email'])
     return render_template("admin.html")
 
+@app.route('/review')
+def review():
+    # if 'email' not in session:
+    #     return redirect(url_for('index'))
+    # print(session['email'])
+    return render_template("review.html")
 
 @app.route('/getLocation',methods=['POST'])
 def getLocation():
