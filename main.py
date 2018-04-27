@@ -93,7 +93,8 @@ def searchFlights():
 @app.route('/listFlights',methods=['GET'])
 def listFlights():
     returnValue = listAllFlights()
-    return str(json.dumps({"list": returnValue})) if returnValue else str(json.dumps({"list": "false"}))
+    print(returnValue)
+    return str(json.dumps({"flightList":returnValue}))
 
 @app.route('/cruises')
 def cruises():
