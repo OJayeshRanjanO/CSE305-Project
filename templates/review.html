@@ -35,8 +35,10 @@
         <div class=resourceDataWrapper>
             <div class=resourceData>
                 <div class="form-group resourceDataSelector"></div>
-                <input id="flightLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Message" onfocus="(this.type='date')"/>
-                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="review();"><span class="glyphicon glyphicon-search"></span></button>
+                <input id="flightLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Message"/>
+                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="getReviewList();">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
                 <div id="flightSearchResults" class=searchResults></div>
             </div>
         </div>
@@ -49,3 +51,14 @@
 
 </body>
 </html>
+
+{#def getReviewList():#}
+{#    connection = connect_db()#}
+{##}
+{#    query = "SELECT * FROM Review"#}
+{#    cursor = connection.cursor()#}
+{#    cursor.execute(query)#}
+{#    reviews = cursor.fetchall()#}
+{#    connection.close()#}
+{##}
+{#    return reviews#}

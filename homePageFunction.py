@@ -128,3 +128,14 @@ def checkAvailableHotel(Accommodation_Type,Location):
     connection.close()
 
     return accommodation_list
+
+def getReviewList():
+    connection = connect_db()
+
+    query = "SELECT * FROM Review"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    reviews = cursor.fetchall()
+    connection.close()
+
+    return reviews
