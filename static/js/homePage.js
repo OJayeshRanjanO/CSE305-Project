@@ -139,10 +139,11 @@ function searchCars(){
 }
 
 function searchHotels(){
-  var guests = $("#guests").find(":selected").text();
+  var guests = $("#guests").val();
   var location = $("#location").find(":selected").text();
   var accommodationType = $("#accommodationType").find(":selected").text();
   // alert(flightFrom + " " + flightTo+ " " + flightLeavingDate + " " + flightClass+ " "+ flightPassengers);
+  // alert(accommodationType + " " + location + " " + guests)
   var checkoutInfo = 
   {
     "resource":"hotel",
@@ -154,7 +155,7 @@ function searchHotels(){
   // alert(JSON.stringify(checkoutInfo));
   $.ajax({
       type: "POST",
-      url: "/searchCars",
+      url: "/searchHotels",
       data: JSON.stringify(checkoutInfo),
       dataType: "json",
       contentType : "application/json"
@@ -168,9 +169,9 @@ function searchHotels(){
           stringToAppend = 
             `<div class="card" style="width: 18rem;">
               <div class="card-body">
-                  <div class="cardBodyFlight">` + data[i].Rate +`</div>
-                  <div class="cardBodyDeparture">` + data[i].Facilities +`</div>
-                  <div class="cardBodyPrice">$`+ data[i].Size +`</div>
+                  <div class="cardBodyFlight">` + data[i].Facilities +`</div>
+                  <div class="cardBodyDeparture">` + data[i].Size +`</div>
+                  <div class="cardBodyPrice">$`+ data[i].Rate +`</div>
               </div>
             </div>`
         }

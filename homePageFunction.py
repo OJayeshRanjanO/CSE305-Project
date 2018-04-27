@@ -111,7 +111,7 @@ def checkAvailableCars(Car_Company,Car_Type):
 
     return carList
 
-def checkAvailableHotel(Accommodation_Type,Location):
+def checkAvailableHotel(Accommodation_Type,Location,Guests):
     connection = connect_db()
     query = "SELECT * FROM Location WHERE City = %s"
     cursor = connection.cursor()
@@ -120,7 +120,7 @@ def checkAvailableHotel(Accommodation_Type,Location):
     connection.close()
 
     connection = connect_db()
-    query = "SELECT * FROM Accommodation WHERE Accommodation_Type = '" + str(Accommodation_Type) +"' AND Location = '" + str(city_name) + "' AND Active = 1;"
+    query = "SELECT * FROM Accommodation WHERE Accommodation_Type = '" + str(Accommodation_Type) +"' AND Location = " + str(city_name) +" AND Size >= " + str(Guests) + " AND Active = 1;"
     print(query)
     cursor = connection.cursor()
     cursor.execute(query)
