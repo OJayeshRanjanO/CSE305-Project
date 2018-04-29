@@ -18,7 +18,7 @@ def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flig
         connection.close()
 
         connection = connect_db()
-        query = "SELECT * FROM Flight WHERE Src_Location = " + str(src_location) +" AND Dst_Location = " + str(dst_location) + " AND Class = '" + str(flightClass) + "';"
+        query = "SELECT * FROM Flight WHERE Src_Location = " + str(src_location) + " AND Dst_Location = " + str(dst_location) + " AND Class = '" + str(flightClass) + "' AND (SELECT TransportationID FROM Transportation WHERE TransportationID = FlightID AND Active = 1);"
         cursor = connection.cursor()
         cursor.execute(query)
         flightList = cursor.fetchall()
@@ -29,6 +29,14 @@ def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flig
             eachFlight['Schedule_Date'] = eachFlight['Schedule_Date'].strftime('%Y-%m-%d')
 
             # print(eachFlight)
+
+        # connection = connect_db()
+        # query = "SELECT TransportationID FROM Transportation WHERE Transportation_Type ='Flight' AND Active = 1"
+        # cursor = connection.cursor()
+        # cursor.execute(query)
+        # x = cursor.fetchall()
+        # connection.close()
+        # print(x)
 
         return flightList
 
@@ -98,7 +106,7 @@ def checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers
 
 
     connection = connect_db()
-    query = "SELECT * FROM Cruise WHERE Src_Location = " + str(src_location) +" AND Dst_Location = " + str(dst_location) + ";"
+    query = "SELECT * FROM Cruise WHERE Src_Location = " + str(src_location) +" AND Dst_Location = " + str(dst_location) + " AND (SELECT TransportationID FROM Transportation WHERE TransportationID = CruiseID AND Active = 1);"
     cursor = connection.cursor()
     cursor.execute(query)
     cruiseList = cursor.fetchall()
@@ -133,7 +141,7 @@ def getCarType():
 
 def checkAvailableCars(Car_Company,Car_Type):
     connection = connect_db()
-    query = "SELECT * FROM Car WHERE Car_Company = '" + str(Car_Company) +"' AND Car_Type = '" + str(Car_Type) + "';"
+    query = "SELECT * FROM Car WHERE Car_Company = '" + str(Car_Company) +"' AND Car_Type = '" + str(Car_Type) + "' AND (SELECT TransportationID FROM Transportation WHERE TransportationID = CarID AND Active = 1);"
     print(query)
     cursor = connection.cursor()
     cursor.execute(query)

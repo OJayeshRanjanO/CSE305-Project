@@ -80,9 +80,8 @@ def review():
 def getLocation():
     returnValue = getLocationList()
     print("Passengers: " + str(session['passengers']))
-    x = json.dumps({"location":returnValue,"numPassengers":str(session['passengers'])})
-    return str(x)
-#{"location": }
+    return json.dumps({"location":returnValue,"numPassengers":str(session['passengers'])})
+
 
 @app.route('/flights')
 def flights():
