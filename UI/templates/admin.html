@@ -24,6 +24,12 @@
                 <button id="cruise" class=resourceTabs onclick="updateGUI(this.id);">Cruise</button>
                 <button id="car" class=resourceTabs onclick="updateGUI(this.id);">Cars</button>
             </div>
+            <!--<div class="resourceType">-->
+                <!--<button id="hotel" class=resourceTabs onclick="redirectTo(this.id);">Hotels</button>-->
+                <!--<button id="flight" class=resourceTabs onclick="redirectTo(this.id);">Flights</button>-->
+                <!--<button id="cruise" class=resourceTabs style="background-color: grey">Cruise</button>-->
+                <!--<button id="car" class=resourceTabs onclick="redirectTo(this.id);">Cars</button>-->
+            <!--</div>-->
             <div class=accountInfo>
                 <i class="material-icons" style="font-size:50px;color:white" onclick="logout();">exit_to_app</i>
             </div>
@@ -32,13 +38,17 @@
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
                     <button type="button" class="btn btn-primary spacing">Add Resource</button>
-                    <button type="button" class="btn btn-primary spacing" onclick="viewResource()">View Resource</button>
+                    <button type="button" class="btn btn-primary spacing">View Resource</button>
                     <button type="button" class="btn btn-primary spacing">Delete Resource</button>
                     
 
                 </div>
                 <div class="viewResourceWrapper">
-                    <div id=viewResource class="list-group">
+                    <div class="list-group">
+                      <a href="#" class="list-group-item">First item<span class="badge badge-success" style="background-color:green">O</span></a>
+                      <a href="#" class="list-group-item">Second item<span class="badge badge-danger" style="background-color:red">--</span></a>
+                      <a href="#" class="list-group-item">Third item</a>
+
                     </div>
                 </div>
 
