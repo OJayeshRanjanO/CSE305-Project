@@ -49,6 +49,23 @@ function hotelsMetaLoad(){
 
 }
 
+function addToCart(obj){
+  var item = obj.childNodes[11].getAttribute("value");
+  console.log(item);
+
+  $.ajax({
+      type: "POST",
+      url: "/addToCart",
+      data: JSON.stringify({"item":item}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+
+    });
+
+
+}
+
 function searchFlights(){
   var flightFrom = $("#From").find(":selected").text();
   var flightTo = $("#To").find(":selected").text();
@@ -81,12 +98,13 @@ function searchFlights(){
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           stringToAppend = 
-            `<div class="card">
-                <div class="cardBodyFlight">Carrier: ` + data[i].Flight_Carrier +`</div>
+            `<div class="card" onclick=addToCart(this);>
+                <div class="cardBodyFlight">Carrier: ` + data[i].Flight_Carrier + " ("+ data[i].Flight_Number +`) </div>
                 <div class="cardBodyDeparture">Departure: ` + flightLeavingDate +`</div>
                 <div class="cardBodyDeparture">Fare: $`+ data[i].Fare * flightPassengers +`</div>
                 <div class="cardBodyDeparture">`+ flightFrom + ' >>>>> ' + flightTo + `</div>
                 <div class=card-hover><i class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i></div>
+                <div display=none value=Flight-`+ data[i].FlightID+`></div>
             </div>`
         }
 
@@ -127,13 +145,13 @@ function searchCruises(){
         // {"cruiseDetails": [{"CruiseID": 9, "Cruise_Name": "Caribbean Princess", "Schedule_Date": "2018-03-31", "Src_Location": 1, "Dst_Location": 4, "Fare": 700.0}]}
         for (var i = 0; i < data.length; i++){
           stringToAppend = 
-            `<div class="card">
+            `<div class="card" onclick=addToCart(this);>
                   <div class="cardBodyFlight">Cruise: ` + data[i].Cruise_Name +`</div>
                   <div class="cardBodyDeparture">Departure: ` + data[i].Schedule_Date +`</div>
                   <div class="cardBodyDeparture">Fare: $`+ data[i].Fare * cruisePassengers +`</div>
                   <div class="cardBodyDeparture">`+ cruiseFrom + ' >>>>> ' + cruiseTo + `</div>
                   <div class=card-hover><i class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i></div>
-           
+                  <div display=none value=Cruise-`+ data[i].CruiseID+`></div>
             </div>`
         }
         // alert(data)
@@ -197,13 +215,13 @@ function searchCars(){
         for (var i = 0; i < data.length; i++){
           // alert(data[i].Car_Company + " " + data[i].Car_Type + " " + data[i].Rent);
           stringToAppend = 
-            `<div class="card">
+            `<div class="card" onclick=addToCart(this);>
                   <div class="cardBodyFlight">Company: ` + data[i].Car_Company +`</div>
                   <div class="cardBodyDeparture">Type: ` + data[i].Car_Type +`</div>
                   <div class="cardBodyDeparture">Rate: $`+ data[i].Rent +`</div>
                   <div class="cardBodyDeparture"></div>
                   <div class=card-hover><i class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i></div>
-
+                  <div display=none value=Car-`+ data[i].CarID+`></div>
             </div>`
         }
 
@@ -242,12 +260,13 @@ function searchHotels(){
         for (var i = 0; i < data.length; i++){
           // alert(data[i].Car_Company + " " + data[i].Car_Type + " " + data[i].Rent);
           stringToAppend = 
-            `<div class="card">
+            `<div class="card" onclick=addToCart(this);>
                   <div class="cardBodyFlight">Location: ` + location +`</div>
                   <div class="cardBodyDeparture">Facilities: ` + data[i].Facilities +`</div>
                   <div class="cardBodyDeparture">Size: ` + data[i].Size +`</div>
                   <div class="cardBodyDeparture">Rate: $`+ data[i].Rate +`</div>
                   <div class=card-hover><i class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i></div>
+                  <div display=none value=Accommodation-`+ data[i].AccommodationID+`></div>
             </div>`
         }
 

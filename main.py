@@ -66,7 +66,6 @@ def review():
 def getLocation():
     returnValue = getLocationList()
     x = json.dumps({"location":returnValue})
-    print(x)
     return str(x)
 #{"location": }
 
@@ -82,7 +81,6 @@ def searchFlights():
     # if 'email' not in session:
     #     return redirect(url_for('index'))
     recvJson = request.get_json()
-    print(recvJson)
     flightFrom = recvJson["flightFrom"]
     flightTo = recvJson["flightTo"]
     flightLeavingDate = recvJson["flightLeavingDate"]
@@ -172,11 +170,22 @@ def searchHotels():
     return str(json.dumps({"hotelDetails":returnValue})) #{"hotelDetails": [{"AccommodationID": 1, "Accommodation_Type": "Economy", "Rate": 100.0, "Facilities": "2 Beds", "Discount": 0.0, "Location": 1, "Size": 2, "Active": 1}]}
 
 
+@app.route('/addToCart',methods=['POST'])
+def addToCart():
+    if 'cart' not in session:
+        session['cart'] = []
+    recvJson = request.get_json()
+    session['cart'].append(recvJson['item'])
+    print(session['cart'])
+    return str(json.dumps({"addToCart":"true"}))
+
+
 @app.route('/logout')
 def logout():
     print(session)
     if 'email' in session:
         session.pop('email', None)
+        session.pop('cart',None)
         print(session)
     return redirect(url_for('index'))
 

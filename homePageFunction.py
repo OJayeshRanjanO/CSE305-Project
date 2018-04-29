@@ -30,7 +30,6 @@ def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flig
 
             # print(eachFlight)
 
-        # print(flightList)
         return flightList
 
     # except:
@@ -107,8 +106,6 @@ def checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers
 
     for eachCruise in cruiseList:
         eachCruise['Schedule_Date'] = eachCruise['Schedule_Date'].strftime('%Y-%m-%d')
-
-        print(eachCruise)
     return cruiseList
 
 
@@ -142,7 +139,6 @@ def checkAvailableCars(Car_Company,Car_Type):
     cursor.execute(query)
     carList = cursor.fetchall()
     connection.close()
-
     return carList
 
 def checkAvailableHotel(Accommodation_Type,Location,Guests):
@@ -160,7 +156,6 @@ def checkAvailableHotel(Accommodation_Type,Location,Guests):
     cursor.execute(query)
     accommodation_list = cursor.fetchall()
     connection.close()
-
     return accommodation_list
 
 def getReviewList():

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <title>This is a test</title>
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}">
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,6 +22,7 @@
                 <button id="car" class=resourceTabs onclick="redirectTo(this.id);">Cars</button>
             </div>
             <div class=accountInfo>
+                <i class="material-icons" style="font-size:50px;color:white">local_grocery_store</i>
                 <i class="material-icons" style="font-size:50px;color:white" onclick="checkout();">account_circle</i>
                 <i class="material-icons" style="font-size:50px;color:white" onclick="logout();">exit_to_app</i>
             </div>   
@@ -52,7 +52,7 @@
                 <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchFlights();"><span class="glyphicon glyphicon-search"></span></button>       
             </div>
             <div id="flightSearchResults" class=searchResults>
-            
+
             </div>
         </div>
 
