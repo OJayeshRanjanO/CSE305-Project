@@ -207,7 +207,14 @@ def checkout():
     # if 'email' not in session:
     #     return redirect(url_for('index'))
     # print(session['email'])
+    print(session)
     return render_template("checkout.html")
+
+@app.route('/generateCheckout',methods=['POST'])
+def generateCheckout():
+    returnValue = generateCheckoutList(session['passengers'],session['cart'])
+    # print("TEST",returnValue)
+    return str(json.dumps({"Car":returnValue[0],"Flight":returnValue[1],"Cruise":returnValue[2],"Accommodation":returnValue[3],"Passengers":session['passengers']}))
 
 
 @app.route('/logout')
@@ -216,6 +223,8 @@ def logout():
     if 'email' in session:
         session.pop('email', None)
         session.pop('cart',None)
+        session.pop('passengers',None)
+
         print(session)
     return redirect(url_for('index'))
 

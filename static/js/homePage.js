@@ -110,7 +110,7 @@ function searchFlights(){
           stringToAppend = 
             `<div class="card" onclick=addToCart(this); data-toggle="modal" data-target="#addedToCart">
                 <div class="cardBodyFlight">Carrier: ` + data[i].Flight_Carrier + " ("+ data[i].Flight_Number +`) </div>
-                <div class="cardBodyDeparture">Departure: ` + flightLeavingDate +`</div>
+                <div class="cardBodyDeparture">Departure: ` + data[i].Schedule_Date +`</div>
                 <div class="cardBodyDeparture">Fare: $`+ data[i].Fare * flightPassengers +`</div>
                 <div class="cardBodyDeparture">`+ flightFrom + ' >>>>> ' + flightTo + `</div>
                 <div class=card-hover><i class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i></div>
@@ -284,6 +284,108 @@ function searchHotels(){
     });
 }
 
+function getUserItems(){
+    $.ajax({
+      type: "POST",
+      url: "/generateCheckout",
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+      var car = data.Car;
+      var flight = data.Flight;
+      var cruise = data.Cruise;
+      var accommodation = data.Accommodation;
+      var passengers = data.Passengers;
+      var checkoutList = "";
+      console.log(car);
+      console.log(flight);
+      console.log(cruise);
+      console.log(accommodation);
+      var cost = 0
+      for (var i = 0;i < car.length; i++){
+        checkoutList +=`
+          <div class=item>
+            <div class=itemType>
+              <br>
+              <p>Car</p>
+            </div>
+            <div class=itemDescription>
+              <br>
+              <p>`+ car[i].Car_Company + `</p>
+              <p>`+ car[i].Car_Type + `</p>
+            </div>
+            <div class=itemCost>
+              <br>
+              <p>Price: $`+ car[i].Rent + `</p>
+            </div>
+          </div>`
+          cost+=car[i].Rent;
+      }
+      for (var i = 0;i < flight.length; i++){
+        checkoutList +=`
+          <div class=item>
+            <div class=itemType>
+              <br>
+              <p>Flight</p>
+            </div>
+            <div class=itemDescription>
+              <br>
+              <p>`+ flight[i].Flight_Carrier + `</p>
+              <p>`+ flight[i].Class + `</p>
+            </div>
+            <div class=itemCost>
+              <br>
+              <p>Price: $`+ (flight[i].Fare * passengers) + `</p>
+            </div>
+          </div>`
+          cost += (flight[i].Fare * passengers);
+      }
+      for (var i = 0;i < cruise.length; i++){
+        checkoutList +=`
+          <div class=item>
+            <div class=itemType>
+              <br>
+              <p>Cruise</p>
+            </div>
+            <div class=itemDescription>
+              <br>
+              <p>`+ cruise[i].Cruise_Name + `</p>
+            </div>
+            <div class=itemCost>
+              <br>
+              <p>Price: $`+ (cruise[i].Fare * passengers) + `</p>
+            </div>
+          </div>`
+
+          cost += (cruise[i].Fare * passengers);
+      }
+      for (var i = 0;i < accommodation.length; i++){
+        checkoutList +=`
+          <div class=item>
+            <div class=itemType>
+              <br>
+              <p>Hotel</p>
+            </div>
+            <div class=itemDescription>
+              <br>
+              <p>`+ accommodation[i].Facilities + `</p>
+              <p>`+ accommodation[i].Accommodation_Type + `</p>
+            </div>
+            <div class=itemCost>
+              <br>
+              <p>Price: $`+ (accommodation[i].Rate * passengers) + `</p>
+            </div>
+          </div>`
+
+          cost+= (accommodation[i].Rate * passengers);
+      }
+      $("#checkOutItems").append(checkoutList);
+      // alert(cost);
+      $("#totalCost").text("Total: $"+cost);
+
+    });
+
+}
 function redirectTo(id){
   // alert(id);
   if (id === "cruise"){window.location.href = "/cruises"};

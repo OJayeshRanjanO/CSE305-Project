@@ -166,6 +166,61 @@ def checkAvailableHotel(Accommodation_Type,Location,Guests):
     connection.close()
     return accommodation_list
 
+def generateCheckoutList(numPassengers,cartList):
+    attr = {"Car":[],"Flight":[],"Cruise":[],"Accommodation":[]}
+    car_list,flight_list,cruise_list,acccommodation_list = [],[],[],[]
+    for i in cartList:
+        data = i.split("-")
+        lst = attr[data[0]]
+        lst.append(int(data[1]))
+        attr[data[0]] = lst
+    # print(attr)
+    if len(attr['Car']) > 0:
+
+        for i in attr['Car']:
+            connection = connect_db()
+            query = "SELECT * FROM Car WHERE CarID = " + str(i)
+            # print(query)
+            cursor = connection.cursor()
+            cursor.execute(query)
+            car_list.append(cursor.fetchall()[0])
+            connection.close()
+
+    if len(attr['Flight']) > 0:
+        for i in attr['Flight']:
+            connection = connect_db()
+            query = "SELECT * FROM Flight WHERE FlightID = " +str(i)
+            # print(query)
+            cursor = connection.cursor()
+            cursor.execute(query)
+            eachFlight = cursor.fetchall()[0]
+            eachFlight['Schedule_Date'] = eachFlight['Schedule_Date'].strftime('%Y-%m-%d')
+            flight_list.append(eachFlight)
+            connection.close()
+
+    if len(attr['Cruise']) > 0:
+        for i in attr['Cruise']:
+            connection = connect_db()
+            query = "SELECT * FROM Cruise WHERE CruiseID = " + str(i)
+            # print(query)
+            cursor = connection.cursor()
+            cursor.execute(query)
+            eachCruise = cursor.fetchall()[0]
+            eachCruise['Schedule_Date'] = eachCruise['Schedule_Date'].strftime('%Y-%m-%d')
+            cruise_list.append(eachCruise)
+            connection.close()
+
+    if len(attr['Accommodation']) > 0:
+        for i in attr['Accommodation']:
+            connection = connect_db()
+            query = "SELECT * FROM Accommodation WHERE AccommodationID = " + str(i)
+            # print(query)
+            cursor = connection.cursor()
+            cursor.execute(query)
+            acccommodation_list.append(cursor.fetchall()[0])
+            connection.close()
+    return car_list,flight_list,cruise_list,acccommodation_list
+
 def getReviewList():
     connection = connect_db()
 
