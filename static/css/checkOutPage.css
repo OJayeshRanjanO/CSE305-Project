@@ -68,8 +68,7 @@ i:hover{
     position: relative;
     height: calc(100% - 90px);
     background-image: url(../images/comic.jpg);
-    background-size: 100vw 100vh;
-    background-repeat: no-repeat;
+    background-size: 100%;
     
 }
 

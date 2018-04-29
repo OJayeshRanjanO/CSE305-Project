@@ -22,7 +22,7 @@
                 <button id="car" class=resourceTabs onclick="redirectTo(this.id);">Cars</button>
             </div>
             <div class=accountInfo>
-                <i class="material-icons" style="font-size:50px;color:white">local_grocery_store</i>
+                <i class="material-icons" style="font-size:50px;color:white;cursor: pointer;" onclick="checkOut()";>local_grocery_store</i>
                 <i class="material-icons" style="font-size:50px;color:white" onclick="checkout();">account_circle</i>
                 <i class="material-icons" style="font-size:50px;color:white" onclick="logout();">exit_to_app</i>
             </div>   
@@ -55,6 +55,20 @@
 
             </div>
         </div>
+
+
+          <div class="modal fade" id="addedToCart" role="dialog">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p style="text-align: center">Item has been added to your Cart</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
     </body>
 </html>

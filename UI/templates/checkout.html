@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<title>This is a test</title>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/css/checkOutPage.css">
+<link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">    </head>
+<script type="text/javascript" src="/static/js/homePage.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <body onload="getUserItems()">
+        <div class=resourceTypeWrapper>
+            <div class="resouceBanner">
+                Resort Hub - Checkout
+            </div>
+            <div class=accountInfo>
+                <i class="material-icons" style="font-size:50px;color:white" onclick="logout();">exit_to_app</i>
+            </div>   
+        </div>
+        <div class=resourceDataWrapper>
+            <div class=userInfo>
+                <input id="fname" class="form-control splitColumn" type="text" placeholder="First Name" required>
+                <input id="lname" class="form-control splitColumn" type="text" placeholder="Last Name" required>
+                <input id="lname" class="form-control splitColumn" style="width:28.5vw" type="number" placeholder="Credit Card" required>
+                <input id="lname" class="form-control splitColumn" style="width:13vw" type="number" placeholder="CVV" required>
+                <input id="lname" class="form-control splitColumn" style="width:28.5vw" type="number" placeholder="Address" required>
+                <button type="button" class="btn btn-dark splitColumn" style="background-color:black">Checkout</button>
+            </div>
+            <div class=userItems>
+                <div style=test>
+                    TEST
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

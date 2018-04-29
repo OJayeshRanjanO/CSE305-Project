@@ -66,6 +66,12 @@ function addToCart(obj){
 
 }
 
+function checkOut(){
+  alert("TEST");
+  window.location.href = "/checkout"
+
+}
+
 function searchFlights(){
   var flightFrom = $("#From").find(":selected").text();
   var flightTo = $("#To").find(":selected").text();
@@ -98,7 +104,7 @@ function searchFlights(){
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           stringToAppend = 
-            `<div class="card" onclick=addToCart(this);>
+            `<div class="card" onclick=addToCart(this); data-toggle="modal" data-target="#addedToCart">
                 <div class="cardBodyFlight">Carrier: ` + data[i].Flight_Carrier + " ("+ data[i].Flight_Number +`) </div>
                 <div class="cardBodyDeparture">Departure: ` + flightLeavingDate +`</div>
                 <div class="cardBodyDeparture">Fare: $`+ data[i].Fare * flightPassengers +`</div>
@@ -145,7 +151,7 @@ function searchCruises(){
         // {"cruiseDetails": [{"CruiseID": 9, "Cruise_Name": "Caribbean Princess", "Schedule_Date": "2018-03-31", "Src_Location": 1, "Dst_Location": 4, "Fare": 700.0}]}
         for (var i = 0; i < data.length; i++){
           stringToAppend = 
-            `<div class="card" onclick=addToCart(this);>
+            `<div class="card" onclick=addToCart(this); data-toggle="modal" data-target="#addedToCart">
                   <div class="cardBodyFlight">Cruise: ` + data[i].Cruise_Name +`</div>
                   <div class="cardBodyDeparture">Departure: ` + data[i].Schedule_Date +`</div>
                   <div class="cardBodyDeparture">Fare: $`+ data[i].Fare * cruisePassengers +`</div>
@@ -215,7 +221,7 @@ function searchCars(){
         for (var i = 0; i < data.length; i++){
           // alert(data[i].Car_Company + " " + data[i].Car_Type + " " + data[i].Rent);
           stringToAppend = 
-            `<div class="card" onclick=addToCart(this);>
+            `<div class="card" onclick=addToCart(this); data-toggle="modal" data-target="#addedToCart">
                   <div class="cardBodyFlight">Company: ` + data[i].Car_Company +`</div>
                   <div class="cardBodyDeparture">Type: ` + data[i].Car_Type +`</div>
                   <div class="cardBodyDeparture">Rate: $`+ data[i].Rent +`</div>
@@ -260,7 +266,7 @@ function searchHotels(){
         for (var i = 0; i < data.length; i++){
           // alert(data[i].Car_Company + " " + data[i].Car_Type + " " + data[i].Rent);
           stringToAppend = 
-            `<div class="card" onclick=addToCart(this);>
+            `<div class="card" onclick=addToCart(this); data-toggle="modal" data-target="#addedToCart">
                   <div class="cardBodyFlight">Location: ` + location +`</div>
                   <div class="cardBodyDeparture">Facilities: ` + data[i].Facilities +`</div>
                   <div class="cardBodyDeparture">Size: ` + data[i].Size +`</div>

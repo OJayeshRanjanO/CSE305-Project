@@ -172,12 +172,21 @@ def searchHotels():
 
 @app.route('/addToCart',methods=['POST'])
 def addToCart():
+    print(session)
+
     if 'cart' not in session:
         session['cart'] = []
+    if session['cart'] is None:
+        session['cart'] = []
+
     recvJson = request.get_json()
-    session['cart'].append(recvJson['item'])
-    print(session['cart'])
+    x = session['cart']
+    # print(recvJson['item'])
+    x.append(recvJson['item'])
+    session['cart'] = x
+    # print(session['cart'])
     return str(json.dumps({"addToCart":"true"}))
+
 
 
 @app.route('/logout')
