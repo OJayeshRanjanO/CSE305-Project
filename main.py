@@ -11,6 +11,20 @@ app.secret_key = "CSE305Team1"
 def index():
     return render_template("login.html")
 
+@app.route('/home')
+def home():
+    if 'email' not in session:
+        return redirect(url_for('index'))
+    print(session['email'])
+    return render_template("home.html")
+
+@app.route('/createGroup',methods=['POST'])
+def createGroup():
+    recvJson = request.get_json()
+    session['passengers'] = recvJson['numPassengers']
+    print("TEST",session['passengers'],session['email'])
+    return str(json.dumps({"createGroup":"true"}))
+
 @app.route('/checkLogin',methods=['POST'])
 def checkLogin():
     recvJson = request.get_json()
@@ -69,12 +83,12 @@ def getLocation():
     return str(x)
 #{"location": }
 
-@app.route('/home')
-def home():
+@app.route('/flights')
+def flights():
     if 'email' not in session:
         return redirect(url_for('index'))
     print(session['email'])
-    return render_template("home.html")
+    return render_template("flights.html")
 
 @app.route('/searchFlights',methods=['POST'])
 def searchFlights():
@@ -187,6 +201,13 @@ def addToCart():
     # print(session['cart'])
     return str(json.dumps({"addToCart":"true"}))
 
+
+@app.route('/checkout')
+def checkout():
+    # if 'email' not in session:
+    #     return redirect(url_for('index'))
+    # print(session['email'])
+    return render_template("checkout.html")
 
 
 @app.route('/logout')

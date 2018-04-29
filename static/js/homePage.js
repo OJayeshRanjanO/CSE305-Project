@@ -67,7 +67,7 @@ function addToCart(obj){
 }
 
 function checkOut(){
-  alert("TEST");
+  // alert("TEST");
   window.location.href = "/checkout"
 
 }
@@ -283,7 +283,7 @@ function searchHotels(){
 function redirectTo(id){
   // alert(id);
   if (id === "cruise"){window.location.href = "/cruises"};
-  if (id === "flight"){window.location.href = "/home"};
+  if (id === "flight"){window.location.href = "/flights"};
   if (id === "hotel"){window.location.href = "/hotels"};
   if (id === "car"){window.location.href = "/cars"};
 

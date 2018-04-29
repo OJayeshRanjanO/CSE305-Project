@@ -10,53 +10,42 @@
 <script type="text/javascript" src="/static/js/homePage.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    <body onload="hotelsMetaLoad();">
+    <body onload="getUserItems()">
         <div class=resourceTypeWrapper>
             <div class="resouceBanner">
-                Resort Hub
-            </div>
-            <div class="resourceType">
-                <button id="hotel" class=resourceTabs style="background-color: grey">Hotels</button>
-                <button id="flight" class=resourceTabs onclick="redirectTo(this.id);">Flights</button>
-                <button id="cruise" class=resourceTabs onclick="redirectTo(this.id);">Cruise</button>
-                <button id="car" class=resourceTabs onclick="redirectTo(this.id);">Cars</button>
+                Resort Hub - Checkout
             </div>
             <div class=accountInfo>
-                <i class="material-icons" style="font-size:50px;color:white">local_grocery_store</i>
-                <i class="material-icons" style="font-size:50px;color:white" onclick="checkout();">account_circle</i>
                 <i class="material-icons" style="font-size:50px;color:white" onclick="logout();">exit_to_app</i>
             </div>   
         </div>
         <div class=resourceDataWrapper>
-            <div class=resourceData >
-                <div class="form-group resourceDataSelector">
-                  <select id="location" class="form-control dropdown">
-                    <option value="" disabled selected hidden>Location</option>
-                  </select>
-                </div>
-                <div class="form-group resourceDataSelector">
-                  <select id="accommodationType" class="form-control dropdown">
-                    <option value="" disabled selected hidden>Type</option>
-                  </select>
-                </div>
-                <input id="guests" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Guests">
-                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchHotels();"><span class="glyphicon glyphicon-search"></span></button>       
+            <div class=userInfo>
+                <input id="fname" class="form-control splitColumn" type="text" placeholder="First Name" required>
+                <input id="lname" class="form-control splitColumn" type="text" placeholder="Last Name" required>
+                <input id="lname" class="form-control splitColumn" style="width:28.5vw" type="number" placeholder="Credit Card" required>
+                <input id="lname" class="form-control splitColumn" style="width:13vw" type="number" placeholder="CVV" required>
+                <input id="lname" class="form-control splitColumn" style="width:28.5vw" type="number" placeholder="Address" required>
+                <label class=splitColumn style="font-size:25px;">Total: $100</label>
+                <button type="button" class="btn btn-dark splitColumn" style="background-color:black">Checkout</button>
             </div>
-            <div id="hotelSearchResults" class=searchResults>
+            <div class=userItems>
+                <div class=item>
+                    <div class=itemType>
+                        <br>
+                        <p>Flight</p>
+                    </div>
+                    <div class=itemDescription>
+                        <br>
+                        <p>China Eastern</p>
+                        <p>Moscow - Queens</p>
+                    </div>
+                    <div class=itemCost>
+                        <br>
+                        <p>Price: $100</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-          <div class="modal fade" id="addedToCart" role="dialog">
-            <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <p style="text-align: center">Item has been added to your Cart</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
     </body>
 </html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<title>This is a test</title>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/css/homePage.css">
+<link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">    </head>
+<script type="text/javascript" src="/static/js/homePage.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <body onload="getLocations()">
+        <div class=resourceTypeWrapper>
+            <div class="resouceBanner">
+                Resort Hub
+            </div>
+            <div class="resourceType">
+                <button id="hotel" class=resourceTabs onclick="redirectTo(this.id);">Hotels</button>
+                <button id="flight" class=resourceTabs style="background-color: grey">Flights</button>
+                <button id="cruise" class=resourceTabs onclick="redirectTo(this.id);">Cruise</button>
+                <button id="car" class=resourceTabs onclick="redirectTo(this.id);">Cars</button>
+            </div>
+            <div class=accountInfo>
+                <i class="material-icons" style="font-size:50px;color:white;cursor: pointer;" onclick="checkOut()";>local_grocery_store</i>
+                <i class="material-icons" style="font-size:50px;color:white" onclick="checkout();">account_circle</i>
+                <i class="material-icons" style="font-size:50px;color:white" onclick="logout();">exit_to_app</i>
+            </div>   
+        </div>
+        <div class=resourceDataWrapper>
+            <div class=resourceData >
+                <div class="form-group resourceDataSelector">
+                  <select id="From" class="form-control dropdown">
+                    <option value="" disabled selected hidden>From</option>
+
+                  </select>
+                </div>
+                <div class="form-group resourceDataSelector">
+                  <select id="To" class="form-control dropdown">
+                    <option value="" disabled selected hidden style="color:grey">To</option>
+                  </select>
+                </div>
+                <input id="flightLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
+                <div class="form-group resourceDataSelector">
+                  <select id="flightClass" class="form-control dropdown">
+                    <option value="" disabled selected hidden style="color:grey">Class</option>
+                    <option>Business</option>
+                    <option>Economy</option>
+                  </select>
+                </div>
+                <input id="flightPassengers" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers">
+                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchFlights();"><span class="glyphicon glyphicon-search"></span></button>       
+            </div>
+            <div id="flightSearchResults" class=searchResults>
+
+            </div>
+        </div>
+
+
+          <div class="modal fade" id="addedToCart" role="dialog">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p style="text-align: center">Item has been added to your Cart</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    </body>
+</html>

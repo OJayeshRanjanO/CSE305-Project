@@ -32,3 +32,20 @@ function toJSON(data){
   // obj['username'] = localStorage['username']
   return JSON.stringify(obj);
 }
+
+
+function createGroup(){
+    $.ajax({
+      type: "POST",
+      url: "/createGroup",
+      data: JSON.stringify({"numPassengers":$('#numPassengers').val()}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+        window.location.href = "/flights"
+
+    });
+
+
+
+}
