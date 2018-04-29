@@ -3,6 +3,7 @@ from dbFunctions import *
 import json
 from loginPageFunctions import *
 from homePageFunction import *
+from adminFunction import *
 
 app = Flask(__name__)
 app.secret_key = "CSE305Team1"
@@ -109,26 +110,29 @@ def searchFlights():
 @app.route('/listFlights',methods=['POST'])
 def listFlights():
     returnValue = listAllFlights()
-    print(returnValue)
     return str(json.dumps({"flightList":returnValue}))
 
 @app.route('/listCruises',methods=['POST'])
 def listCruises():
     returnValue = listAllCruises()
-    print(returnValue)
     return str(json.dumps({"cruiseList":returnValue}))
 
 @app.route('/listCars',methods=['POST'])
 def listCars():
     returnValue = listAllCars()
-    print(returnValue)
     return str(json.dumps({"carsList":returnValue}))
 
 @app.route('/listHotels',methods=['POST'])
 def listHotels():
     returnValue = listAllHotels()
-    print(returnValue)
     return str(json.dumps({"hotelsList":returnValue}))
+
+@app.route('/toggle',methods=['POST'])
+def toggle():
+    recvJson = request.get_json()
+    nodeValue = recvJson["nodeValue"]
+    toggleResourceOnOff(nodeValue)
+    return str(json.dumps({"toggle":"true"}))
 
 @app.route('/cruises')
 def cruises():

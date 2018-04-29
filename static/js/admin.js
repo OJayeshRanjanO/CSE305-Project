@@ -9,16 +9,18 @@ function listFlights()
     $("#viewResource").empty();
   $.ajax({
       type: "POST",
-      url: "/listFlights"
+      url: "/listFlights",
+      dataType: "json",
+      contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
-        var data = $.parseJSON(data).flightList;
+        var data = data.flightList;
         console.log(data);
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           if (data[i].Active === 0){
-            stringToAppend += `<a href="#" class="list-group-item" value=Flight-`+data[i].FlightID+`>ID: `+data[i].FlightID+" <br> Flight: "+ data[i].Flight_Carrier+ " ("+data[i].Flight_Number+") - "+data[i].Class+"<br> Date: "+data[i].Schedule_Date+" <br> "+data[i].Src_Location+" >>>>>> "+data[i].Dst_Location+`<span class="badge badge-danger" style="background-color:red">--</span></a>`
+            stringToAppend += `<a href="#" class="list-group-item" value=Flight-`+data[i].FlightID+`>ID: `+data[i].FlightID+" <br> Flight: "+ data[i].Flight_Carrier+ " ("+data[i].Flight_Number+") - "+data[i].Class+"<br> Date: "+data[i].Schedule_Date+" <br> "+data[i].Src_Location+" >>>>>> "+data[i].Dst_Location+`<span class="badge badge-danger" style="background-color:red" onclick="toggleResource(this)">--</span></a>`
           }else{
-            stringToAppend += `<a href="#" class="list-group-item" value=Flight-`+data[i].FlightID+`>ID: `+data[i].FlightID+" <br> Flight: "+ data[i].Flight_Carrier+ " ("+data[i].Flight_Number+") - "+data[i].Class+"<br> Date: "+data[i].Schedule_Date+" <br> "+data[i].Src_Location+" >>>>>> "+data[i].Dst_Location+`<span class="badge badge-danger" style="background-color:green">O</span></a>`
+            stringToAppend += `<a href="#" class="list-group-item" value=Flight-`+data[i].FlightID+`>ID: `+data[i].FlightID+" <br> Flight: "+ data[i].Flight_Carrier+ " ("+data[i].Flight_Number+") - "+data[i].Class+"<br> Date: "+data[i].Schedule_Date+" <br> "+data[i].Src_Location+" >>>>>> "+data[i].Dst_Location+`<span class="badge badge-danger" style="background-color:green" onclick="toggleResource(this)">O</span></a>`
 
           }
         }
@@ -33,16 +35,18 @@ function listCruises()
   $("#viewResource").empty();
   $.ajax({
       type: "POST",
-      url: "/listCruises"
+      url: "/listCruises",
+      dataType: "json",
+      contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
-        var data = $.parseJSON(data).cruiseList;
+        var data = data.cruiseList;
         console.log(data);
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           if (data[i].Active === 0){
-            stringToAppend += `<a href="#" class="list-group-item" value=Cruise-`+data[i].CruiseID+`>ID: `+data[i].CruiseID+" <br> Cruise: "+ data[i].Cruise_Name+ "<br> Date: "+data[i].Schedule_Date+" <br> "+data[i].Src_Location+" >>>>>> "+data[i].Dst_Location+`<span class="badge badge-danger" style="background-color:red">--</span></a>`
+            stringToAppend += `<a href="#" class="list-group-item" value=Cruise-`+data[i].CruiseID+`>ID: `+data[i].CruiseID+" <br> Cruise: "+ data[i].Cruise_Name+ "<br> Date: "+data[i].Schedule_Date+" <br> "+data[i].Src_Location+" >>>>>> "+data[i].Dst_Location+`<span class="badge badge-danger" style="background-color:red" onclick="toggleResource(this)">--</span></a>`
           }else{
-            stringToAppend += `<a href="#" class="list-group-item" value=Cruise-`+data[i].CruiseID+`>ID: `+data[i].CruiseID+" <br> Cruise: "+ data[i].Cruise_Name+ "<br> Date: "+data[i].Schedule_Date+" <br> "+data[i].Src_Location+" >>>>>> "+data[i].Dst_Location+`<span class="badge badge-danger" style="background-color:green">O</span></a>`
+            stringToAppend += `<a href="#" class="list-group-item" value=Cruise-`+data[i].CruiseID+`>ID: `+data[i].CruiseID+" <br> Cruise: "+ data[i].Cruise_Name+ "<br> Date: "+data[i].Schedule_Date+" <br> "+data[i].Src_Location+" >>>>>> "+data[i].Dst_Location+`<span class="badge badge-danger" style="background-color:green" onclick="toggleResource(this)">O</span></a>`
 
           }
         }
@@ -58,17 +62,19 @@ function listCars()
   $("#viewResource").empty();
   $.ajax({
       type: "POST",
-      url: "/listCars"
+      url: "/listCars",
+      dataType: "json",
+      contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
-        var data = $.parseJSON(data).carsList;
+        var data = data.carsList;
         console.log(data);
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           console.log(data[i].Active)
           if (data[i].Active === 0){
-            stringToAppend += `<a href="#" class="list-group-item" value=CarID-`+data[i].CarID+`>ID: `+data[i].CarID+" <br> Company: "+ data[i].Car_Company+ "<br> Type: "+data[i].Car_Type+`<span class="badge badge-danger" style="background-color:red">--</span></a>`
+            stringToAppend += `<a href="#" class="list-group-item" value=CarID-`+data[i].CarID+`>ID: `+data[i].CarID+" <br> Company: "+ data[i].Car_Company+ "<br> Type: "+data[i].Car_Type+`<span class="badge badge-danger" style="background-color:red" onclick="toggleResource(this)">--</span></a>`
           }else{
-            stringToAppend += `<a href="#" class="list-group-item" value=CarID-`+data[i].CarID+`>ID: `+data[i].CarID+" <br> Company: "+ data[i].Car_Company+ "<br> Type: "+data[i].Car_Type+`<span class="badge badge-danger" style="background-color:green">O</span></a>`
+            stringToAppend += `<a href="#" class="list-group-item" value=CarID-`+data[i].CarID+`>ID: `+data[i].CarID+" <br> Company: "+ data[i].Car_Company+ "<br> Type: "+data[i].Car_Type+`<span class="badge badge-danger" style="background-color:green" onclick="toggleResource(this)">O</span></a>`
 
           }
         }
@@ -84,16 +90,18 @@ function listHotels()
   $("#viewResource").empty();
   $.ajax({
       type: "POST",
-      url: "/listHotels"
+      url: "/listHotels",
+      dataType: "json",
+      contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
-        var data = $.parseJSON(data).hotelsList;
+        var data = data.hotelsList;
         console.log(data);
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           if (data[i].Active === 0){
-            stringToAppend += `<a href="#" class="list-group-item" value=Accommodation-`+data[i].AccommodationID+`>ID: `+data[i].AccommodationID+" <br> Type: "+ data[i].Accommodation_Type+ "<br> Facilities: "+data[i].Facilities+"<br> Size: "+data[i].Size+"<br> Location: "+data[i].Location+`<span class="badge badge-danger" style="background-color:red">--</span></a>`
+            stringToAppend += `<a href="#" class="list-group-item" value=Accommodation-`+data[i].AccommodationID+`>ID: `+data[i].AccommodationID+" <br> Type: "+ data[i].Accommodation_Type+ "<br> Facilities: "+data[i].Facilities+"<br> Size: "+data[i].Size+"<br> Location: "+data[i].Location+`<span class="badge badge-danger" style="background-color:red" onclick="toggleResource(this)">--</span></a>`
           }else{
-            stringToAppend += `<a href="#" class="list-group-item" value=Accommodation-`+data[i].AccommodationID+`>ID: `+data[i].AccommodationID+" <br> Type: "+ data[i].Accommodation_Type+ "<br> Facilities: "+data[i].Facilities+"<br> Size: "+data[i].Size+"<br> Location: "+data[i].Location+`<span class="badge badge-danger" style="background-color:green">O</span></a>`
+            stringToAppend += `<a href="#" class="list-group-item" value=Accommodation-`+data[i].AccommodationID+`>ID: `+data[i].AccommodationID+" <br> Type: "+ data[i].Accommodation_Type+ "<br> Facilities: "+data[i].Facilities+"<br> Size: "+data[i].Size+"<br> Location: "+data[i].Location+`<span class="badge badge-danger" style="background-color:green" onclick="toggleResource(this)">O</span></a>`
 
           }
         }
@@ -117,6 +125,22 @@ function updateGUI(id){
     
     $("#currentResource").attr("value",id);
 
+
+}
+
+function toggleResource(obj){
+  // alert();
+  var nodeValue = obj.parentNode.getAttribute("value");
+
+  $.ajax({
+      type: "POST",
+      url: "/toggle",
+      data:JSON.stringify({"nodeValue":nodeValue}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+      viewResource();
+    });
 
 }
 
