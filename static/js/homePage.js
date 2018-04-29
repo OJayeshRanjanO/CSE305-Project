@@ -12,6 +12,11 @@ function getLocations(){
       // $("#hotelSearchResults").empty();
         // alert(JSON.stringify(data));
         // console.log(data)
+        $("#flightPassengers").val(data.numPassengers);
+        $("#cruisePassengers").val(data.numPassengers);
+        $("#guests").val(data.numPassengers);
+
+
         var data = data.location;
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
@@ -20,7 +25,6 @@ function getLocations(){
         // alert(stringToAppend);
         $("#From").append(stringToAppend);
         $("#To").append(stringToAppend);
-
         $("#location").append(stringToAppend);
 
     });

@@ -79,7 +79,8 @@ def review():
 @app.route('/getLocation',methods=['POST'])
 def getLocation():
     returnValue = getLocationList()
-    x = json.dumps({"location":returnValue})
+    print("Passengers: " + str(session['passengers']))
+    x = json.dumps({"location":returnValue,"numPassengers":str(session['passengers'])})
     return str(x)
 #{"location": }
 
