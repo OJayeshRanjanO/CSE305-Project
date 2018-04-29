@@ -2,6 +2,53 @@ function logout(){
   window.location.href = "/logout"
 }
 
+function getLocations(){
+    $.ajax({
+      type: "POST",
+      url: "/getLocation",
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+      // $("#hotelSearchResults").empty();
+        // alert(JSON.stringify(data));
+        // console.log(data)
+        var data = data.location;
+        stringToAppend = "";
+        for (var i = 0; i < data.length; i++){
+          stringToAppend+= "<option>"+data[i].City+"</option>";
+        }
+        // alert(stringToAppend);
+        $("#From").append(stringToAppend);
+        $("#To").append(stringToAppend);
+
+        $("#location").append(stringToAppend);
+
+    });
+
+}
+
+function hotelsMetaLoad(){
+  getLocations();
+
+  //Loading room Type
+  $.ajax({
+      type: "POST",
+      url: "/getRoomType",
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+        var data = data.roomList;
+        stringToAppend = "";
+        for (var i = 0; i < data.length; i++){
+          stringToAppend+= "<option>"+data[i].Accommodation_Type+"</option>";
+        }
+        // alert(stringToAppend);
+        $("#accommodationType").append(stringToAppend);
+
+    });
+
+}
+
 function searchFlights(){
   var flightFrom = $("#flightFrom").find(":selected").text();
   var flightTo = $("#flightTo").find(":selected").text();
@@ -29,8 +76,8 @@ function searchFlights(){
     }).done(function (data, textStatus, jqXHR) {
       $("#flightSearchResults").empty();
         // alert(JSON.stringify(data));
-      console.log(data);
-        var data = $.parseJSON(JSON.stringify(data)).flightDetails;
+      // console.log(data);
+        var data = data.flightDetails;
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           stringToAppend = 
@@ -96,6 +143,34 @@ function searchCruises(){
 
 }
 
+function carMetaData(){
+    $.ajax({
+      type: "POST",
+      url: "/getCarData",
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+      $("#carSearchResults").empty();
+        var data1 = data.carCompany;
+        var data2 = data.carType;
+        stringToAppend1 = "";
+        stringToAppend2 = "";
+        for (var i = 0; i < data1.length; i++){
+          stringToAppend1+= "<option>"+data1[i].Car_Company+"</option>";
+
+        }
+        for (var i = 0; i < data2.length; i++){
+          stringToAppend2+= "<option>"+data2[i].Car_Type+"</option>";
+
+        }
+
+        $("#carCompany").append(stringToAppend1);
+        $("#carType").append(stringToAppend2);
+
+    });
+
+}
+
 function searchCars(){
   var carCompany = $("#carCompany").find(":selected").text();
   var carType = $("#carType").find(":selected").text();
@@ -116,8 +191,6 @@ function searchCars(){
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
       $("#carSearchResults").empty();
-        // alert(JSON.stringify(data));
-        alert(JSON.stringify(data));
         var data = $.parseJSON(JSON.stringify(data)).carDetails;
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
@@ -188,4 +261,5 @@ function redirectTo(id){
   if (id === "car"){window.location.href = "/cars"};
 
 }
+
 

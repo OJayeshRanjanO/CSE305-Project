@@ -28,9 +28,9 @@ def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flig
         for eachFlight in flightList:
             eachFlight['Schedule_Date'] = eachFlight['Schedule_Date'].strftime('%Y-%m-%d')
 
-            print(eachFlight)
+            # print(eachFlight)
 
-
+        # print(flightList)
         return flightList
 
     # except:
@@ -52,7 +52,7 @@ def listAllFlights():
         for eachFlight in flightList:
             eachFlight['Schedule_Date'] = eachFlight['Schedule_Date'].strftime('%Y-%m-%d')
 
-            print(eachFlight)
+            # print(eachFlight)
         return flightList
     except:
         connection.close()
@@ -69,6 +69,18 @@ def getLocationList():
     connection.close()
 
     return locations
+
+def getRoomTypeList():
+    connection = connect_db()
+
+    query = "SELECT Accommodation_Type FROM Accommodation"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    roomType = cursor.fetchall()
+    connection.close()
+
+    return roomType
+
 
 def checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers):
     connection = connect_db()
@@ -99,6 +111,28 @@ def checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers
         print(eachCruise)
     return cruiseList
 
+
+def getCarCompany():
+    connection = connect_db()
+
+    query = "SELECT DISTINCT Car_Company FROM Car"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    carData = cursor.fetchall()
+    connection.close()
+
+    return carData
+
+def getCarType():
+    connection = connect_db()
+
+    query = "SELECT DISTINCT Car_Type FROM Car"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    carData = cursor.fetchall()
+    connection.close()
+
+    return carData
 
 def checkAvailableCars(Car_Company,Car_Type):
     connection = connect_db()

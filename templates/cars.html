@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/static/js/homePage.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    <body>
+    <body onload="carMetaData()">
         <div class=resourceTypeWrapper>
             <div class="resouceBanner">
                 Resort Hub
@@ -32,15 +32,11 @@
                 <div class="form-group resourceDataSelector">
                   <select id="carCompany" class="form-control dropdown">
                     <option value="" disabled selected hidden>Company</option>
-                    <option>Hertz</option>
                   </select>
                 </div>
                 <div class="form-group resourceDataSelector">
                   <select id="carType" class="form-control dropdown">
                     <option value="" disabled selected hidden style="color:grey">Type</option>
-                    <option>Economy</option>
-                    <option>Premium</option>
-                    <option>SUV</option>
                   </select>
                 </div>
                 <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchCars();"><span class="glyphicon glyphicon-search"></span></button>       

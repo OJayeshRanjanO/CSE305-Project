@@ -11,7 +11,7 @@
 <script type="text/javascript" src="/static/js/homePage.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    <body>
+    <body onload="getLocations()">
         <div class=resourceTypeWrapper>
             <div class="resouceBanner">
                 Resort Hub
@@ -30,19 +30,13 @@
         <div class=resourceDataWrapper>
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
-                  <select id="cruiseFrom" class="form-control dropdown">
+                  <select id="From" class="form-control dropdown">
                     <option value="" disabled selected hidden>From</option>
-                    <option>Moscow</option>
-                    <option>Beijing</option>
-                    <option>Queens</option>
                   </select>
                 </div>
                 <div class="form-group resourceDataSelector">
-                  <select id="cruiseTo" class="form-control dropdown">
+                  <select id="To" class="form-control dropdown">
                     <option value="" disabled selected hidden style="color:grey">To</option>
-                    <option>Moscow</option>
-                    <option>Beijing</option>
-                    <option>Queens</option>
                   </select>
                 </div>
                 <input id="cruiseLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>

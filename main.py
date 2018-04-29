@@ -65,7 +65,10 @@ def review():
 @app.route('/getLocation',methods=['POST'])
 def getLocation():
     returnValue = getLocationList()
-    return str(json.dumps({"location":returnValue}))
+    x = json.dumps({"location":returnValue})
+    print(x)
+    return str(x)
+#{"location": }
 
 @app.route('/home')
 def home():
@@ -88,7 +91,8 @@ def searchFlights():
     # print(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers)
 
     returnValue = checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers)
-    return str(json.dumps({"flightDetails":returnValue}))
+    x = json.dumps({"flightDetails":returnValue})
+    return str(x)
 
 @app.route('/listFlights',methods=['GET'])
 def listFlights():
@@ -123,6 +127,12 @@ def cars():
     print(session['email'])
     return render_template("cars.html")
 
+@app.route('/getCarData',methods=['POST'])
+def getCarData():
+    returnValue1 = getCarCompany()
+    returnValue2 = getCarType()
+    return str(json.dumps({"carCompany":returnValue1,"carType":returnValue2}))
+
 @app.route('/searchCars',methods=['POST'])
 def searchCars():
     # {"carCompany":"Hertz","carType":"Economy"}
@@ -141,6 +151,13 @@ def hotels():
         return redirect(url_for('hotels'))
     print(session['email'])
     return render_template("hotels.html")
+
+
+@app.route('/getRoomType',methods=['POST'])
+def getRoomType():
+    returnValue = getRoomTypeList()
+    return str(json.dumps({"roomList":returnValue}))
+
 
 @app.route('/searchHotels',methods=['POST'])
 def searchHotels():
