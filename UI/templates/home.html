@@ -6,73 +6,89 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="./css/homePage.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/homePage.css">
 <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">    </head>
-<script type="text/javascript" src="./js/homePage.js"></script>
+<script type="text/javascript" src="/static/js/homePage.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    <body>
+    <body onload="getLocations()">
         <div class=resourceTypeWrapper>
             <div class="resouceBanner">
                 Resort Hub
             </div>
             <div class="resourceType">
-                <button class=resourceTabs>Hotels</button>
-                <button class=resourceTabs>Flights</button>
-                <button class=resourceTabs>Cruise</button>
-                <button class=resourceTabs>Cars</button>
+                <button id="hotel" class=resourceTabs onclick="redirectTo(this.id);">Hotels</button>
+                <button id="flight" class=resourceTabs style="background-color: grey">Flights</button>
+                <button id="cruise" class=resourceTabs onclick="redirectTo(this.id);">Cruise</button>
+                <button id="car" class=resourceTabs onclick="redirectTo(this.id);">Cars</button>
             </div>
             <div class=accountInfo>
-                <i class="material-icons" style="font-size:50px;color:white">account_circle</i>
-                <i class="material-icons" style="font-size:50px;color:white">exit_to_app</i>
+                <i class="material-icons" style="font-size:50px;color:white" onclick="checkout();">account_circle</i>
+                <i class="material-icons" style="font-size:50px;color:white" onclick="logout();">exit_to_app</i>
             </div>   
         </div>
         <div class=resourceDataWrapper>
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
-                  <select class="form-control dropdown">
+                  <select id="From" class="form-control dropdown">
                     <option value="" disabled selected hidden>From</option>
-                    <option>Moscow</option>
-                    <option>Beijing</option>
-                    <option>New York</option>
+
                   </select>
                 </div>
                 <div class="form-group resourceDataSelector">
-                  <select class="form-control dropdown">
+                  <select id="To" class="form-control dropdown">
                     <option value="" disabled selected hidden style="color:grey">To</option>
-                    <option>Moscow</option>
-                    <option>Beijing</option>
-                    <option>New York</option>
                   </select>
                 </div>
-                <input required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
+                <input id="flightLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
                 <div class="form-group resourceDataSelector">
-                  <select class="form-control dropdown">
-                    <option>Class</option>
+                  <select id="flightClass" class="form-control dropdown">
+                    <option value="" disabled selected hidden style="color:grey">Class</option>
                     <option>Business</option>
                     <option>Economy</option>
                   </select>
                 </div>
-                <input class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers">
-                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;"><span class="glyphicon glyphicon-search"></span></button>       
-                <div class=searchResults>
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                          <div class="cardBodyFlight" style="background-image: url(./images/airchina.jpg);background-repeat: no-repeat;background-size: 100% 50px"></div>
-                          <div class="cardBodyDeparture">12:00</div>
-                          <div class="cardBodyPrice">$2600</div>
-
-                      </div>
-                    </div>
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                          <div class="cardBodyFlight" style="background-image: url(./images/aeroflot.jpg);background-repeat: no-repeat;background-size: 100% 50px"></div>
-                          <div class="cardBodyDeparture">00:00</div>
-                            <div class="cardBodyPrice">$2600</div>
-
-                      </div>
-                    </div>
+                <input id="flightPassengers" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers">
+                <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchFlights();"><span class="glyphicon glyphicon-search"></span></button>       
+                <!--
+                <div id="flightSearchResults" class=searchResults>
+                                <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                  <div class="cardBodyFlight">TEST</div>
+                  <div class="cardBodyDeparture">100</div>
+                  <div class="cardBodyPrice">5</div>
+              </div>
+            </div>
                 </div>
+-->
+            </div>
+            <div id="flightSearchResults" class=searchResults>
+                <div class=card>
+
+                    <div class=cardBodyFlight>China Eastern (CF1)
+                    </div>
+                    <div class=cardBodyDeparture>Departure: 04-28-10 00:00
+                    </div>
+                    <div class=cardBodyDeparture>Rate/Person: $500
+                    </div>
+                    <div class=cardBodyDeparture>New Delhi >>>>> Moscow
+                    </div>
+                    <div class=card-hover><i class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i></div>
+
+                </div>
+                <div class=card>
+                    <div class=card-hover></div>
+                    
+                    
+                </div>
+                <div class=card>
+                </div>
+                <div class=card>
+                </div>
+                                <div class=card>
+                </div>
+
+                
             </div>
         </div>
 
