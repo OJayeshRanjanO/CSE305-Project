@@ -11,7 +11,7 @@
     </head>
         <script type="text/javascript" src="/static/js/admin.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <body>
+    <body onload="updateGUI('flight')"">
         <div class=resourceTypeWrapper>
             <div class="resouceBanner">
                 Admin
@@ -31,7 +31,7 @@
         <div class=resourceDataWrapper>
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
-                    <button type="button" class="btn btn-primary spacing" data-toggle="modal" data-target="#addCar" id=addResource>Add Resource</button>
+                    <button type="button" class="btn btn-primary spacing" data-toggle="modal" data-target="#addFlight" id=addResource>Add Resource</button>
                     <button type="button" class="btn btn-primary spacing" onclick="viewResource()">View Resource</button>                    
 
                 </div>
@@ -78,27 +78,41 @@
 
 
 
-<!--           <div class="modal fade" id="addFlight" role="dialog">
+          <div class="modal fade" id="addHotel" role="dialog">
             <div class="modal-dialog">
             
               <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Add Flight</h4>
+                <h4 class="modal-title">Add Hotel</h4>
               </div>
                 <div class="modal-body">
 
-                  <div class="form-group">
-                    <label for="carCompany">Car Company</label>
-                    <input type="password" class="form-control" id="carCompany" placeholder="Car Company">
-                  </div>
+                  <label for="accommodationType">Accommodation Type</label>
+                  <select id=accommodationType placeholder="Accommodation Type" class="form-control">
+                  </select>
                   <br>
-                  <label for="carType">Car Type</label>
-                  <select id=carType placeholder="Car Type" class="form-control">
+                  <label for="location">Location</label>
+                  <select id=location placeholder="Location" class="form-control">
                   </select>
                   <br>
                   <div class="form-group">
-                    <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" placeholder="Price">
+                    <label for="facilities">Facilities</label>
+                    <input id="facilities" type="text" class="form-control" placeholder="Facilities">
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="rate">Rate</label>
+                    <input id="rate" type="number" class="form-control" placeholder="Rate">
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="discount">Discount</label>
+                    <input id="discount" type="number" class="form-control" placeholder="Discount">
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="size">Size</label>
+                    <input id="size" type="number" class="form-control" placeholder="Size">
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -108,6 +122,103 @@
               </div>
               
             </div>
-          </div> -->
+          </div>
+
+
+
+          <div class="modal fade" id="addCruise" role="dialog">
+            <div class="modal-dialog">
+            
+              <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add Cruise</h4>
+              </div>
+                <div class="modal-body">
+
+                  <div class="form-group">
+                    <label for="cruiseName">Cruise Name</label>
+                    <input id="cruiseName" type="text" class="form-control" placeholder="Cruise Name">
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="cruiseDate">Schedule Date</label>
+                    <input id="cruiseDate" type="date" class="form-control" placeholder="Date">
+                  </div>
+                  <br>
+                  <label for="csrcLocation">Source Location</label>
+                  <select id=csrcLocation placeholder="Source Location" class="form-control">
+                  </select>
+                  <br>
+                  <label for="cdstLocation">Destination Location</label>
+                  <select id=cdstLocation placeholder="Destination Location" class="form-control">
+                  </select>
+                  <br>
+                  <div class="form-group">
+                    <label for="fare">Fare</label>
+                    <input id="fare" type="number" class="form-control" placeholder="Fare">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+
+
+          <div class="modal fade" id="addFlight" role="dialog">
+            <div class="modal-dialog">
+            
+              <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add Flight</h4>
+              </div>
+                <div class="modal-body">
+
+                  <div class="form-group">
+                    <label for="flightCarrier">Flight Carrier</label>
+                    <input id="flightCarrier" type="text" class="form-control" placeholder="Flight Carrier">
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="flightNumber">Flight Number</label>
+                    <input id="flightNumber" type="text" class="form-control" placeholder="Flight Number">
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <label for="flightDate">Schedule Date</label>
+                    <input id="flightDate" type="date" class="form-control" placeholder="Date">
+                  </div>
+                  <br>
+                  <label for="fsrcLocation">Source Location</label>
+                  <select id=fsrcLocation placeholder="Source Location" class="form-control">
+                  </select>
+                  <br>
+                  <label for="fdstLocation">Destination Location</label>
+                  <select id=fdstLocation placeholder="Destination Location" class="form-control">
+                  </select>
+                  <br>
+                  <label for="class">Class</label>
+                  <select id="class" placeholder="Class" class="form-control">
+                    <option>Business</option>
+                    <option>Economy</option>
+                  </select>
+                  <br>
+                  <div class="form-group">
+                    <label for="fare">Fare</label>
+                    <input id="fare" type="number" class="form-control" placeholder="Fare">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
     </body>
 </html>

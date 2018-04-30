@@ -126,12 +126,13 @@ def addCarResource(price,car_type,car_company):
     connection.close()
 
 
-# if __name__ == '__main__':
-#     connection = connect_db()
-#
-#     query = "INSERT INTO Employee_Manages_Resources (EmployeeID,TransportationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),11);"
-#
-#     cursor = connection.cursor()
-#     cursor.execute(query)
-#     connection.commit()
-#     connection.close()
+if __name__ == '__main__':
+    connection = connect_db()
+
+    query = "SELECT * FROM Flight"
+
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(cursor.fetchall())
+    connection.commit()
+    connection.close()

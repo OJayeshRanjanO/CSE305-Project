@@ -117,23 +117,27 @@ function updateGUI(id){
     document.getElementById("car").style.backgroundColor = "transparent";
       $("#viewResource").empty();
 
-  // alert(id);
   if (id === "cruise"){
     document.getElementById(id).style.backgroundColor = "grey";
     document.getElementById("addResource").dataset.target  = "#addCruise";
+    getLocations();
   };
   if (id === "flight"){
     document.getElementById(id).style.backgroundColor = "grey";
     document.getElementById("addResource").dataset.target  = "#addFlight";
+    getLocations();
+
   };
   if (id === "hotel"){
     document.getElementById(id).style.backgroundColor = "grey";
     document.getElementById("addResource").dataset.target  = "#addHotel";
+    hotelsMetaLoad();
+    getLocations();
   };
   if (id === "car"){
     document.getElementById(id).style.backgroundColor = "grey";
-    carMetaData();
     document.getElementById("addResource").dataset.target = "#addCar";
+    carMetaData();
     
   };
     
@@ -170,7 +174,7 @@ function addCar(){
       dataType: "json",
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
-      
+
     });
 
 }
@@ -190,6 +194,60 @@ function carMetaData(){
 
         }
         $("#carType").append(stringToAppend2);
+
+    });
+
+}
+
+function hotelsMetaLoad(){
+  //Loading room Type
+  $.ajax({
+      type: "POST",
+      url: "/getRoomType",
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+        var data = data.roomList;
+        stringToAppend = "";
+        for (var i = 0; i < data.length; i++){
+          stringToAppend+= "<option>"+data[i].Accommodation_Type+"</option>";
+        }
+        // alert(stringToAppend);
+        $("#accommodationType").empty();
+        $("#accommodationType").append(stringToAppend);
+
+    });
+
+}
+
+function getLocations(){
+    $.ajax({
+      type: "POST",
+      url: "/getLocation",
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+
+
+        var data = data.location;
+        stringToAppend = "";
+        for (var i = 0; i < data.length; i++){
+          stringToAppend+= "<option>"+data[i].City+"</option>";
+        }
+        // alert(stringToAppend);
+        // $("#From").append(stringToAppend);
+        // $("#To").append(stringToAppend);
+        $("#location").empty();
+        $("#csrcLocation").empty();
+        $("#cdstLocation").empty();
+        $("#fsrcLocation").empty();
+        $("#fdstLocation").empty();
+
+        $("#location").append(stringToAppend);
+        $("#csrcLocation").append(stringToAppend);
+        $("#cdstLocation").append(stringToAppend);
+        $("#fsrcLocation").append(stringToAppend);
+        $("#fdstLocation").append(stringToAppend);
 
     });
 
