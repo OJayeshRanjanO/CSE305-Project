@@ -31,7 +31,7 @@
         <div class=resourceDataWrapper>
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
-                    <button type="button" class="btn btn-primary spacing">Add Resource</button>
+                    <button type="button" class="btn btn-primary spacing" data-toggle="modal" data-target="#addCar" id=addResource>Add Resource</button>
                     <button type="button" class="btn btn-primary spacing" onclick="viewResource()">View Resource</button>                    
 
                 </div>
@@ -39,9 +39,75 @@
                     <div id=viewResource class="list-group">
                     </div>
                 </div>
-
             </div>
         </div>
 
+                  <!-- Modal -->
+          <div class="modal fade" id="addCar" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add Car</h4>
+              </div>
+                <div class="modal-body">
+
+                  <div class="form-group">
+                    <label for="carCompany">Car Company</label>
+                    <input type="text" class="form-control" id="carCompany" placeholder="Car Company" required>
+                  </div>
+                  <br>
+                  <label for="carType">Car Type</label>
+                  <select id=carType placeholder="Car Type" class="form-control" required>
+                  </select>
+                  <br>
+                  <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" id="price" placeholder="Price" required>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick=addCar();>Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+
+
+<!--           <div class="modal fade" id="addFlight" role="dialog">
+            <div class="modal-dialog">
+            
+              <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add Flight</h4>
+              </div>
+                <div class="modal-body">
+
+                  <div class="form-group">
+                    <label for="carCompany">Car Company</label>
+                    <input type="password" class="form-control" id="carCompany" placeholder="Car Company">
+                  </div>
+                  <br>
+                  <label for="carType">Car Type</label>
+                  <select id=carType placeholder="Car Type" class="form-control">
+                  </select>
+                  <br>
+                  <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" id="price" placeholder="Price">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div> -->
     </body>
 </html>

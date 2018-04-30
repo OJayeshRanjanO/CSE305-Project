@@ -134,6 +134,16 @@ def toggle():
     toggleResourceOnOff(nodeValue)
     return str(json.dumps({"toggle":"true"}))
 
+@app.route('/addCar',methods=['POST'])
+def addCar():
+    recvJson = request.get_json()
+    price = recvJson["price"]
+    car_type = recvJson["carType"]
+    car_company = recvJson["carCompany"]
+    addCarResource(price,car_type,car_company)
+    return str(json.dumps({"addCar":"true"}))
+
+
 @app.route('/cruises')
 def cruises():
     if 'email' not in session:

@@ -96,4 +96,42 @@ def toggleResourceOnOff(nodeValue):
     print(query)
     return None
 
+def addCarResource(price,car_type,car_company):
+    connection = connect_db()
+    query = "INSERT INTO Transportation (Transportation_Type,Active) VALUES ('Car',1);"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
 
+    query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = (cursor.fetchall())[0]
+    print(query)
+
+    id = data['TransportationID']
+
+    query = "INSERT INTO Car (CarID,Car_Company,Car_Type,Rent) VALUES (" + str(id) + ",\'"+ str(car_company) +"\',\'" + str(car_type) + "\'," + str(price) + ");"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    query = "INSERT INTO Employee_Manages_Resources (EmployeeID,TransportationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),"+str(id)+");"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+
+    connection.commit()
+    connection.close()
+
+
+# if __name__ == '__main__':
+#     connection = connect_db()
+#
+#     query = "INSERT INTO Employee_Manages_Resources (EmployeeID,TransportationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),11);"
+#
+#     cursor = connection.cursor()
+#     cursor.execute(query)
+#     connection.commit()
+#     connection.close()

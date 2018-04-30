@@ -118,12 +118,26 @@ function updateGUI(id){
       $("#viewResource").empty();
 
   // alert(id);
-  if (id === "cruise"){document.getElementById(id).style.backgroundColor = "grey"};
-  if (id === "flight"){document.getElementById(id).style.backgroundColor = "grey"};
-  if (id === "hotel"){document.getElementById(id).style.backgroundColor = "grey"};
-  if (id === "car"){document.getElementById(id).style.backgroundColor = "grey"};
+  if (id === "cruise"){
+    document.getElementById(id).style.backgroundColor = "grey";
+    document.getElementById("addResource").dataset.target  = "#addCruise";
+  };
+  if (id === "flight"){
+    document.getElementById(id).style.backgroundColor = "grey";
+    document.getElementById("addResource").dataset.target  = "#addFlight";
+  };
+  if (id === "hotel"){
+    document.getElementById(id).style.backgroundColor = "grey";
+    document.getElementById("addResource").dataset.target  = "#addHotel";
+  };
+  if (id === "car"){
+    document.getElementById(id).style.backgroundColor = "grey";
+    carMetaData();
+    document.getElementById("addResource").dataset.target = "#addCar";
     
-    $("#currentResource").attr("value",id);
+  };
+    
+  $("#currentResource").attr("value",id);
 
 
 }
@@ -140,6 +154,43 @@ function toggleResource(obj){
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
       viewResource();
+    });
+
+}
+
+function addCar(){
+  var carType = $("#carType").find(":selected").text();
+  var carCompany = $("#carCompany").val();
+  var price = $("#price").val();
+
+  $.ajax({
+      type: "POST",
+      url: "/addCar",
+      data:JSON.stringify({"carType":carType,"carCompany":carCompany,"price":price}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+      
+    });
+
+}
+
+function carMetaData(){
+    $.ajax({
+      type: "POST",
+      url: "/getCarData",
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+      $("#carSearchResults").empty();
+        var data2 = data.carType;
+        stringToAppend2 = "";
+        for (var i = 0; i < data2.length; i++){
+          stringToAppend2+= "<option>"+data2[i].Car_Type+"</option>";
+
+        }
+        $("#carType").append(stringToAppend2);
+
     });
 
 }
