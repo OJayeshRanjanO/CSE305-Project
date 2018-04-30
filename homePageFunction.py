@@ -217,17 +217,17 @@ def getReviewList(item):
     return reviews
 
 if __name__ == '__main__':
-    x = getReviewList("Accommodation-1")
-    print(x)
-    # connection = connect_db()
-    # query = "SELECT * FROM Passenger_Reviews_Resources WHERE AccommodationID = 1"
-    #
-    # cursor = connection.cursor()
-    # cursor.execute(query)
-    # connection.commit()
-    # carsList = cursor.fetchall()
-    # print(carsList)
-    # connection.close()
+    # x = getReviewList("Accommodation-1")
+    # print(x)
+    connection = connect_db()
+    query = "SELECT * FROM Passenger_Reviews_Resources WHERE AccommodationID = 1"
+
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+    carsList = cursor.fetchall()
+    print(carsList)
+    connection.close()
     #
     # connection = connect_db()
     # query = "SELECT * FROM Accommodation WHERE AccommodationID = 1"

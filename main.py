@@ -297,6 +297,13 @@ def fetchReview():
     returnValue = getReviewList(item)
     return str(json.dumps({"Reviews":returnValue}))
 
+@app.route('/addReview',methods=['POST'])
+def addReview():
+    recvJson = request.get_json()
+    item = recvJson['item']
+    returnValue = getReviewList(item)
+    return str(json.dumps({"Reviews":returnValue}))
+
 @app.route('/logout')
 def logout():
     print(session)

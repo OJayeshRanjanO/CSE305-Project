@@ -165,6 +165,10 @@ i:hover{
 }
 .review:hover{color:#75056d;}
 
+.checked {
+    color: orange;
+}
+
 .card-hover{
     position: absolute;
     height: 200px;

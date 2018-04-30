@@ -426,6 +426,44 @@ function getUserItems(){
     });
 
 }
+
+
+function rating(number){
+  $("#rating1").parent().attr("value",number)
+
+  $( "#rating1" ).removeClass( "checked" );
+  $( "#rating2" ).removeClass( "checked" );
+  $( "#rating3" ).removeClass( "checked" );
+  $( "#rating4" ).removeClass( "checked" );
+  $( "#rating5" ).removeClass( "checked" );
+
+  if (number >= 1){
+      $( "#rating1" ).addClass( "checked" )
+  }
+  if (number >= 2){
+      $( "#rating2" ).addClass( "checked" )
+  }
+  if (number >= 3){
+      $( "#rating3" ).addClass( "checked" )
+  }
+  if (number >= 4){
+      $( "#rating4" ).addClass( "checked" )
+  }
+  if (number === 5){
+      $( "#rating5" ).addClass( "checked" )
+  }
+
+  // alert($("#rating1").parent().attr("value"));
+}
+
+// function removeRating(){
+//   $( "#rating1" ).removeClass( "checked" );
+//   $( "#rating2" ).removeClass( "checked" );
+//   $( "#rating3" ).removeClass( "checked" );
+//   $( "#rating4" ).removeClass( "checked" );
+//   $( "#rating5" ).removeClass( "checked" );
+// }
+
 function redirectTo(id){
   // alert(id);
   if (id === "cruise"){window.location.href = "/cruises"};
