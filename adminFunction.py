@@ -125,14 +125,100 @@ def addCarResource(price,car_type,car_company):
     connection.commit()
     connection.close()
 
+def addHotelResource(accommodationType,location,facilities,rate,discount,size):
 
-if __name__ == '__main__':
     connection = connect_db()
-
-    query = "SELECT * FROM Flight"
-
+    query = "INSERT INTO Accommodation (Accommodation_Type,Rate,Facilities,Discount,Location,Size,Active) VALUES " \
+    "(\'"+ accommodationType +"\',"+ str(rate) +",\'"+ facilities +"\',"+ str(discount) +","+ str("(SELECT LocationID FROM Location WHERE City = \'"+ location +"\' )") +","+ str(size) +","+ str(1) +");"
+    print(query)
     cursor = connection.cursor()
     cursor.execute(query)
-    print(cursor.fetchall())
+
+    query = "SELECT AccommodationID FROM Accommodation ORDER BY AccommodationID DESC LIMIT 1"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = (cursor.fetchall())[0]
+    print(query)
+
+    id = data['AccommodationID']
+    query = "INSERT INTO Employee_Manages_Resources (EmployeeID,AccommodationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),"+str(id)+");"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    print()
+
     connection.commit()
     connection.close()
+
+
+def addCruisesResource(cruiseName,cruiseDate,csrcLocation,cdstLocation,fare):
+    # print(cruiseName,cruiseDate,csrcLocation,cdstLocation,fare)
+
+    connection = connect_db()
+
+    query = "INSERT INTO Transportation (Transportation_Type,Active) VALUES ('Cruise',1);"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = (cursor.fetchall())[0]
+    print(query)
+
+    id = data['TransportationID']
+    query = "INSERT INTO Cruise (CruiseID,Cruise_Name,Schedule_Date,Src_Location,Dst_Location,Fare) " \
+            "VALUES (" + str(id) + ",\'" + cruiseName + "\',\'" + cruiseDate + "\'," + str("(SELECT LocationID FROM Location WHERE City = \'"+ csrcLocation +"\' )") + "," \
+            "" + str("(SELECT LocationID FROM Location WHERE City = \'"+ cdstLocation +"\' )") + "," + str(fare) + ");"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    query = "INSERT INTO Employee_Manages_Resources (EmployeeID,TransportationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),"+str(id)+");"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    print()
+
+    connection.commit()
+    connection.close()
+
+def addFlightResource(flightCarrier,flightNumber,flightDate,fsrcLocation,fdstLocation,Class,fare):
+    #4 Beijing
+    #1 Moscow
+    #2 New York
+    #3 New Delhi
+    connection = connect_db()
+
+    query = "INSERT INTO Transportation (Transportation_Type,Active) VALUES ('Flight',1);"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = (cursor.fetchall())[0]
+    print(query)
+
+    id = data['TransportationID']
+    query = "INSERT INTO Flight (FlightID,Flight_Carrier,Flight_Number,Schedule_Date,Src_Location,Dst_Location,Class,Fare) " \
+            "VALUES (" + str(id) + ",\'" + flightCarrier + "\',\'" + flightNumber + "\',\'" + flightDate + "\'," + str("(SELECT LocationID FROM Location WHERE City = \'"+ fsrcLocation +"\' )") + "," \
+            "" + str("(SELECT LocationID FROM Location WHERE City = \'"+ fdstLocation +"\' )") + ",\'" + Class + "\'," + str(fare) + ");"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    query = "INSERT INTO Employee_Manages_Resources (EmployeeID,TransportationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),"+str(id)+");"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    print()
+
+    connection.commit()
+    connection.close()
+

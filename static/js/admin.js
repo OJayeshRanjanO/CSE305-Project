@@ -179,6 +179,99 @@ function addCar(){
 
 }
 
+function addHotel(){
+  var accommodationType = $("#accommodationType").find(":selected").text();
+  var location =  $("#location").text();
+  var facilities = $("#facilities").val();
+  var rate = $("#rate").val();
+  var discount = $("#discount").val();
+  var size = $("#size").val();
+  alert(accommodationType + " " + location + " " + facilities + " " + rate + " " + discount + " " + size);
+
+
+  $.ajax({
+      type: "POST",
+      url: "/addHotel",
+      data:JSON.stringify({"accommodationType":accommodationType,"location":location,"facilities":facilities,"rate":rate,"discount":discount,"size":size}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+
+    });
+}
+
+
+function addCruise(){
+  var cruiseName =  $("#cruiseName").val();
+  var cruiseDate =  $("#cruiseDate").val().toString();
+  var csrcLocation = $("#csrcLocation").find(":selected").text();
+  var cdstLocation = $("#cdstLocation").find(":selected").text();
+  var fare = $("#fare").val();
+  alert(cruiseName + " " + cruiseDate + " " + csrcLocation + " " + cdstLocation + " " + fare);
+
+
+  $.ajax({
+      type: "POST",
+      url: "/addCruise",
+      data:JSON.stringify({"cruiseName":cruiseName,"cruiseDate":cruiseDate,"csrcLocation":csrcLocation,"cdstLocation":cdstLocation,"fare":fare}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+
+    });
+}
+
+function addCruise(){
+  var cruiseName =  $("#cruiseName").val();
+  var cruiseDate =  $("#cruiseDate").val().toString();
+  var csrcLocation = $("#csrcLocation").find(":selected").text();
+  var cdstLocation = $("#cdstLocation").find(":selected").text();
+  var fare = $("#fare").val();
+  alert(cruiseName + " " + cruiseDate + " " + csrcLocation + " " + cdstLocation + " " + fare);
+
+
+  $.ajax({
+      type: "POST",
+      url: "/addCruise",
+      data:JSON.stringify({"cruiseName":cruiseName,"cruiseDate":cruiseDate,"csrcLocation":csrcLocation,"cdstLocation":cdstLocation,"fare":fare}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+
+    });
+}
+
+
+function addFlight(){
+  var flightCarrier =  $("#flightCarrier").val();
+  var flightNumber =  $("#flightNumber").val();
+  var flightDate =  $("#flightDate").val().toString();
+  var fsrcLocation = $("#fsrcLocation").find(":selected").text();
+  var fdstLocation = $("#fdstLocation").find(":selected").text();
+  var Class = $("#Class").find(":selected").text();
+  var flightFare = $("#flightFare").val();
+  alert(flightCarrier+ " " + flightNumber + " " + flightDate + " " + fsrcLocation + " " + fdstLocation + " " + Class + " " + flightFare);
+  var obj = {
+    "flightCarrier":flightCarrier,
+    "flightNumber":flightNumber,
+    "flightDate":flightDate,
+    "fsrcLocation":fsrcLocation,
+    "fdstLocation":fdstLocation,
+    "Class":Class,
+    "fare":flightFare
+  }
+
+  $.ajax({
+      type: "POST",
+      url: "/addFlight",
+      data:JSON.stringify(obj),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+
+    });
+}
+
 function carMetaData(){
     $.ajax({
       type: "POST",

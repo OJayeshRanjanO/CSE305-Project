@@ -143,6 +143,47 @@ def addCar():
     addCarResource(price,car_type,car_company)
     return str(json.dumps({"addCar":"true"}))
 
+@app.route('/addHotel',methods=['POST'])
+def addHotel():
+    recvJson = request.get_json()
+    accommodationType = recvJson["accommodationType"]
+    location = recvJson["location"]
+    facilities = recvJson['facilities']
+    rate = recvJson["rate"]
+    discount = recvJson['discount']
+    size = recvJson['size']
+    # print(accommodationType + " " + location + " " + facilities+ " " + str(rate) + " " + str(discount) + " "+ str(size))
+    addHotelResource(accommodationType,location,facilities,rate,discount,size)
+    return str(json.dumps({"addHotel":"true"}))
+
+@app.route('/addCruise',methods=['POST'])
+def addCruise():
+    recvJson = request.get_json()
+    cruiseName = recvJson["cruiseName"]
+    cruiseDate = recvJson["cruiseDate"]
+    csrcLocation = recvJson['csrcLocation']
+    cdstLocation = recvJson['cdstLocation']
+    fare = recvJson["fare"]
+    # print(accommodationType + " " + location + " " + facilities+ " " + str(rate) + " " + str(discount) + " "+ str(size))
+    addCruisesResource(cruiseName,cruiseDate,csrcLocation,cdstLocation,fare)
+    # print(cruiseName,cruiseDate,csrcLocation,cdstLocation,fare)
+    return str(json.dumps({"addCruise":"true"}))
+
+@app.route('/addFlight',methods=['POST'])
+def addFlight():
+    recvJson = request.get_json()
+    flightCarrier = recvJson["flightCarrier"]
+    flightNumber = recvJson["flightNumber"]
+    flightDate = recvJson["flightDate"]
+    fsrcLocation = recvJson['fsrcLocation']
+    fdstLocation = recvJson['fdstLocation']
+    Class = recvJson['Class']
+    fare = recvJson["fare"]
+    print(recvJson)
+    addFlightResource(flightCarrier,flightNumber,flightDate,fsrcLocation,fdstLocation,Class,fare)
+    return str(json.dumps({"addFlight":"true"}))
+
+
 
 @app.route('/cruises')
 def cruises():
