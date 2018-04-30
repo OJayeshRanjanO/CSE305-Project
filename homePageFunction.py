@@ -60,7 +60,7 @@ def getLocationList():
 def getRoomTypeList():
     connection = connect_db()
 
-    query = "SELECT Accommodation_Type FROM Accommodation"
+    query = "SELECT DISTINCT Accommodation_Type FROM Accommodation"
     cursor = connection.cursor()
     cursor.execute(query)
     roomType = cursor.fetchall()
@@ -201,10 +201,14 @@ def generateCheckoutList(numPassengers,cartList):
             connection.close()
     return car_list,flight_list,cruise_list,acccommodation_list
 
-def getReviewList():
+def getReviewList(item):
+    item = item.split("-")
+    resource = "AccommodationID" if item[0] == "Accommodation" else "CruiseID"
+    ID = item[1]
+
     connection = connect_db()
 
-    query = "SELECT * FROM Review"
+    query = "SELECT (SELECT Name FROM Passenger WHERE Passenger.PassengerID = PRR.PassengerID) AS Name ,Review_Details,Rating FROM Passenger_Reviews_Resources AS PRR WHERE " + str(resource) +" = " + str(ID)
     cursor = connection.cursor()
     cursor.execute(query)
     reviews = cursor.fetchall()
@@ -213,4 +217,25 @@ def getReviewList():
     return reviews
 
 if __name__ == '__main__':
-    print(listAllHotels())
+    x = getReviewList("Accommodation-1")
+    print(x)
+    # connection = connect_db()
+    # query = "SELECT * FROM Passenger_Reviews_Resources WHERE AccommodationID = 1"
+    #
+    # cursor = connection.cursor()
+    # cursor.execute(query)
+    # connection.commit()
+    # carsList = cursor.fetchall()
+    # print(carsList)
+    # connection.close()
+    #
+    # connection = connect_db()
+    # query = "SELECT * FROM Accommodation WHERE AccommodationID = 1"
+    #
+    # cursor = connection.cursor()
+    # cursor.execute(query)
+    # connection.commit()
+    # carsList = cursor.fetchall()
+    # print(carsList)
+    # connection.close()
+

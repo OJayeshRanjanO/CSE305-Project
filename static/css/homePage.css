@@ -145,12 +145,25 @@ i:hover{
 .addToCart{
     color:black;
 /*    padding: 20%;*/
+    padding-left:35%; 
+    padding-top: 20%;
+
+}
+.addToCart:hover{color:brown;}
+
+.addToCartNonReview{
+    color:black;
+/*    padding: 20%;*/
     padding-left:40%; 
     padding-top: 20%;
 
 }
+.addToCartNonReview:hover{color:brown;}
 
-.addToCart:hover{color:brown;}
+.review{
+    color:black;
+}
+.review:hover{color:#75056d;}
 
 .card-hover{
     position: absolute;

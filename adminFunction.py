@@ -221,4 +221,3 @@ def addFlightResource(flightCarrier,flightNumber,flightDate,fsrcLocation,fdstLoc
 
     connection.commit()
     connection.close()
-

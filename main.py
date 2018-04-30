@@ -23,7 +23,8 @@ def home():
 def createGroup():
     recvJson = request.get_json()
     session['passengers'] = recvJson['numPassengers']
-    print("TEST",session['passengers'],session['email'])
+    session['cart'] = []
+    print("TEST",session['passengers'],session['email'],session['cart'])
     return str(json.dumps({"createGroup":"true"}))
 
 @app.route('/checkLogin',methods=['POST'])
@@ -289,6 +290,12 @@ def generateCheckout():
     # print("TEST",returnValue)
     return str(json.dumps({"Car":returnValue[0],"Flight":returnValue[1],"Cruise":returnValue[2],"Accommodation":returnValue[3],"Passengers":session['passengers']}))
 
+@app.route('/fetchReview',methods=['POST'])
+def fetchReview():
+    recvJson = request.get_json()
+    item = recvJson['item']
+    returnValue = getReviewList(item)
+    return str(json.dumps({"Reviews":returnValue}))
 
 @app.route('/logout')
 def logout():
