@@ -56,7 +56,7 @@ def listAllCars():
 
 def listAllHotels():
     connection = connect_db()
-    query = "SELECT AccommodationID,Accommodation_Type,Facilities,Size," \
+    query = "SELECT AccommodationID,Accommodation_Type,Facilities,Size,Active," \
             "(SELECT City FROM Location WHERE Location = LocationID) AS Location" \
             " FROM Accommodation ORDER BY AccommodationID DESC"
 
@@ -72,7 +72,7 @@ def toggleResourceOnOff(nodeValue):
     connection = connect_db()
     # query = "UPDATE "+ str(nodeValue[0]) + " SET "
     if nodeValue[0] == "Accommodation":
-        query = "SELECT Active FROM " + str(nodeValue[0]) + " WHERE AccommodationID = " + str(nodeValue[1])
+        query = "SELECT Active FROM Accommodation WHERE AccommodationID = " + str(nodeValue[1])
     else:
         query = "SELECT Active FROM Transportation WHERE TransportationID = " + str(nodeValue[1])
     cursor = connection.cursor()
@@ -221,3 +221,15 @@ def addFlightResource(flightCarrier,flightNumber,flightDate,fsrcLocation,fdstLoc
 
     connection.commit()
     connection.close()
+
+
+if __name__ == '__main__':
+    connection = connect_db()
+    query = "SELECT * FROM Accommodation"
+
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+    carsList = cursor.fetchall()
+    connection.close()
+    print(carsList)

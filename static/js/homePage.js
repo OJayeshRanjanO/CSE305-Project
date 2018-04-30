@@ -456,13 +456,11 @@ function rating(number){
   // alert($("#rating1").parent().attr("value"));
 }
 
-// function removeRating(){
-//   $( "#rating1" ).removeClass( "checked" );
-//   $( "#rating2" ).removeClass( "checked" );
-//   $( "#rating3" ).removeClass( "checked" );
-//   $( "#rating4" ).removeClass( "checked" );
-//   $( "#rating5" ).removeClass( "checked" );
-// }
+function addHotelReview(){
+  var rating = $("#rating1").parent().attr("value");
+  // var
+}
+
 
 function redirectTo(id){
   // alert(id);
