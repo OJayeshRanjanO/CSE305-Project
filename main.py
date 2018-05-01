@@ -57,26 +57,12 @@ def registerUser():
     returnValue = registerPassenger(name, gender, age, email, password)
     return str(json.dumps({"registered":"true"})) if returnValue else str(json.dumps({"registered":"false"}))
 
-@app.route('/employeePage')
-def employeePage():
-    # if 'email' not in session:
-    #     return redirect(url_for('index'))
-    # print(session['email'])
-    return render_template("employee.html")
-
 @app.route('/admin')
 def admin():
     # if 'email' not in session:
     #     return redirect(url_for('index'))
     # print(session['email'])
     return render_template("admin.html")
-
-@app.route('/review')
-def review():
-    # if 'email' not in session:
-    #     return redirect(url_for('index'))
-    # print(session['email'])
-    return render_template("review.html")
 
 @app.route('/getLocation',methods=['POST'])
 def getLocation():
@@ -311,7 +297,7 @@ def addReview():
     rating = recvJson['rating']
     setReview(item,comment,rating,session['email'])
     returnValue = getReviewList(item)
-    print(returnValue)
+    # print(returnValue)
     return str(json.dumps({"Reviews":returnValue}))
 
 @app.route('/logout')

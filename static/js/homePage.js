@@ -496,31 +496,36 @@ function addReview(){
   var comment = document.getElementById("reviewDetails").value.toString();
   var item = $("#resourceReview").attr("value");
   $("#addReviewButton").attr("disabled","disabled");
+  if (comment.length < 1 || comment.length > 500){
+    $("#reviewDetails").css("border","2px solid red");
+    $("#addReviewButton").removeAttr("disabled");
+    return
+  }
 
 
-  $.ajax({
-      type: "POST",
-      url: "/addReview",
-      data: JSON.stringify({"rating":rating,"comment":comment,"item":item}),
-      dataType: "json",
-      contentType : "application/json"
-    }).done(function (data, textStatus, jqXHR) {
-        $("#resourceReview").empty();
+  // $.ajax({
+  //     type: "POST",
+  //     url: "/addReview",
+  //     data: JSON.stringify({"rating":rating,"comment":comment,"item":item}),
+  //     dataType: "json",
+  //     contentType : "application/json"
+  //   }).done(function (data, textStatus, jqXHR) {
+  //       $("#resourceReview").empty();
 
-        data = data.Reviews;
-        stringToAppend = "";
-        for (var i = 0; i < data.length;i++){
-          stringToAppend +=
-          `<a href="#" class="list-group-item"> 
-            Name: `+ data[i].Name +`<br>
-            Comment:  `+ data[i].Review_Details +`<br>
-            Rating:  `+ data[i].Rating +`<br>
-          </a>`
-        }
-        // alert(stringToAppend);
-        $("#resourceReview").append(stringToAppend);
+  //       data = data.Reviews;
+  //       stringToAppend = "";
+  //       for (var i = 0; i < data.length;i++){
+  //         stringToAppend +=
+  //         `<a href="#" class="list-group-item"> 
+  //           Name: `+ data[i].Name +`<br>
+  //           Comment:  `+ data[i].Review_Details +`<br>
+  //           Rating:  `+ data[i].Rating +`<br>
+  //         </a>`
+  //       }
+  //       // alert(stringToAppend);
+  //       $("#resourceReview").append(stringToAppend);
 
-    });
+  //   });
 }
 
 

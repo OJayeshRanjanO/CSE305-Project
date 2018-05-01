@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<title>This is a test</title>
+<title>Resort Hub</title>
 <html>
     <head>
+        <link rel="shortcut icon" type="image/png" href="/static/images/RH.ico"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/css/homePage.css">
-        <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">    
+        <link href="https://fonts.googleapis.com/css?family=Shrikhand|Gugi" rel="stylesheet">    
         <script type="text/javascript" src="/static/js/homePage.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
     <body onload="getLocations()">
         <div class=resourceTypeWrapper>
-            <div class="resouceBanner">
+            <div class="resourceBanner">
                 Resort Hub
             </div>
             <div class="resourceType">
                 <button id="hotel" class=resourceTabs onclick="redirectTo(this.id);">Hotels</button>
                 <button id="flight" class=resourceTabs onclick="redirectTo(this.id);">Flights</button>
-                <button id="cruise" class=resourceTabs style="background-color: grey">Cruise</button>
+                <button id="cruise" class=resourceTabs style="background: -webkit-linear-gradient(#ff4e50, #f9d423)">Cruise</button>
                 <button id="car" class=resourceTabs onclick="redirectTo(this.id);">Cars</button>
             </div>
             <div class=accountInfo>
@@ -69,7 +70,7 @@
               <div class="modal-header">
                   <div class="form-group">
                     <label for="reviewDetails">Add Review</label>
-                    <textarea id=reviewDetails placeholder="Comment ..." style="width: 100%;height: 100px;" ></textarea>
+                    <textarea id=reviewDetails placeholder="Comment (Max Length: 500) ..." style="width: 100%;height: 100px;" onclick="removeRedBorder(this.id);"></textarea>
                     <div id=reviewRating value=0>
                         <span id=rating0 onmouseover="rating(0);" >X</span>
                         <span id=rating1 onmouseover="rating(1);" class="fa fa-star "></span>
