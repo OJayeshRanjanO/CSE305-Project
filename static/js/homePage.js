@@ -83,6 +83,26 @@ function searchFlights(){
   var flightClass = $("#flightClass").find(":selected").text();
   var flightPassengers = $("#flightPassengers").val();
   // alert(flightFrom + " " + flightTo+ " " + flightLeavingDate + " " + flightClass+ " "+ flightPassengers);
+  if (flightFrom === "From"){
+    $("#From").css("border","2px solid red");
+    return;
+  }
+  if (flightTo === "To"){
+    $("#To").css("border","2px solid red");
+    return;
+  }
+  if (flightLeavingDate === "mm/yy/dddd" || flightLeavingDate === ""){
+    $("#flightLeavingDate").css("border","2px solid red");
+    return;
+  }
+  if (flightClass === "Class"){
+    $("#flightClass").css("border","2px solid red");
+    return;
+  }
+  if (flightPassengers < 1){
+    $("#flightPassengers").css("border","2px solid red");
+    return;
+  }
   var checkoutInfo = 
   {
     "resource":"flight",
@@ -133,6 +153,22 @@ function searchCruises(){
   var cruiseLeavingDate = $("#cruiseLeavingDate").val().toString();
   var cruisePassengers = $("#cruisePassengers").val();
   // alert(cruiseFrom + " " + cruiseTo+ " " + cruiseLeavingDate + " "+ cruisePassengers);
+  if (cruiseFrom === "From"){
+    $("#From").css("border","2px solid red");
+    return;
+  }
+  if (cruiseTo === "To"){
+    $("#To").css("border","2px solid red");
+    return;
+  }
+  if (cruiseLeavingDate === "mm/yy/dddd" || cruiseLeavingDate === ""){
+    $("#cruiseLeavingDate").css("border","2px solid red");
+    return;
+  }
+  if (cruisePassengers < 1){
+    $("#cruisePassengers").css("border","2px solid red");
+    return;
+  }
   var checkoutInfo = 
   {
     "resource":"cruise",
@@ -208,7 +244,15 @@ function carMetaData(){
 function searchCars(){
   var carCompany = $("#carCompany").find(":selected").text();
   var carType = $("#carType").find(":selected").text();
-  // alert(flightFrom + " " + flightTo+ " " + flightLeavingDate + " " + flightClass+ " "+ flightPassengers);
+  // alert(carType + " " + carCompany);
+  if (carCompany === "Company"){
+    $("#carCompany").css("border","2px solid red");
+    return;
+  }
+  if (carType === "Type"){
+    $("#carType").css("border","2px solid red");
+    return;
+  }
   var checkoutInfo = 
   {
     "resource":"car",
@@ -253,7 +297,19 @@ function searchHotels(){
   var location = $("#location").find(":selected").text();
   var accommodationType = $("#accommodationType").find(":selected").text();
   // alert(flightFrom + " " + flightTo+ " " + flightLeavingDate + " " + flightClass+ " "+ flightPassengers);
-  // alert(accommodationType + " " + location + " " + guests)
+  // alert(accommodationType + " " + location + " " + guests);
+  if (location === "Location"){
+    $("#location").css("border","2px solid red");
+    return;
+  }
+  if (accommodationType === "Type"){
+    $("#accommodationType").css("border","2px solid red");
+    return;
+  }
+  if (guests < 1){
+    $("#guests").css("border","2px solid red");
+    return;
+  }
   var checkoutInfo = 
   {
     "resource":"hotel",
@@ -472,3 +528,7 @@ function redirectTo(id){
 }
 
 
+function removeRedBorder(field){
+  $("#"+field).css("border","none");
+
+}

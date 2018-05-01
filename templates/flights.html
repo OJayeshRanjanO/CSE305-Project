@@ -30,25 +30,24 @@
         <div class=resourceDataWrapper>
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
-                  <select id="From" class="form-control dropdown">
+                  <select id="From" class="form-control dropdown" onclick="removeRedBorder(this.id);">
                     <option value="" disabled selected hidden>From</option>
-
                   </select>
                 </div>
                 <div class="form-group resourceDataSelector">
-                  <select id="To" class="form-control dropdown">
+                  <select id="To" class="form-control dropdown" onclick="removeRedBorder(this.id);">
                     <option value="" disabled selected hidden style="color:grey">To</option>
                   </select>
                 </div>
-                <input id="flightLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
+                <input id="flightLeavingDate" onclick="removeRedBorder(this.id);" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
                 <div class="form-group resourceDataSelector">
-                  <select id="flightClass" class="form-control dropdown">
+                  <select id="flightClass" class="form-control dropdown" onclick="removeRedBorder(this.id);">
                     <option value="" disabled selected hidden style="color:grey">Class</option>
                     <option>Business</option>
                     <option>Economy</option>
                   </select>
                 </div>
-                <input id="flightPassengers" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers" readonly>
+                <input id="flightPassengers" onclick="removeRedBorder(this.id);" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers" readonly>
                 <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchFlights();"><span class="glyphicon glyphicon-search"></span></button>       
             </div>
             <div id="flightSearchResults" class=searchResults>

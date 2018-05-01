@@ -31,17 +31,17 @@
         <div class=resourceDataWrapper>
             <div class=resourceData >
                 <div class="form-group resourceDataSelector">
-                  <select id="From" class="form-control dropdown">
+                  <select id="From" class="form-control dropdown" onclick="removeRedBorder(this.id);">
                     <option value="" disabled selected hidden>From</option>
                   </select>
                 </div>
                 <div class="form-group resourceDataSelector">
-                  <select id="To" class="form-control dropdown">
+                  <select id="To" class="form-control dropdown" onclick="removeRedBorder(this.id);">
                     <option value="" disabled selected hidden style="color:grey">To</option>
                   </select>
                 </div>
-                <input id="cruiseLeavingDate" required="" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')"/>
-                <input id="cruisePassengers" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers" readonly>
+                <input id="cruiseLeavingDate" type="text" class="form-control leavingDate" placeholder=" Leaving Date" onfocus="(this.type='date')" onclick="removeRedBorder(this.id);"/>
+                <input id="cruisePassengers" class="form-control numPassengers" type="number" id="example-number-input" placeholder="Passengers" readonly onclick="removeRedBorder(this.id);">
                 <button type="button" class="btn btn-default" style="position:relative;top:10px;float:right;margin-right:5px;" onclick="searchCruises();"><span class="glyphicon glyphicon-search"></span></button>       
             </div>
             <div id="cruiseSearchResults" class=searchResults>
