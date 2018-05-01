@@ -18,7 +18,7 @@ i:hover{
     position: relative;    
 }
 
-.resouceBanner{
+.resourceBanner{
     position: relative;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -26,10 +26,19 @@ i:hover{
     float: left;
     height: 90px;
     float:left;
-    color:white;
-    font-family: 'Shrikhand', cursive;
+    background: -webkit-linear-gradient(#23074d, #cc5333); /* Chrome 10-25, Safari 5.1-6 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 50px;
+    font-family: 'Gugi', cursive;
 }
+
+@media only screen and (max-width: 1450px) {
+    .resourceBanner {
+        color:black;
+    }
+}
+
 
 .resourceType{
     position: absolute;

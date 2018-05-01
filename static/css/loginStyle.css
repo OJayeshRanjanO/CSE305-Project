@@ -51,7 +51,7 @@ i:hover{
     position: relative;    
 }
 
-.resouceBanner{
+.resourceBanner{
     position: relative;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -59,10 +59,37 @@ i:hover{
     float: left;
     height: 90px;
     float:left;
-    color:white;
-    font-family: 'Shrikhand', cursive;
+    background: -webkit-linear-gradient(#fc4a1a, #f7b733); /* Chrome 10-25, Safari 5.1-6 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 50px;
+    font-family: 'Gugi', cursive;
 }
+
+.resourceBannerHomePage{
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:5px;
+    float: left;
+    height: 90px;
+    float:left;
+    background: -webkit-linear-gradient(#667db6, #0082c8, #0082c8, #667db6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 50px;
+    font-family: 'Gugi', cursive;
+}
+
+@media only screen and (max-width: 1450px) {
+    .resourceBanner {
+        color:black;
+    }
+    .resourceBannerHomePage{
+        color: black;
+    }
+}
+
 
 .resourceType{
     position: absolute;
