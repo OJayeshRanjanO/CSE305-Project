@@ -295,13 +295,23 @@ def fetchReview():
     recvJson = request.get_json()
     item = recvJson['item']
     returnValue = getReviewList(item)
-    return str(json.dumps({"Reviews":returnValue}))
+    userInReview = "False"
+    for review in returnValue:
+        if review['Email'] == session['email']:
+            userInReview = "True"
+            break
+    # print(returnValue)
+    return str(json.dumps({"Reviews":returnValue,"userInReview":userInReview}))
 
 @app.route('/addReview',methods=['POST'])
 def addReview():
     recvJson = request.get_json()
     item = recvJson['item']
+    comment = recvJson['comment']
+    rating = recvJson['rating']
+    setReview(item,comment,rating,session['email'])
     returnValue = getReviewList(item)
+    print(returnValue)
     return str(json.dumps({"Reviews":returnValue}))
 
 @app.route('/logout')

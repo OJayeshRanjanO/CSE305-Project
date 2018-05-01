@@ -350,36 +350,6 @@ function searchHotels(){
     });
 }
 
-function reviewResource(obj){
-
-  var item = obj.parentNode.parentNode.childNodes[11].getAttribute("value");
-  // alert(item);
-  $("#resourceReview").attr("value",item);
-  $.ajax({
-    type: "POST",
-    url: "/fetchReview",
-    data:JSON.stringify({"item":item}),
-    dataType: "json",
-    contentType : "application/json"
-  }).done(function (data, textStatus, jqXHR) {
-    $("#resourceReview").empty();
-
-      data = data.Reviews;
-      stringToAppend = "";
-      for (var i = 0; i < data.length;i++){
-        stringToAppend +=
-        `<a href="#" class="list-group-item"> 
-          Name: `+ data[i].Name +`<br>
-          Comment:  `+ data[i].Review_Details +`<br>
-          Rating:  `+ data[i].Rating +`<br>
-        </a>`
-      }
-      // alert(stringToAppend);
-      $("#resourceReview").append(stringToAppend);
-
-  });
-}
-
 function getUserItems(){
     $.ajax({
       type: "POST",
@@ -483,6 +453,76 @@ function getUserItems(){
 
 }
 
+function reviewResource(obj){
+
+  var item = obj.parentNode.parentNode.childNodes[11].getAttribute("value");
+  // alert(item);
+  $("#resourceReview").attr("value",item);
+  $("#addReviewButton").removeAttr("disabled");
+  document.getElementById("reviewDetails").value = "";
+  rating(0);
+
+
+  $.ajax({
+    type: "POST",
+    url: "/fetchReview",
+    data:JSON.stringify({"item":item}),
+    dataType: "json",
+    contentType : "application/json"
+  }).done(function (data, textStatus, jqXHR) {
+    $("#resourceReview").empty();
+      if (data.userInReview === "True"){
+          $("#addReviewButton").attr("disabled","disabled");
+      }
+      data = data.Reviews;
+      stringToAppend = "";
+      for (var i = 0; i < data.length;i++){
+        stringToAppend +=
+        `<a href="#" class="list-group-item"> 
+          Name: `+ data[i].Name +`<br>
+          Comment:  `+ data[i].Review_Details +`<br>
+          Rating:  `+ data[i].Rating +`<br>
+        </a>`
+      }
+      // alert(stringToAppend);
+      $("#resourceReview").append(stringToAppend);
+
+  });
+}
+
+
+function addReview(){
+  var rating = $("#rating1").parent().attr("value");
+  var comment = document.getElementById("reviewDetails").value.toString();
+  var item = $("#resourceReview").attr("value");
+  $("#addReviewButton").attr("disabled","disabled");
+
+
+  $.ajax({
+      type: "POST",
+      url: "/addReview",
+      data: JSON.stringify({"rating":rating,"comment":comment,"item":item}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+        $("#resourceReview").empty();
+
+        data = data.Reviews;
+        stringToAppend = "";
+        for (var i = 0; i < data.length;i++){
+          stringToAppend +=
+          `<a href="#" class="list-group-item"> 
+            Name: `+ data[i].Name +`<br>
+            Comment:  `+ data[i].Review_Details +`<br>
+            Rating:  `+ data[i].Rating +`<br>
+          </a>`
+        }
+        // alert(stringToAppend);
+        $("#resourceReview").append(stringToAppend);
+
+    });
+}
+
 
 function rating(number){
   $("#rating1").parent().attr("value",number)
@@ -511,12 +551,6 @@ function rating(number){
 
   // alert($("#rating1").parent().attr("value"));
 }
-
-function addHotelReview(){
-  var rating = $("#rating1").parent().attr("value");
-  // var
-}
-
 
 function redirectTo(id){
   // alert(id);

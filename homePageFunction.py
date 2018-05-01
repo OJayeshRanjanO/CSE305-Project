@@ -208,7 +208,7 @@ def getReviewList(item):
 
     connection = connect_db()
 
-    query = "SELECT (SELECT Name FROM Passenger WHERE Passenger.PassengerID = PRR.PassengerID) AS Name ,Review_Details,Rating FROM Passenger_Reviews_Resources AS PRR WHERE " + str(resource) +" = " + str(ID)
+    query = "SELECT (SELECT Name FROM Passenger WHERE Passenger.PassengerID = PRR.PassengerID) AS Name, (SELECT Email FROM Passenger WHERE Passenger.PassengerID = PRR.PassengerID) AS Email ,Review_Details,Rating FROM Passenger_Reviews_Resources AS PRR WHERE " + str(resource) +" = " + str(ID)
     cursor = connection.cursor()
     cursor.execute(query)
     reviews = cursor.fetchall()
@@ -216,11 +216,29 @@ def getReviewList(item):
 
     return reviews
 
+def setReview(item,comment,rating,email):
+    item = item.split("-")
+
+    connection = connect_db()
+    if item[0] == "Accommodation":
+       query = "INSERT INTO Passenger_Reviews_Resources(PassengerID, AccommodationID,Review_Details,Rating) VALUES" \
+    " ("+ str("(SELECT PassengerID FROM Passenger WHERE Email = \'"+ email +"\' )") +","+ str(item[1])+",\'"+ comment +"\',"+ str(rating)+");"
+    else:
+        query = "INSERT INTO Passenger_Reviews_Resources(PassengerID, CruiseID,Review_Details,Rating) VALUES" \
+    " ("+ str("(SELECT PassengerID FROM Passenger WHERE Email = \'"+ email +"\' )") +","+ str(item[1])+",\'"+ comment +"\',"+ str(rating)+");"
+    print("TEST " + query)
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print()
+    connection.commit()
+    connection.close()
+
+
 if __name__ == '__main__':
     # x = getReviewList("Accommodation-1")
     # print(x)
     connection = connect_db()
-    query = "SELECT * FROM Passenger_Reviews_Resources WHERE AccommodationID = 1"
+    query = "SELECT * FROM Passenger"
 
     cursor = connection.cursor()
     cursor.execute(query)

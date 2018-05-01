@@ -68,7 +68,7 @@
               <div class="modal-header">
                   <div class="form-group">
                     <label for="reviewDetails">Add Review</label>
-                    <textarea id=reviewDetails placeholder="Comment ..." style="width: 100%;height: 100px;" ></textarea>
+                    <textarea id="reviewDetails" placeholder="Comment ..." style="width: 100%;height: 100px;" ></textarea>
                     <div id=reviewRating value=0>
                         <span id=rating0 onmouseover="rating(0);" >X</span>
                         <span id=rating1 onmouseover="rating(1);" class="fa fa-star "></span>
@@ -84,7 +84,7 @@
                         
                     </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addHotelReview()">Add</button>
+                  <button id="addReviewButton" type="button" class="btn btn-default" onclick="addReview()">Add</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
