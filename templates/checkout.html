@@ -24,11 +24,19 @@
             <div class=userInfo>
                 <input id="fname" class="form-control splitColumn" type="text" placeholder="First Name" required>
                 <input id="lname" class="form-control splitColumn" type="text" placeholder="Last Name" required>
-                <input id="lname" class="form-control splitColumn" style="width:28.5vw" type="number" placeholder="Credit Card" required>
-                <input id="lname" class="form-control splitColumn" style="width:13vw" type="number" placeholder="CVV" required>
-                <input id="lname" class="form-control splitColumn" style="width:28.5vw" type="number" placeholder="Address" required>
+                <input id="cc" class="form-control splitColumn" style="width:28.5vw" type="number" placeholder="Credit Card" required>
+                <input id="exp" class="form-control splitColumn" style="width:11.3vw" type="text" placeholder="Expiration Date" onfocus="(this.type='date')" required>
+                <input id="cvv" class="form-control splitColumn" style="width:6vw" type="text" placeholder="CVV" required>
+                <select id="cardType" class="form-control splitColumn" style="width:6vw" >
+                    <option value="" disabled selected hidden style="color:grey">Type</option>
+                    <option value="">VISA</option>
+                    <option value="">Amex</option>
+                    <option value="">Master Card</option>
+                    <option value="">Discover</option>
+                </select>
+                <input id="addr" class="form-control splitColumn" style="width:28.5vw" type="text" placeholder="Address" required>
                 <label id=totalCost class=splitColumn style="font-size:25px;"></label>
-                <button type="button" class="btn btn-dark splitColumn" style="background-color:black">Checkout</button>
+                <button type="button" class="btn btn-dark splitColumn" style="background-color:black" onclick="checkoutItems()">Checkout</button>
             </div>
             <div id="checkOutItems" class=userItems>
             </div>

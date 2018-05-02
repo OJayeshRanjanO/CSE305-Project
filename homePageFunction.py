@@ -146,7 +146,7 @@ def checkAvailableHotel(Accommodation_Type,Location,Guests):
     connection.close()
     return accommodation_list
 
-def generateCheckoutList(numPassengers,cartList):
+def generateCheckoutList(cartList):
     attr = {"Car":[],"Flight":[],"Cruise":[],"Accommodation":[]}
     car_list,flight_list,cruise_list,acccommodation_list = [],[],[],[]
     for i in cartList:
@@ -201,6 +201,84 @@ def generateCheckoutList(numPassengers,cartList):
             connection.close()
     return car_list,flight_list,cruise_list,acccommodation_list
 
+def payTripFinal(userInfo,partySize,email,itemList):
+    car_list,flight_list,cruise_list,acccommodation_list = itemList
+    connection = connect_db()
+    query = "INSERT INTO Party(Party_Leader, Party_Size, Active) VALUES ("+ \
+            str("(SELECT PassengerID FROM Passenger WHERE Email = \'"+ email +"\' )")+\
+            ","+ str(partySize)+",1);"
+    print(query)
+    cursor = connection.cursor()
+    cursor.execute(query)
+
+    query = "SELECT PartyID FROM Party ORDER BY PartyID DESC LIMIT 1"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = (cursor.fetchall())[0]
+    print(query)
+
+    id = data['PartyID']
+
+    query = "INSERT INTO Employee_Helps_Party (EmployeeID,PartyID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'CSR' ORDER BY RAND() LIMIT 1),"+str(id)+");"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print(query)
+
+    query = "INSERT INTO Passenger_MemberOf_Party(PassengerID, PartyID) VALUES ("+\
+            str("(SELECT PassengerID FROM Passenger WHERE Email = \'"+ email +"\' )")+\
+            ","+ str(id)+");"
+    print(query)
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print()
+
+    #Add to Relationship Types
+    for data in acccommodation_list:
+        query = "INSERT INTO Party_Books_Accommodation (PartyID,AccommodationID) VALUES ("+str(id)+","+ str(data['AccommodationID']) +");"
+        print(query)
+        cursor = connection.cursor()
+        cursor.execute(query)
+        # print(cursor.fetchall())
+        print()
+    for data in cruise_list:
+        query = "INSERT INTO Party_Selects_Transportation (TransportationID, PartyID) VALUES ("+ str(data['CruiseID']) +","+ str(id) +")"
+        print(query)
+        cursor = connection.cursor()
+        cursor.execute(query)
+        print(cursor.fetchall())
+        print()
+    for data in flight_list:
+        query = "INSERT INTO Party_Selects_Transportation (TransportationID, PartyID) VALUES ("+ str(data['FlightID']) +","+ str(id) +")"
+        print(query)
+        cursor = connection.cursor()
+        cursor.execute(query)
+        print(cursor.fetchall())
+        print()
+    for data in car_list:
+        query = "INSERT INTO Party_Selects_Transportation (TransportationID, PartyID) VALUES ("+ str(data['CarID']) +","+ str(id) +")"
+        print(query)
+        cursor = connection.cursor()
+        cursor.execute(query)
+        print(cursor.fetchall())
+        print()
+
+    #Payment# (Payment_Type, Card_Number, Card_Holder_Name ,Card_Exp_Date, Transaction_Time, Amount_Paid)
+    query = "INSERT INTO Payment (Payment_Type, Card_Number, Card_Holder_Name ,Card_Exp_Date, Transaction_Time, Amount_Paid) VALUES " \
+            "(\'"+str(userInfo[0])+"\',"+str(userInfo[1])+",\'"+str(userInfo[2])+"\',"+userInfo[3]+",now(),"+userInfo[4]+");"
+    print(query)
+    cursor = connection.cursor()
+    cursor.execute(query)
+
+    query = "INSERT INTO Party_Makes_Payment (PartyID, PaymentID) VALUES ("+str(id)+",(SELECT PaymentID FROM Payment ORDER BY PaymentID DESC LIMIT 1));"
+    print(query)
+    cursor = connection.cursor()
+    cursor.execute(query)
+    print()
+
+    connection.commit()
+    connection.close()
+    return None
+
 def getReviewList(item):
     item = item.split("-")
     resource = "AccommodationID" if item[0] == "Accommodation" else "CruiseID"
@@ -234,26 +312,51 @@ def setReview(item,comment,rating,email):
     connection.close()
 
 
-if __name__ == '__main__':
-    # x = getReviewList("Accommodation-1")
-    # print(x)
-    connection = connect_db()
-    query = "SELECT * FROM Passenger"
+# if __name__ == '__main__':
+#     connection = connect_db()
+#     # query = "SELECT PartyID FROM Party ORDER BY PartyID DESC LIMIT 1"
+#     query = "SELECT PaymentID FROM Payment ORDER BY PaymentID DESC LIMIT 1"
+#     print(query)
+#     cursor = connection.cursor()
+#     cursor.execute(query)
+#     print()
+#     # print(cursor.fetchall())
+#     paymentID = cursor.fetchall()[0]
+#     connection.commit()
+#     print(paymentID)
+#
+#     query = "SELECT PartyID FROM Party "
+#     print(query)
+#     cursor = connection.cursor()
+#     cursor.execute(query)
+#     print()
+#     # print(cursor.fetchall())
+#     partyID = cursor.fetchall()
+#     connection.commit()
+#     # connection.close()
+#     print(partyID)
+#
+#
+#     # # connection = connect_db()
+#     query = "INSERT INTO Party_Makes_Payment (PartyID, PaymentID) VALUES ("+str(partyID)+",(1));"
+#     print(query)
+#     cursor = connection.cursor()
+#     cursor.execute(query)
+#     print()
+#
+#     connection.commit()
+#     # connection.close()
+#
+#     query = "SELECT * FROM Party_Makes_Payment"
+#     print(query)
+#     cursor = connection.cursor()
+#     cursor.execute(query)
+#     print()
+#     # print(cursor.fetchall())
+#     Party_Makes_Payment = cursor.fetchall()
+#     connection.commit()
+#     connection.close()
+#     print(Party_Makes_Payment)
 
-    cursor = connection.cursor()
-    cursor.execute(query)
-    connection.commit()
-    carsList = cursor.fetchall()
-    print(carsList)
-    connection.close()
-    #
-    # connection = connect_db()
-    # query = "SELECT * FROM Accommodation WHERE AccommodationID = 1"
-    #
-    # cursor = connection.cursor()
-    # cursor.execute(query)
-    # connection.commit()
-    # carsList = cursor.fetchall()
-    # print(carsList)
-    # connection.close()
+
 

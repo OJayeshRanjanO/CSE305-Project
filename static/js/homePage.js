@@ -448,10 +448,45 @@ function getUserItems(){
       $("#checkOutItems").append(checkoutList);
       // alert(cost);
       $("#totalCost").text("Total: $"+cost);
+      $("#totalCost").attr("value",cost);
+
+    });
+}
+
+function checkoutItems(){
+  // alert("TEST")
+  var fname = $("#fname").val();
+  var lname = $("#lname").val();
+  var cc = $("#cc").val();
+  var cvv = $("#cvv").val();
+  var exp = $("#exp").val().toString();
+  var addr = $("#addr").val();
+  var cost = $("#totalCost").attr("value");
+  var cardType = $("#cardType").find(":selected").text();
+  alert(cost)
+
+  // # (Payment_Type, Card_Number, Card_Holder_Name ,Card_Exp_Date, Transaction_Time, Amount_Paid)
+
+  var toSend = {
+    "Payment_Type":cardType,
+    "Card_Holder_Name":fname + " " + lname,
+    "Card_Number":cc,
+    "Card_Exp_Date":exp,
+    "Amount_Paid":cost
+  }
+
+ $.ajax({
+      type: "POST",
+      url: "/payTrip",
+      data:JSON.stringify({"userInfo":toSend}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
 
     });
 
 }
+
 
 function reviewResource(obj){
 
@@ -503,29 +538,29 @@ function addReview(){
   }
 
 
-  // $.ajax({
-  //     type: "POST",
-  //     url: "/addReview",
-  //     data: JSON.stringify({"rating":rating,"comment":comment,"item":item}),
-  //     dataType: "json",
-  //     contentType : "application/json"
-  //   }).done(function (data, textStatus, jqXHR) {
-  //       $("#resourceReview").empty();
+  $.ajax({
+      type: "POST",
+      url: "/addReview",
+      data: JSON.stringify({"rating":rating,"comment":comment,"item":item}),
+      dataType: "json",
+      contentType : "application/json"
+    }).done(function (data, textStatus, jqXHR) {
+        $("#resourceReview").empty();
 
-  //       data = data.Reviews;
-  //       stringToAppend = "";
-  //       for (var i = 0; i < data.length;i++){
-  //         stringToAppend +=
-  //         `<a href="#" class="list-group-item"> 
-  //           Name: `+ data[i].Name +`<br>
-  //           Comment:  `+ data[i].Review_Details +`<br>
-  //           Rating:  `+ data[i].Rating +`<br>
-  //         </a>`
-  //       }
-  //       // alert(stringToAppend);
-  //       $("#resourceReview").append(stringToAppend);
+        data = data.Reviews;
+        stringToAppend = "";
+        for (var i = 0; i < data.length;i++){
+          stringToAppend +=
+          `<a href="#" class="list-group-item"> 
+            Name: `+ data[i].Name +`<br>
+            Comment:  `+ data[i].Review_Details +`<br>
+            Rating:  `+ data[i].Rating +`<br>
+          </a>`
+        }
+        // alert(stringToAppend);
+        $("#resourceReview").append(stringToAppend);
 
-  //   });
+    });
 }
 
 

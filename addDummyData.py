@@ -285,8 +285,6 @@ def init_Party():
         cursor.execute(query)
         print()
 
-
-
     connection.commit()
     connection.close()
 

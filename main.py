@@ -272,9 +272,25 @@ def checkout():
 
 @app.route('/generateCheckout',methods=['POST'])
 def generateCheckout():
-    returnValue = generateCheckoutList(session['passengers'],session['cart'])
+    returnValue = generateCheckoutList(session['cart'])
     # print("TEST",returnValue)
     return str(json.dumps({"Car":returnValue[0],"Flight":returnValue[1],"Cruise":returnValue[2],"Accommodation":returnValue[3],"Passengers":session['passengers']}))
+
+@app.route('/payTrip',methods=['POST'])
+def payTrip():
+    recvJson = request.get_json()
+    userInfo = recvJson['userInfo']
+    userInfo = (userInfo['Payment_Type'],userInfo['Card_Number'],userInfo['Card_Holder_Name'],userInfo['Card_Exp_Date'],userInfo['Amount_Paid'])
+    itemList = session['cart']
+    partySize = session['passengers']
+    email = session['email']
+    # print(userInfo,itemList,partySize,email)
+# (Payment_Type, Card_Number, Card_Holder_Name ,Card_Exp_Date, Transaction_Time, Amount_Paid)
+
+    returnValue = generateCheckoutList(itemList)
+    payTripFinal(userInfo,partySize,email,returnValue)
+    return str(json.dumps({"payment":"true"}))
+
 
 @app.route('/fetchReview',methods=['POST'])
 def fetchReview():
