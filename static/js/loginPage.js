@@ -13,7 +13,8 @@ function login()
         data = $.parseJSON(JSON.stringify(data));
         if (data.login === "None"){
 //                alert(data.login);
-            $("#loginForm").append("<div style='color:red'> Incorrect password or password </div><br>")
+            $("#loginForm").remove("#inc")
+            $("#loginForm").append("<div id=inc style='color:red'> Incorrect password or password </div><br>")
             $("#email").css("border","2px solid red");
             $("#pwd").css("border","2px solid red");
         }else if (data.login === "Passenger"){

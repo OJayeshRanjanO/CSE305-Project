@@ -2,22 +2,21 @@ from dbConnect import *
 
 def checkPassengerCredentials(email,password):
     connection = connect_db()
-    query = "SELECT * FROM Passenger where Email = %s AND Password = Password( %s )"
+    query = "SELECT * FROM Passenger where Email = \'"+email+"\' AND Password = Password(\'"+password+"\')"
     print(query)
     cursor = connection.cursor()
-    cursor.execute(query,(email,password))
+    cursor.execute(query)
     data = cursor.fetchall()
-    print(data)
-    if len(cursor.fetchall()) != 0:
+    print(len(data))
+    if len(data) != 0:
         connection.close()
         return "Passenger"
-    query = "SELECT * FROM Employee where Email = %s AND Password = Password( %s )"
+    query = "SELECT * FROM Employee where Email = \'"+email+"\' AND Password = Password(\'"+password+"\')"
     print(query)
     cursor = connection.cursor()
-    cursor.execute(query,(email,password))
+    cursor.execute(query)
     data = cursor.fetchall()
-    print(data)
-    if len(cursor.fetchall()) != 0:
+    if len(data) != 0:
         connection.close()
         return "Employee"
     connection.close()
