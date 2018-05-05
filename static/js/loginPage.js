@@ -79,9 +79,9 @@ function viewGroup(){
             Location: `+resourceData.Location+`&emsp;
             Type: `+resourceData.Accommodation_Type+`&emsp;
             Facilities: `+resourceData.Facilities+`&emsp;
-            Rate/Stay: `+resourceData.Rate+`
+            Rate/Stay: `+(resourceData.Rate * ((100.0 - resourceData.Discount)/100.0))+`
             </a>`
-            cost+=resourceData.Rate;
+            cost+=(resourceData.Rate * ((100.0 - resourceData.Discount)/100.0));
           }
           if (resourceData.FlightID){
             stringToAppend+=`

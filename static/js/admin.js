@@ -163,9 +163,21 @@ function toggleResource(obj){
 }
 
 function addCar(){
+  removeRedBorder('carCompany');
+  removeRedBorder('price');
   var carType = $("#carType").find(":selected").text();
   var carCompany = $("#carCompany").val();
   var price = $("#price").val();
+
+  if (carCompany === ""){
+    $("#carCompany").css("border","2px solid red");
+    return;
+  }
+  if (price === ""){
+    $("#price").css("border","2px solid red");
+    return;
+  }
+  $("#addCar").modal('hide');
 
   $.ajax({
       type: "POST",
@@ -180,13 +192,36 @@ function addCar(){
 }
 
 function addHotel(){
+  removeRedBorder('facilities');
+  removeRedBorder('rate');
+  removeRedBorder('discount');
+  removeRedBorder('size');
+
   var accommodationType = $("#accommodationType").find(":selected").text();
-  var location =  $("#location").text();
+  var location =  $("#location").find(":selected").text();
   var facilities = $("#facilities").val();
   var rate = $("#rate").val();
   var discount = $("#discount").val();
   var size = $("#size").val();
-  alert(accommodationType + " " + location + " " + facilities + " " + rate + " " + discount + " " + size);
+  // alert(accommodationType + " " + location + " " + facilities + " " + rate + " " + discount + " " + size);
+  if (facilities === ""){
+    $("#facilities").css("border","2px solid red");
+    return;
+  }
+  if (rate <= 0){
+    $("#rate").css("border","2px solid red");
+    return;
+  }
+  if (discount < 0 || discount > 100 || discount ===""){
+    $("#discount").css("border","2px solid red");
+    return;
+  }
+  if (size < 1){
+    $("#size").css("border","2px solid red");
+    return;
+  }
+
+  $("#addHotel").modal('hide');
 
 
   $.ajax({
@@ -202,12 +237,29 @@ function addHotel(){
 
 
 function addCruise(){
+  removeRedBorder('cruiseName');
+  removeRedBorder('cruiseDate');
+  removeRedBorder('fare');
   var cruiseName =  $("#cruiseName").val();
   var cruiseDate =  $("#cruiseDate").val().toString();
   var csrcLocation = $("#csrcLocation").find(":selected").text();
   var cdstLocation = $("#cdstLocation").find(":selected").text();
   var fare = $("#fare").val();
-  alert(cruiseName + " " + cruiseDate + " " + csrcLocation + " " + cdstLocation + " " + fare);
+  // alert(cruiseName + " " + cruiseDate + " " + csrcLocation + " " + cdstLocation + " " + fare);
+  if (cruiseName === ""){
+    $("#cruiseName").css("border","2px solid red");
+    return;
+  }
+  if (cruiseDate === "mm/yy/dddd" || cruiseDate === ""){
+    $("#cruiseDate").css("border","2px solid red");
+    return;
+  }
+  if (fare <= 0){
+    $("#fare").css("border","2px solid red");
+    return;
+  }
+
+  $("#addCruise").modal('hide');
 
 
   $.ajax({
@@ -220,29 +272,13 @@ function addCruise(){
 
     });
 }
-
-function addCruise(){
-  var cruiseName =  $("#cruiseName").val();
-  var cruiseDate =  $("#cruiseDate").val().toString();
-  var csrcLocation = $("#csrcLocation").find(":selected").text();
-  var cdstLocation = $("#cdstLocation").find(":selected").text();
-  var fare = $("#fare").val();
-  alert(cruiseName + " " + cruiseDate + " " + csrcLocation + " " + cdstLocation + " " + fare);
-
-
-  $.ajax({
-      type: "POST",
-      url: "/addCruise",
-      data:JSON.stringify({"cruiseName":cruiseName,"cruiseDate":cruiseDate,"csrcLocation":csrcLocation,"cdstLocation":cdstLocation,"fare":fare}),
-      dataType: "json",
-      contentType : "application/json"
-    }).done(function (data, textStatus, jqXHR) {
-
-    });
-}
-
 
 function addFlight(){
+  removeRedBorder('flightCarrier');
+  removeRedBorder('flightNumber');
+  removeRedBorder('flightDate');
+  removeRedBorder('flightFare');
+
   var flightCarrier =  $("#flightCarrier").val();
   var flightNumber =  $("#flightNumber").val();
   var flightDate =  $("#flightDate").val().toString();
@@ -250,7 +286,26 @@ function addFlight(){
   var fdstLocation = $("#fdstLocation").find(":selected").text();
   var Class = $("#Class").find(":selected").text();
   var flightFare = $("#flightFare").val();
-  alert(flightCarrier+ " " + flightNumber + " " + flightDate + " " + fsrcLocation + " " + fdstLocation + " " + Class + " " + flightFare);
+
+  if (flightCarrier === ""){
+    $("#flightCarrier").css("border","2px solid red");
+    return;
+  }
+  if (flightNumber === ""){
+    $("#flightNumber").css("border","2px solid red");
+    return;
+  }
+  if (flightDate === "mm/yy/dddd" || flightDate === ""){
+    $("#flightDate").css("border","2px solid red");
+    return;
+  }
+  if (flightFare <= 0){
+    $("#flightFare").css("border","2px solid red");
+    return;
+  }
+
+  $("#addFlight").modal('hide');
+
   var obj = {
     "flightCarrier":flightCarrier,
     "flightNumber":flightNumber,
@@ -355,3 +410,8 @@ function viewResource(){
 
 }
 
+
+function removeRedBorder(field){
+  $("#"+field).css("border","none");
+
+}

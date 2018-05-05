@@ -341,7 +341,7 @@ function searchHotels(){
                   <div class="cardBodyFlight">Location: ` + location +`</div>
                   <div class="cardBodyDeparture">Facilities: ` + data[i].Facilities +`</div>
                   <div class="cardBodyDeparture">Size: ` + data[i].Size +`</div>
-                  <div class="cardBodyDeparture">Rate: $`+ data[i].Rate +`</div>
+                  <div class="cardBodyDeparture">Rate: $`+ (data[i].Rate * ((100.0 - data[i].Discount)/100.0)) +`</div>
                   <div class=card-hover>
                     <i data-target="#addedToCart" data-toggle="modal" onclick="addToCart(this);" class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i>
                     <i data-target="#showHotelReview" data-toggle="modal" onclick="reviewResource(this);" class="material-icons review" style="font-size:50px">speaker_notes</i>
@@ -443,11 +443,11 @@ function getUserItems(){
             </div>
             <div class=itemCost>
               <br>
-              <p>Price: $`+ (accommodation[i].Rate * passengers) + `</p>
+              <p>Price: $`+ (accommodation[i].Rate * ((100.0 - accommodation[i].Discount)/100.0)) + `</p>
             </div>
           </div>`
 
-          cost+= (accommodation[i].Rate * passengers);
+          cost+= (accommodation[i].Rate * ((100.0 - accommodation[i].Discount)/100.0));
       }
       $("#checkOutItems").append(checkoutList);
       // alert(cost);

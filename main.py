@@ -48,6 +48,7 @@ def checkLogin():
     returnValue = checkPassengerCredentials(email,password)
     if returnValue:
         session['email'] = email
+        session['passengers'] = 0
     return str(json.dumps({"login":returnValue}))
 
 @app.route('/register-page')
@@ -82,7 +83,7 @@ def getLocation():
     if 'email' not in session:
         return logout()
     returnValue = getLocationList()
-    print("Passengers: " + str(session['passengers']))
+    # print("Passengers: " + str(session['passengers']))
     return json.dumps({"location":returnValue,"numPassengers":str(session['passengers'])})
 
 

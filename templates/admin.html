@@ -11,7 +11,7 @@
         <script type="text/javascript" src="/static/js/admin.js"></script>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-    <body onload="updateGUI('flight')"">
+    <body onload="updateGUI('flight')">
         <div class=resourceTypeWrapper>
             <div class="resourceBanner">
                 Admin
@@ -55,20 +55,20 @@
 
                   <div class="form-group">
                     <label for="carCompany">Car Company</label>
-                    <input type="text" class="form-control" id="carCompany" placeholder="Car Company" required>
+                    <input type="text" class="form-control" id="carCompany" placeholder="Car Company" required onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <label for="carType">Car Type</label>
-                  <select id=carType placeholder="Car Type" class="form-control" required>
+                  <select id=carType placeholder="Car Type" class="form-control" required >
                   </select>
                   <br>
                   <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" placeholder="Price" required>
+                    <input type="number" class="form-control" id="price" placeholder="Price" required onclick="removeRedBorder(this.id);">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick=addCar();>Add</button>
+                  <button type="button" class="btn btn-default" onclick=addCar();>Add</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
@@ -97,26 +97,26 @@
                   <br>
                   <div class="form-group">
                     <label for="facilities">Facilities</label>
-                    <input id="facilities" type="text" class="form-control" placeholder="Facilities">
+                    <input id="facilities" type="text" class="form-control" placeholder="Facilities" onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <div class="form-group">
                     <label for="rate">Rate</label>
-                    <input id="rate" type="number" class="form-control" placeholder="Rate">
+                    <input id="rate" type="number" class="form-control" placeholder="Rate" onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <div class="form-group">
                     <label for="discount">Discount</label>
-                    <input id="discount" type="number" class="form-control" placeholder="Discount">
+                    <input id="discount" type="number" class="form-control" placeholder="Discount" onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <div class="form-group">
                     <label for="size">Size</label>
-                    <input id="size" type="number" class="form-control" placeholder="Size">
+                    <input id="size" type="number" class="form-control" placeholder="Size" onclick="removeRedBorder(this.id);">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addHotel();">Add</button>
+                  <button type="button" class="btn btn-default" onclick="addHotel();">Add</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
@@ -137,12 +137,12 @@
 
                   <div class="form-group">
                     <label for="cruiseName">Cruise Name</label>
-                    <input id="cruiseName" type="text" class="form-control" placeholder="Cruise Name">
+                    <input id="cruiseName" type="text" class="form-control" placeholder="Cruise Name" onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <div class="form-group">
                     <label for="cruiseDate">Schedule Date</label>
-                    <input id="cruiseDate" type="date" class="form-control" placeholder="Date">
+                    <input id="cruiseDate" type="date" class="form-control" placeholder="Date" onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <label for="csrcLocation">Source Location</label>
@@ -155,11 +155,11 @@
                   <br>
                   <div class="form-group">
                     <label for="fare">Fare</label>
-                    <input id="fare" type="number" class="form-control" placeholder="Fare">
+                    <input id="fare" type="number" class="form-control" placeholder="Fare" onclick="removeRedBorder(this.id);">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addCruise()">Add</button>
+                  <button type="button" class="btn btn-default" onclick="addCruise()">Add</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
@@ -180,17 +180,17 @@
 
                   <div class="form-group">
                     <label for="flightCarrier">Flight Carrier</label>
-                    <input id="flightCarrier" type="text" class="form-control" placeholder="Flight Carrier">
+                    <input id="flightCarrier" type="text" class="form-control" placeholder="Flight Carrier" onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <div class="form-group">
                     <label for="flightNumber">Flight Number</label>
-                    <input id="flightNumber" type="text" class="form-control" placeholder="Flight Number">
+                    <input id="flightNumber" type="text" class="form-control" placeholder="Flight Number" onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <div class="form-group">
                     <label for="flightDate">Schedule Date</label>
-                    <input id="flightDate" type="date" class="form-control" placeholder="Date">
+                    <input id="flightDate" type="date" class="form-control" placeholder="Date" onclick="removeRedBorder(this.id);">
                   </div>
                   <br>
                   <label for="fsrcLocation">Source Location</label>
@@ -209,11 +209,11 @@
                   <br>
                   <div class="form-group">
                     <label for="flightFare">Fare</label>
-                    <input id="flightFare" type="number" class="form-control" placeholder="Fare">
+                    <input id="flightFare" type="number" class="form-control" placeholder="Fare" onclick="removeRedBorder(this.id);">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" onclick="addFlight()">Add</button>
+                  <button type="button" class="btn btn-default" onclick="addFlight()">Add</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
