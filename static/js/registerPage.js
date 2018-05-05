@@ -25,6 +25,7 @@ function register()
     registerData += "&gender=" + gender;
     // Stores it to a JSON type
     registerData = toJSON(registerData);
+
     $.ajax({
         type: "POST",
         url: "/registerUser",

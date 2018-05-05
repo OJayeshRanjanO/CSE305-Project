@@ -4,8 +4,10 @@ body{
     width: 100vw;
     height: 100vh;
     background-color: white;
-    background-image: url(../images/adventure2.png);
+    background-image: url(../images/comic0.jpg);
     background-size: 100vw 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 #registerBox{
@@ -33,7 +35,7 @@ label {
 
 #registerLabel{
     position: relative;
-    font-family: 'Shrikhand', cursive;
+    font-family: 'Gugi', cursive;
     font-size: 50px;
     color: white;
     top: 20%;

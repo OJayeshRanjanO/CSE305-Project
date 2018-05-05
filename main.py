@@ -16,12 +16,14 @@ def index():
 def home():
     session['cart'] = []
     if 'email' not in session:
-        return redirect(url_for('index'))
+        return logout()
     print(session['email'])
     return render_template("home.html")
 
 @app.route('/createGroup',methods=['POST'])
 def createGroup():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     session['passengers'] = recvJson['numPassengers']
     session['cart'] = []
@@ -30,6 +32,8 @@ def createGroup():
 
 @app.route('/viewGroup',methods=['POST'])
 def viewGroup():
+    if 'email' not in session:
+        return logout()
     email = session['email']
     returnValue = fetchParty(email)
     return str(json.dumps({"viewGroup":returnValue[0],"partyInfo":returnValue[1]}))
@@ -44,7 +48,7 @@ def checkLogin():
     returnValue = checkPassengerCredentials(email,password)
     if returnValue:
         session['email'] = email
-    return str(json.dumps({"login":"true"})) if returnValue else str(json.dumps({"login":"false"}))
+    return str(json.dumps({"login":returnValue}))
 
 @app.route('/register-page')
 def register():
@@ -68,13 +72,15 @@ def registerUser():
 
 @app.route('/admin')
 def admin():
-    # if 'email' not in session:
-    #     return redirect(url_for('index'))
-    # print(session['email'])
+    if 'email' not in session:
+        return logout()
+    print(session['email'])
     return render_template("admin.html")
 
 @app.route('/getLocation',methods=['POST'])
 def getLocation():
+    if 'email' not in session:
+        return logout()
     returnValue = getLocationList()
     print("Passengers: " + str(session['passengers']))
     return json.dumps({"location":returnValue,"numPassengers":str(session['passengers'])})
@@ -83,14 +89,14 @@ def getLocation():
 @app.route('/flights')
 def flights():
     if 'email' not in session:
-        return redirect(url_for('index'))
+        return logout()
     print(session['email'])
     return render_template("flights.html")
 
 @app.route('/searchFlights',methods=['POST'])
 def searchFlights():
-    # if 'email' not in session:
-    #     return redirect(url_for('index'))
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     flightFrom = recvJson["flightFrom"]
     flightTo = recvJson["flightTo"]
@@ -105,26 +111,36 @@ def searchFlights():
 
 @app.route('/listFlights',methods=['POST'])
 def listFlights():
+    if 'email' not in session:
+        return logout()
     returnValue = listAllFlights()
     return str(json.dumps({"flightList":returnValue}))
 
 @app.route('/listCruises',methods=['POST'])
 def listCruises():
+    if 'email' not in session:
+        return logout()
     returnValue = listAllCruises()
     return str(json.dumps({"cruiseList":returnValue}))
 
 @app.route('/listCars',methods=['POST'])
 def listCars():
+    if 'email' not in session:
+        return logout()
     returnValue = listAllCars()
     return str(json.dumps({"carsList":returnValue}))
 
 @app.route('/listHotels',methods=['POST'])
 def listHotels():
+    if 'email' not in session:
+        return logout()
     returnValue = listAllHotels()
     return str(json.dumps({"hotelsList":returnValue}))
 
 @app.route('/toggle',methods=['POST'])
 def toggle():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     nodeValue = recvJson["nodeValue"]
     toggleResourceOnOff(nodeValue)
@@ -132,6 +148,8 @@ def toggle():
 
 @app.route('/addCar',methods=['POST'])
 def addCar():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     price = recvJson["price"]
     car_type = recvJson["carType"]
@@ -141,6 +159,8 @@ def addCar():
 
 @app.route('/addHotel',methods=['POST'])
 def addHotel():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     accommodationType = recvJson["accommodationType"]
     location = recvJson["location"]
@@ -154,6 +174,8 @@ def addHotel():
 
 @app.route('/addCruise',methods=['POST'])
 def addCruise():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     cruiseName = recvJson["cruiseName"]
     cruiseDate = recvJson["cruiseDate"]
@@ -167,6 +189,8 @@ def addCruise():
 
 @app.route('/addFlight',methods=['POST'])
 def addFlight():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     flightCarrier = recvJson["flightCarrier"]
     flightNumber = recvJson["flightNumber"]
@@ -184,12 +208,14 @@ def addFlight():
 @app.route('/cruises')
 def cruises():
     if 'email' not in session:
-        return redirect(url_for('cruises'))
+        return logout()
     print(session['email'])
     return render_template("cruises.html")
 
 @app.route('/searchCruises',methods=['POST'])
 def searchCrusies():
+    if 'email' not in session:
+        return logout()
     #{"cruiseFrom":"Moscow","cruiseTo":"Beijing","cruiseLeavingDate":"2018-04-07","cruisePassengers":1}
     recvJson = request.get_json()
     cruiseFrom = recvJson["cruiseFrom"]
@@ -204,18 +230,22 @@ def searchCrusies():
 @app.route('/cars')
 def cars():
     if 'email' not in session:
-        return redirect(url_for('cars'))
+        return logout()
     print(session['email'])
     return render_template("cars.html")
 
 @app.route('/getCarData',methods=['POST'])
 def getCarData():
+    if 'email' not in session:
+        return logout()
     returnValue1 = getCarCompany()
     returnValue2 = getCarType()
     return str(json.dumps({"carCompany":returnValue1,"carType":returnValue2}))
 
 @app.route('/searchCars',methods=['POST'])
 def searchCars():
+    if 'email' not in session:
+        return logout()
     # {"carCompany":"Hertz","carType":"Economy"}
     recvJson = request.get_json()
     Car_Type = recvJson["carType"]
@@ -229,19 +259,23 @@ def searchCars():
 @app.route('/hotels')
 def hotels():
     if 'email' not in session:
-        return redirect(url_for('hotels'))
+        return logout()
     print(session['email'])
     return render_template("hotels.html")
 
 
 @app.route('/getRoomType',methods=['POST'])
 def getRoomType():
+    if 'email' not in session:
+        return logout()
     returnValue = getRoomTypeList()
     return str(json.dumps({"roomList":returnValue}))
 
 
 @app.route('/searchHotels',methods=['POST'])
 def searchHotels():
+    if 'email' not in session:
+        return logout()
     # {"accommodationType":"Economy","location":"Moscow","guests":2 }
     recvJson = request.get_json()
     print(recvJson)
@@ -255,7 +289,8 @@ def searchHotels():
 
 @app.route('/addToCart',methods=['POST'])
 def addToCart():
-    print(session)
+    if 'email' not in session:
+        return logout()
 
     if 'cart' not in session:
         session['cart'] = []
@@ -274,18 +309,22 @@ def addToCart():
 @app.route('/checkout')
 def checkout():
     if 'email' not in session:
-        return redirect(url_for('index'))
+        return logout()
     print(session)
     return render_template("checkout.html")
 
 @app.route('/generateCheckout',methods=['POST'])
 def generateCheckout():
+    if 'email' not in session:
+        return logout()
     returnValue = generateCheckoutList(session['cart'])
     # print("TEST",returnValue)
     return str(json.dumps({"Car":returnValue[0],"Flight":returnValue[1],"Cruise":returnValue[2],"Accommodation":returnValue[3],"Passengers":session['passengers']}))
 
 @app.route('/payTrip',methods=['POST'])
 def payTrip():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     userInfo = recvJson['userInfo']
     userInfo = (userInfo['Payment_Type'],userInfo['Card_Number'],userInfo['Card_Holder_Name'],userInfo['Card_Exp_Date'],userInfo['Amount_Paid'])
@@ -302,6 +341,8 @@ def payTrip():
 
 @app.route('/fetchReview',methods=['POST'])
 def fetchReview():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     item = recvJson['item']
     returnValue = getReviewList(item)
@@ -315,6 +356,8 @@ def fetchReview():
 
 @app.route('/addReview',methods=['POST'])
 def addReview():
+    if 'email' not in session:
+        return logout()
     recvJson = request.get_json()
     item = recvJson['item']
     comment = recvJson['comment']
@@ -329,7 +372,9 @@ def logout():
     print(session)
     if 'email' in session:
         session.pop('email', None)
+    if 'cart' in session:
         session.pop('cart',None)
+    if 'passengers' in session:
         session.pop('passengers',None)
 
         print(session)

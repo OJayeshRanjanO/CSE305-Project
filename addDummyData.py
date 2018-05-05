@@ -20,24 +20,24 @@ def init_Employee():
     connection.close()
 
 
-# def init_Transportation():
-#     # for i in range(7):
-#     type = ['Car','Cruise','Flight']
-#     connection = connect_db()
-#     query = "INSERT INTO Transportation (Transportation_Type) VALUES (\'" + random.choice(type) + "\');"
-#     # query = "INSERT INTO Transportation (Transportation_Type) VALUES (\'" + type[2] + "\');"
-#     cursor = connection.cursor()
-#     cursor.execute(query)
-#
-#     query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
-#     cursor = connection.cursor()
-#     cursor.execute(query)
-#     data = (cursor.fetchall())[0]
-#     if data['Transportation_Type'] == 'Car':
-#         init_Car()
-#
-#     connection.commit()
-#     connection.close()
+def init_Transportation():
+    # for i in range(7):
+    type = ['Car','Cruise','Flight']
+    connection = connect_db()
+    query = "INSERT INTO Transportation (Transportation_Type) VALUES (\'" + random.choice(type) + "\');"
+    # query = "INSERT INTO Transportation (Transportation_Type) VALUES (\'" + type[2] + "\');"
+    cursor = connection.cursor()
+    cursor.execute(query)
+
+    query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    data = (cursor.fetchall())[0]
+    if data['Transportation_Type'] == 'Car':
+        init_Car()
+
+    connection.commit()
+    connection.close()
 
 def init_Car():
     connection = connect_db()

@@ -11,12 +11,15 @@ function login()
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
         data = $.parseJSON(JSON.stringify(data));
-        if (data.login === "fail"){
+        if (data.login === "None"){
 //                alert(data.login);
-            $("#loginContainer").append("<div style='color:red'> Incorrect password or password </div>")
-        }else if (data.login === "true"){
-            // localStorage.setItem("username", data.username);
+            $("#loginForm").append("<div style='color:red'> Incorrect password or password </div><br>")
+            $("#email").css("border","2px solid red");
+            $("#pwd").css("border","2px solid red");
+        }else if (data.login === "Passenger"){
             window.location.href = "/home"
+        }else if (data.login === "Employee"){
+            window.location.href = "/admin"
         }
     });
 }
