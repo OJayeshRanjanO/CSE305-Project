@@ -25,7 +25,7 @@
             </div>
             <div class=accountInfo>
                 <i class="material-icons" style="font-size:50px;color:white"onclick="checkOut();">local_grocery_store</i>
-                <i class="material-icons" style="font-size:50px;color:white" >group_work</i>
+                <i class="material-icons" style="font-size:50px;color:white" data-toggle="modal" data-target="#groupCreate">group_work</i>
                 <i class="material-icons" style="font-size:50px;color:white" onclick="logout();">exit_to_app</i>
             </div>   
         </div>
@@ -48,18 +48,18 @@
             </div>
         </div>
 
-          <div class="modal fade" id="addedToCart" role="dialog">
-            <div class="modal-dialog modal-sm">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <p style="text-align: center">Item has been added to your Cart</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+        <div class="modal fade" id="addedToCart" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-body">
+                <p style="text-align: center">Item has been added to your Cart</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
+        </div>
 
 
         <div class="modal fade" id="showHotelReview" role="dialog">
@@ -80,17 +80,34 @@
                     </div>
                   </div>
               </div>
-                <div class="modal-body">
-                    <div id=resourceReview class="list-group" value="">
-                        
-                    </div>
-                <div class="modal-footer">
-                  <button id="addReviewButton" type="button" class="btn btn-default" onclick="addReview()">Add</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+              <div class="modal-body">
+                  <div id=resourceReview class="list-group" value="">
+                      
+                  </div>
               </div>
-              
+              <div class="modal-footer">
+                <button id="addReviewButton" type="button" class="btn btn-default" onclick="addReview()">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>   
+          </div>
+      </div>
+
+      <div class="modal fade" id="groupCreate" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" style="color:red">
+                WARNING!
+            </div>
+            <div class="modal-body">
+              <p style="text-align: center">All items in your shopping cart will be removed.<br>Do you want to continue? </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="createNewGroup();">Continue</button>
             </div>
           </div>
+        </div>
+      </div>
     </body>
 </html>

@@ -250,7 +250,7 @@ function addCruise(){
     $("#cruiseName").css("border","2px solid red");
     return;
   }
-  if (cruiseDate === "mm/yy/dddd" || cruiseDate === ""){
+  if (cruiseDate === "mm/dd/yyyy" || cruiseDate === ""){
     $("#cruiseDate").css("border","2px solid red");
     return;
   }
@@ -295,8 +295,13 @@ function addFlight(){
     $("#flightNumber").css("border","2px solid red");
     return;
   }
-  if (flightDate === "mm/yy/dddd" || flightDate === ""){
+  if (flightDate === "mm/dd/yyyy" || flightDate === ""){
     $("#flightDate").css("border","2px solid red");
+    return;
+  }
+  if (fsrcLocation === fdstLocation){
+    $("#fsrcLocation").css("border","2px solid red");
+    $("#fdstLocation").css("border","2px solid red");
     return;
   }
   if (flightFare <= 0){
@@ -413,5 +418,21 @@ function viewResource(){
 
 function removeRedBorder(field){
   $("#"+field).css("border","none");
+
+}
+
+function getCurrentDate(obj){
+  obj.type='date'
+  var d = new Date();
+  var month = d.getMonth()+1;
+  if (month < 10){
+    month = "0"+(d.getMonth()+1)
+  }
+  var day = d.getDate()+1;
+  if (day < 10){
+    day = "0"+(d.getMonth()+1)
+  }
+  $("#"+obj.id).attr("value",d.getFullYear()+"-"+month+"-"+day);
+  $("#"+obj.id).attr("min",d.getFullYear()+"-"+month+"-"+day);
 
 }

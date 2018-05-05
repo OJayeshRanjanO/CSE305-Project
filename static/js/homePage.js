@@ -81,6 +81,12 @@ function createNewGroup(){
 }
 
 function searchFlights(){
+  removeRedBorder('From');
+  removeRedBorder('To');
+  removeRedBorder('flightLeavingDate');
+  removeRedBorder('flightClass');
+  removeRedBorder('flightPassengers');
+
   var flightFrom = $("#From").find(":selected").text();
   var flightTo = $("#To").find(":selected").text();
   var flightLeavingDate = $("#flightLeavingDate").val().toString();
@@ -95,7 +101,12 @@ function searchFlights(){
     $("#To").css("border","2px solid red");
     return;
   }
-  if (flightLeavingDate === "mm/yy/dddd" || flightLeavingDate === ""){
+  if (flightFrom === flightTo){
+    $("#From").css("border","2px solid red");
+    $("#To").css("border","2px solid red");
+    return;
+  }
+  if (flightLeavingDate === "mm/dd/yyyy" || flightLeavingDate === ""){
     $("#flightLeavingDate").css("border","2px solid red");
     return;
   }
@@ -151,7 +162,11 @@ function searchFlights(){
 }
 
 function searchCruises(){
-  // alert("TEST");
+  removeRedBorder('From');
+  removeRedBorder('To');
+  removeRedBorder('cruiseLeavingDate');
+  removeRedBorder('cruisePassengers');
+
   var cruiseFrom = $("#From").find(":selected").text();
   var cruiseTo = $("#To").find(":selected").text();
   var cruiseLeavingDate = $("#cruiseLeavingDate").val().toString();
@@ -165,7 +180,7 @@ function searchCruises(){
     $("#To").css("border","2px solid red");
     return;
   }
-  if (cruiseLeavingDate === "mm/yy/dddd" || cruiseLeavingDate === ""){
+  if (cruiseLeavingDate === "mm/dd/yyyy" || cruiseLeavingDate === ""){
     $("#cruiseLeavingDate").css("border","2px solid red");
     return;
   }
@@ -246,6 +261,9 @@ function carMetaData(){
 }
 
 function searchCars(){
+  removeRedBorder('carCompany');
+  removeRedBorder('carType');
+
   var carCompany = $("#carCompany").find(":selected").text();
   var carType = $("#carType").find(":selected").text();
   // alert(carType + " " + carCompany);
@@ -297,6 +315,10 @@ function searchCars(){
 }
 
 function searchHotels(){
+  removeRedBorder('guests');
+  removeRedBorder('location');
+  removeRedBorder('accommodationType');
+
   var guests = $("#guests").val();
   var location = $("#location").find(":selected").text();
   var accommodationType = $("#accommodationType").find(":selected").text();
@@ -467,10 +489,43 @@ function checkoutItems(){
   var addr = $("#addr").val();
   var cost = $("#totalCost").attr("value");
   var cardType = $("#cardType").find(":selected").text();
-  alert(cost)
-
-  // # (Payment_Type, Card_Number, Card_Holder_Name ,Card_Exp_Date, Transaction_Time, Amount_Paid)
-
+  // alert(cost)
+  if (cost < 1){
+    $("#emptyCart").modal('show');
+    return;
+  }
+  if (fname === ""){
+    $("#fname").css("border","2px solid red");
+    return;
+  }
+  if (lname === ""){
+    $("#lname").css("border","2px solid red");
+    return;
+  }
+  if (cc === ""){
+    $("#cc").css("border","2px solid red");
+    return;
+  }
+  if (exp === "mm/dd/yyyy" || exp === ""){
+    $("#exp").css("border","2px solid red");
+    return;
+  }
+  if (cvv === ""){
+    $("#cvv").css("border","2px solid red");
+    return;
+  }
+  if (cost === ""){
+    $("#cost").css("border","2px solid red");
+    return;
+  }
+  if (cardType === "Type"){
+    $("#cardType").css("border","2px solid red");
+    return;
+  }
+  if (addr === ""){
+    $("#addr").css("border","2px solid red");
+    return;
+  }
   var toSend = {
     "Payment_Type":cardType,
     "Card_Holder_Name":fname + " " + lname,
@@ -487,7 +542,7 @@ function checkoutItems(){
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
 
-    });
+  });
 
 }
 
@@ -608,5 +663,21 @@ function redirectTo(id){
 
 function removeRedBorder(field){
   $("#"+field).css("border","none");
+
+}
+
+function getCurrentDate(obj){
+  obj.type='date'
+  var d = new Date();
+  var month = d.getMonth()+1;
+  if (month < 10){
+    month = "0"+(d.getMonth()+1)
+  }
+  var day = d.getDate()+1;
+  if (day < 10){
+    day = "0"+(d.getMonth()+1)
+  }
+  $("#"+obj.id).attr("value",d.getFullYear()+"-"+month+"-"+day);
+  $("#"+obj.id).attr("min",d.getFullYear()+"-"+month+"-"+day);
 
 }
