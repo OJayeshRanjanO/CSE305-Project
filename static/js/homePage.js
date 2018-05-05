@@ -76,6 +76,10 @@ function checkOut(){
 
 }
 
+function createNewGroup(){
+    window.location.href = "/home"
+}
+
 function searchFlights(){
   var flightFrom = $("#From").find(":selected").text();
   var flightTo = $("#To").find(":selected").text();

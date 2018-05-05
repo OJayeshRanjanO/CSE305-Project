@@ -14,6 +14,7 @@ def index():
 
 @app.route('/home')
 def home():
+    session['cart'] = []
     if 'email' not in session:
         return redirect(url_for('index'))
     print(session['email'])
@@ -26,6 +27,14 @@ def createGroup():
     session['cart'] = []
     print("TEST",session['passengers'],session['email'],session['cart'])
     return str(json.dumps({"createGroup":"true"}))
+
+@app.route('/viewGroup',methods=['POST'])
+def viewGroup():
+    email = session['email']
+    returnValue = fetchParty(email)
+    return str(json.dumps({"viewGroup":returnValue[0],"partyInfo":returnValue[1]}))
+
+
 
 @app.route('/checkLogin',methods=['POST'])
 def checkLogin():
@@ -258,15 +267,14 @@ def addToCart():
     # print(recvJson['item'])
     x.append(recvJson['item'])
     session['cart'] = x
-    # print(session['cart'])
+    print(session['cart'])
     return str(json.dumps({"addToCart":"true"}))
 
 
 @app.route('/checkout')
 def checkout():
-    # if 'email' not in session:
-    #     return redirect(url_for('index'))
-    # print(session['email'])
+    if 'email' not in session:
+        return redirect(url_for('index'))
     print(session)
     return render_template("checkout.html")
 

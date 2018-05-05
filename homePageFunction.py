@@ -210,6 +210,7 @@ def payTripFinal(userInfo,partySize,email,itemList):
     print(query)
     cursor = connection.cursor()
     cursor.execute(query)
+    connection.commit()
 
     query = "SELECT PartyID FROM Party ORDER BY PartyID DESC LIMIT 1"
     cursor = connection.cursor()
@@ -222,6 +223,7 @@ def payTripFinal(userInfo,partySize,email,itemList):
     query = "INSERT INTO Employee_Helps_Party (EmployeeID,PartyID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'CSR' ORDER BY RAND() LIMIT 1),"+str(id)+");"
     cursor = connection.cursor()
     cursor.execute(query)
+    connection.commit()
     print(query)
 
     query = "INSERT INTO Passenger_MemberOf_Party(PassengerID, PartyID) VALUES ("+\
@@ -230,6 +232,7 @@ def payTripFinal(userInfo,partySize,email,itemList):
     print(query)
     cursor = connection.cursor()
     cursor.execute(query)
+    connection.commit()
     print()
 
     #Add to Relationship Types
@@ -238,6 +241,7 @@ def payTripFinal(userInfo,partySize,email,itemList):
         print(query)
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
         # print(cursor.fetchall())
         print()
     for data in cruise_list:
@@ -245,6 +249,7 @@ def payTripFinal(userInfo,partySize,email,itemList):
         print(query)
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
         print(cursor.fetchall())
         print()
     for data in flight_list:
@@ -252,6 +257,7 @@ def payTripFinal(userInfo,partySize,email,itemList):
         print(query)
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
         print(cursor.fetchall())
         print()
     for data in car_list:
@@ -259,6 +265,7 @@ def payTripFinal(userInfo,partySize,email,itemList):
         print(query)
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
         print(cursor.fetchall())
         print()
 
@@ -268,16 +275,84 @@ def payTripFinal(userInfo,partySize,email,itemList):
     print(query)
     cursor = connection.cursor()
     cursor.execute(query)
+    connection.commit()
 
     query = "INSERT INTO Party_Makes_Payment (PartyID, PaymentID) VALUES ("+str(id)+",(SELECT PaymentID FROM Payment ORDER BY PaymentID DESC LIMIT 1));"
     print(query)
     cursor = connection.cursor()
     cursor.execute(query)
+    connection.commit()
     print()
 
-    connection.commit()
     connection.close()
     return None
+
+def fetchParty(email):
+    connection = connect_db()
+    query = "SELECT PartyID,Party_Size FROM Party WHERE Party_Leader = (SELECT PassengerID FROM Passenger WHERE Email = \'"+str(email)+"\')"
+    # query = "SELECT * FROM Party_Selects_Transportation"
+    cursor = connection.cursor()
+    cursor.execute(query)
+    partyInfo = cursor.fetchall()
+    print(partyInfo)
+    print()
+    finalList,transportList = {},{}
+
+    #All Transportation Info From PARTY SELECTS TRANSPORTATION
+    for party in partyInfo:
+        query = "SELECT " \
+                "(SELECT Transportation.Transportation_Type FROM Transportation WHERE Transportation.TransportationID = PST.TransportationID) AS Type," \
+                " TransportationID FROM Party_Selects_Transportation AS PST WHERE " \
+                "PartyID = " + str(party['PartyID']) + ""
+        cursor = connection.cursor()
+        cursor.execute(query)
+        lst = cursor.fetchall()
+        transportList[party['PartyID']] = lst
+    print()
+    print(transportList)
+    for key in transportList.keys():
+        value = transportList[key]
+        for i in range(len(value)):
+            types = value[i]
+            if types['Type'] == "Car":
+                query = "SELECT * FROM "+str(types['Type'])+" WHERE "+str(types['Type'])+"ID = "+str(types['TransportationID'])+""
+            else:
+                query = "SELECT *,(SELECT City FROM Location WHERE Location.LocationID = Src_Location) AS Src," \
+                        "(SELECT City FROM Location WHERE Location.LocationID = Dst_Location) AS Dst " \
+                        " FROM "+str(types['Type'])+" WHERE "+str(types['Type'])+"ID = "+str(types['TransportationID'])+""
+            # print(query)
+            cursor = connection.cursor()
+            cursor.execute(query)
+            tempValue = cursor.fetchall()[0]
+            if 'Schedule_Date' in tempValue:
+                tempValue['Schedule_Date'] = tempValue['Schedule_Date'].strftime('%Y-%m-%d')
+            # print(tempValue)
+            value[i] = tempValue
+    # print(transportList)
+    print()
+
+    #All Accommodation Info From Party_Books_Accommodation
+    for party in partyInfo:
+        query = "SELECT AccommodationID, (SELECT Accommodation_Type FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Accommodation_Type, " \
+                " (SELECT Rate FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Rate," \
+                " (SELECT Facilities FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Facilities," \
+                " (SELECT Discount FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Discount," \
+                " (SELECT (SELECT City FROM Location WHERE Location.LocationID = Accommodation.Location) FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Location " \
+                "FROM Party_Books_Accommodation AS PBA WHERE " \
+                "PartyID = " + str(party['PartyID']) + ""
+        # query = "SELECT * FROM Accommodation"
+        cursor = connection.cursor()
+        cursor.execute(query)
+        lst = cursor.fetchall()
+
+        finalList[party['PartyID']] = list(lst) + list(transportList[party['PartyID']])
+        # print(lst)
+    print()
+    # print(hotelsList)
+
+    connection.close()
+
+    return finalList,partyInfo
 
 def getReviewList(item):
     item = item.split("-")
@@ -312,51 +387,75 @@ def setReview(item,comment,rating,email):
     connection.close()
 
 
+
+
 # if __name__ == '__main__':
 #     connection = connect_db()
-#     # query = "SELECT PartyID FROM Party ORDER BY PartyID DESC LIMIT 1"
-#     query = "SELECT PaymentID FROM Payment ORDER BY PaymentID DESC LIMIT 1"
-#     print(query)
+#     email = "passenger1@test.com"
+#     connection = connect_db()
+#     query = "SELECT PartyID,Party_Size FROM Party WHERE Party_Leader = (SELECT PassengerID FROM Passenger WHERE Email = \'"+str(email)+"\')"
+#     # query = "SELECT * FROM Party_Selects_Transportation"
 #     cursor = connection.cursor()
 #     cursor.execute(query)
+#     partyInfo = cursor.fetchall()
+#     print(partyInfo)
 #     print()
-#     # print(cursor.fetchall())
-#     paymentID = cursor.fetchall()[0]
-#     connection.commit()
-#     print(paymentID)
+#     finalList,transportList = {},{}
 #
-#     query = "SELECT PartyID FROM Party "
-#     print(query)
-#     cursor = connection.cursor()
-#     cursor.execute(query)
+#     #All Transportation Info From PARTY SELECTS TRANSPORTATION
+#     for party in partyInfo:
+#         query = "SELECT " \
+#                 "(SELECT Transportation.Transportation_Type FROM Transportation WHERE Transportation.TransportationID = PST.TransportationID) AS Type," \
+#                 " TransportationID FROM Party_Selects_Transportation AS PST WHERE " \
+#                 "PartyID = " + str(party['PartyID']) + ""
+#         cursor = connection.cursor()
+#         cursor.execute(query)
+#         lst = cursor.fetchall()
+#         transportList[party['PartyID']] = lst
 #     print()
-#     # print(cursor.fetchall())
-#     partyID = cursor.fetchall()
-#     connection.commit()
-#     # connection.close()
-#     print(partyID)
-#
-#
-#     # # connection = connect_db()
-#     query = "INSERT INTO Party_Makes_Payment (PartyID, PaymentID) VALUES ("+str(partyID)+",(1));"
-#     print(query)
-#     cursor = connection.cursor()
-#     cursor.execute(query)
+#     print(transportList)
+#     for key in transportList.keys():
+#         value = transportList[key]
+#         for i in range(len(value)):
+#             types = value[i]
+#             if types['Type'] == "Car":
+#                 query = "SELECT * FROM "+str(types['Type'])+" WHERE "+str(types['Type'])+"ID = "+str(types['TransportationID'])+""
+#             else:
+#                 query = "SELECT *,(SELECT City FROM Location WHERE Location.LocationID = Src_Location) AS Src," \
+#                         "(SELECT City FROM Location WHERE Location.LocationID = Dst_Location) AS Dst " \
+#                         " FROM "+str(types['Type'])+" WHERE "+str(types['Type'])+"ID = "+str(types['TransportationID'])+""
+#             # print(query)
+#             cursor = connection.cursor()
+#             cursor.execute(query)
+#             tempValue = cursor.fetchall()[0]
+#             if 'Schedule_Date' in tempValue:
+#                 tempValue['Schedule_Date'] = tempValue['Schedule_Date'].strftime('%Y-%m-%d')
+#             # print(tempValue)
+#             value[i] = tempValue
+#     # print(transportList)
 #     print()
 #
-#     connection.commit()
-#     # connection.close()
+#     #All Accommodation Info From Party_Books_Accommodation
+#     for party in partyInfo:
+#         query = "SELECT AccommodationID, (SELECT Accommodation_Type FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Accommodation_Type, " \
+#                 " (SELECT Rate FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Rate," \
+#                 " (SELECT Facilities FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Facilities," \
+#                 " (SELECT Discount FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Discount," \
+#                 " (SELECT (SELECT City FROM Location WHERE Location.LocationID = Accommodation.Location) FROM Accommodation WHERE PBA.AccommodationID = Accommodation.AccommodationID) AS Location " \
+#                 "FROM Party_Books_Accommodation AS PBA WHERE " \
+#                 "PartyID = " + str(party['PartyID']) + ""
+#         # query = "SELECT * FROM Accommodation"
+#         cursor = connection.cursor()
+#         cursor.execute(query)
+#         lst = cursor.fetchall()
 #
-#     query = "SELECT * FROM Party_Makes_Payment"
-#     print(query)
-#     cursor = connection.cursor()
-#     cursor.execute(query)
+#         finalList[party['PartyID']] = list(lst) + list(transportList[party['PartyID']])
+#         # print(lst)
 #     print()
-#     # print(cursor.fetchall())
-#     Party_Makes_Payment = cursor.fetchall()
-#     connection.commit()
+#     # print(hotelsList)
+#
 #     connection.close()
-#     print(Party_Makes_Payment)
+
 
 
 

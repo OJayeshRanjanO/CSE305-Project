@@ -12,7 +12,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
 	  </head>
 
-    <body >
+    <body>
         <div class=resourceTypeWrapper>
             <div class="resourceBannerHomePage">
                 Resort Hub
@@ -23,7 +23,7 @@
         </div>
         <div class=resourceDataWrapper>
         	<button id="cgroup" class=resourceTabs data-toggle="modal" data-target="#chooseName">Create Group</button>
-        	<button id="vgroup" class=resourceTabs onclick="">View Group</button>
+        	<button id="vgroup" class=resourceTabs data-toggle="modal" data-target="#viewGroup" onclick="viewGroup()">View Group</button>
         </div>
 
           <div class="modal fade" id="chooseName" role="dialog">
@@ -38,6 +38,24 @@
                   <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div class="modal fade" id="viewGroup" role="dialog">
+            <div class="modal-dialog modal-lg">
+            
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Groups</h4>
+                </div>
+                <div class="modal-body" id=viewGroups>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
             </div>
           </div>
 
