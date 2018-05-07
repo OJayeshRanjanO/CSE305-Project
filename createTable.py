@@ -1,4 +1,4 @@
-from dbConnect import connect_db
+from dbConnect import *
 
 def Payment():
     connection = connect_db()
@@ -345,6 +345,20 @@ FOREIGN KEY(AccommodationID) REFERENCES Accommodation(AccommodationID)
     connection.commit()
     connection.close()
 if __name__ == '__main__':
+    connection = purge_db()
+    query = "DROP DATABASE cse305"
+    print(query)
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+    print()
+    query = "CREATE DATABASE cse305"
+    print(query)
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+    connection.close()
+
     Payment()
     Passenger()
     Party()

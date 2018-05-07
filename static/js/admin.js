@@ -432,6 +432,7 @@ function getCurrentDate(obj){
   if (day < 10){
     day = "0"+(d.getMonth()+1)
   }
+  console.log(day)
   $("#"+obj.id).attr("value",d.getFullYear()+"-"+month+"-"+day);
   $("#"+obj.id).attr("min",d.getFullYear()+"-"+month+"-"+day);
 

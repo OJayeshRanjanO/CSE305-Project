@@ -16,7 +16,7 @@ def init_Employee():
         cursor = connection.cursor()
         cursor.execute(query)
         print()
-    connection.commit()
+        connection.commit()
     connection.close()
 
 
@@ -28,6 +28,7 @@ def init_Transportation():
     # query = "INSERT INTO Transportation (Transportation_Type) VALUES (\'" + type[2] + "\');"
     cursor = connection.cursor()
     cursor.execute(query)
+    connection.commit()
 
     query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
     cursor = connection.cursor()
@@ -48,6 +49,7 @@ def init_Car():
         query = "INSERT INTO Transportation (Transportation_Type,Active) VALUES ('Car',1);"
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
         print(query)
 
         query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
@@ -62,6 +64,7 @@ def init_Car():
         price += 10
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
         print(query)
 
         query = "INSERT INTO Employee_Manages_Resources (EmployeeID,TransportationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),"+str(id)+");"
@@ -71,7 +74,7 @@ def init_Car():
 
         print()
 
-    connection.commit()
+        connection.commit()
     connection.close()
 
 def init_Flight():
@@ -80,18 +83,21 @@ def init_Flight():
     #2 New York
     #3 New Delhi
     connection = connect_db()
-    Flight_Carrier = ['Aeroflot','China Eastern']
-    Flight_Number = ['AF1','CE1']
-    Schedule_Date = ['2018-03-30 08:09:13','2018-03-31 08:09:13']
-    Src_Location = [2,1]
-    Dst_Location = [1,2]
-    Fare = [100,200]
+    Flight_Carrier = ['Aeroflot','China Eastern','Qantas','Emirates']
+    Flight_Number = {'AF':'Aeroflot','CE':'China Eastern','QU':'Qantas','EM':'Emirates'}
+
+    Schedule_Date = ['2018-05-07 08:09:13']
+    Src_Location = [1,1,1,2,2,3, 2,3,4,3,4,4]
+    Dst_Location = [2,3,4,3,4,4, 1,1,1,2,2,3]
+    Fare = [100,200,300,400]
+    Loc_To_FN = {1:'AF',2:'CE',3:'QU',4:'EM'}
     Class = ['Economy',"Business"]
-    for i in range(len(Flight_Carrier)):
+    for i in range(len(Src_Location)):
         for j in Class:
             query = "INSERT INTO Transportation (Transportation_Type,Active) VALUES ('Flight',1);"
             cursor = connection.cursor()
             cursor.execute(query)
+            connection.commit()
             print(query)
 
             query = "SELECT * FROM Transportation ORDER BY TransportationID DESC LIMIT 1"
@@ -101,11 +107,14 @@ def init_Flight():
             print(query)
 
             id = data['TransportationID']
+            FN = Loc_To_FN[Src_Location[i]]
+            FC = Flight_Number[FN]
             query = "INSERT INTO Flight (FlightID,Flight_Carrier,Flight_Number,Schedule_Date,Src_Location,Dst_Location,Class,Fare) " \
-                    "VALUES (" + str(id) + ",\'" + Flight_Carrier[i] + "\',\'" + Flight_Number[i] + "\',\'" + Schedule_Date[i] + "\'," + str(Src_Location[i]) + "," \
-                    "" + str(Dst_Location[i]) + ",\'" + j + "\'," + ( str(Fare[i]/2) if j == 'Economy' else str(Fare[i]) ) + ");"
+                    "VALUES (" + str(id) + ",\'" + str(FC) + "\',\'" + str(FN+str(Src_Location[i])+str(Dst_Location[i])) + "\',\'" + Schedule_Date[0] + "\'," + str(Src_Location[i]) + "," \
+                    "" + str(Dst_Location[i]) + ",\'" + j + "\'," + ( str(Fare[i%4]/2) if j == 'Economy' else str(Fare[i%4]) ) + ");"
             cursor = connection.cursor()
             cursor.execute(query)
+            connection.commit()
             print(query)
 
             query = "INSERT INTO Employee_Manages_Resources (EmployeeID,TransportationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),"+str(id)+");"
@@ -115,7 +124,7 @@ def init_Flight():
 
             print()
 
-    connection.commit()
+            connection.commit()
     connection.close()
 
 def init_Cruise():
@@ -124,12 +133,12 @@ def init_Cruise():
     #2 New York
     #3 New Delhi
     connection = connect_db()
-    Cruise_Name = ['Maid of the Mists','Caribbean Princess','Black Perl']
-    Schedule_Date = ['2018-03-30 08:09:13','2018-03-31 08:09:13','2018-04-01 00:00:00']
-    Src_Location = [4,1,2]
-    Dst_Location = [1,4,2]
-    Fare = [600,700,800]
-    for i in range(len(Cruise_Name)):
+    Cruise_Name = ['Maid of the Mists','Caribbean Princess','Black Perl','Viking Sails']
+    Schedule_Date = ['2018-05-07 08:09:13']
+    Src_Location = [1,1,1,1,2,2,2,3,3,4, 1,2,3,4,2,3,4,3,4]
+    Dst_Location = [1,2,3,4,2,3,4,3,4,4, 1,1,1,1,2,2,2,3,3]
+    Fare = [500,600,700,800]
+    for i in range(len(Src_Location)):
         query = "INSERT INTO Transportation (Transportation_Type,Active) VALUES ('Cruise',1);"
         cursor = connection.cursor()
         cursor.execute(query)
@@ -143,8 +152,8 @@ def init_Cruise():
 
         id = data['TransportationID']
         query = "INSERT INTO Cruise (CruiseID,Cruise_Name,Schedule_Date,Src_Location,Dst_Location,Fare) " \
-                "VALUES (" + str(id) + ",\'" + Cruise_Name[i] + "\',\'" + Schedule_Date[i] + "\'," + str(Src_Location[i]) + "," \
-                "" + str(Dst_Location[i]) + "," + str(Fare[i]) + ");"
+                "VALUES (" + str(id) + ",\'" + Cruise_Name[i%4] + "\',\'" + Schedule_Date[0] + "\'," + str(Src_Location[i]) + "," \
+                "" + str(Dst_Location[i]) + "," + str(Fare[i%4]) + ");"
         cursor = connection.cursor()
         cursor.execute(query)
         print(query)
@@ -156,7 +165,7 @@ def init_Cruise():
 
         print()
 
-    connection.commit()
+        connection.commit()
     connection.close()
 
 def init_Location():
@@ -171,7 +180,7 @@ def init_Location():
         # query = "INSERT INTO Transportation (Transportation_Type) VALUES (\'" + type[2] + "\');"
         cursor = connection.cursor()
         cursor.execute(query)
-    connection.commit()
+        connection.commit()
     connection.close()
 
 def init_Accomodation():
@@ -188,6 +197,7 @@ def init_Accomodation():
         print(query)
         # query = "INSERT INTO Transportation (Transportation_Type) VALUES (\'" + type[2] + "\');"
         cursor = connection.cursor()
+        connection.commit()
         cursor.execute(query)
 
         query = "SELECT AccommodationID FROM Accommodation ORDER BY AccommodationID DESC LIMIT 1"
@@ -200,11 +210,11 @@ def init_Accomodation():
         query = "INSERT INTO Employee_Manages_Resources (EmployeeID,AccommodationID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'Admin' ORDER BY RAND() LIMIT 1),"+str(id)+");"
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
         print(query)
 
         print()
 
-    connection.commit()
     connection.close()
 
 def init_Passenger():
@@ -220,15 +230,16 @@ def init_Passenger():
         print(query)
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
+
 
         print()
 
-    connection.commit()
     connection.close()
 
 def init_Passenger_Reviews_Resources():
     PassengerID = 1
-    CruiseID = 8
+    CruiseID = 42
     CruiseReview = "This is a cruise review"
     Rating = 5;
     #Passenger Reviews Cruise
@@ -266,6 +277,7 @@ def init_Party():
         print(query)
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
 
         query = "SELECT PartyID FROM Party ORDER BY PartyID DESC LIMIT 1"
         cursor = connection.cursor()
@@ -277,6 +289,7 @@ def init_Party():
         query = "INSERT INTO Employee_Helps_Party (EmployeeID,PartyID) VALUES ((SELECT EmployeeID FROM Employee WHERE Role = 'CSR' ORDER BY RAND() LIMIT 1),"+str(id)+");"
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
         print(query)
 
         query = "INSERT INTO Passenger_MemberOf_Party(PassengerID, PartyID) VALUES ("+ str(Party_Leader[i])+","+ str(id)+");"
@@ -328,16 +341,18 @@ def init_Party_Default_Payment():
     connection = connect_db()
     query = "INSERT INTO Payment (Payment_Type, Card_Number, Card_Holder_Name ,Card_Exp_Date, Transaction_Time, Amount_Paid) VALUES ('VISA',1234567890123456,'Jay R',now(),now(),0);"
     cursor = connection.cursor()
+    connection.commit()
     cursor.execute(query)
 
     query = "INSERT INTO Party_Makes_Payment (PartyID, PaymentID) VALUES (1,1);"
     print(query)
     cursor = connection.cursor()
     cursor.execute(query)
+    connection.commit()
     print()
 
-    connection.commit()
     connection.close()
+
 
 if __name__ == '__main__':
     init_Employee()
