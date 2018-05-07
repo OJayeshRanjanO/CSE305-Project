@@ -1,65 +1,86 @@
-function validate_form()
-{
-    var nameLength = $("#name").val().length;
-    var ageLength = $("#age").val().length;
-    var emailLength = $("#email").val().length;
-    var passwordLength = $("#pwd").val().length;
-
-    if (nameLength > 0 && ageLength > 0 && emailLength > 0 && passwordLength > 0)
-    {
-        register();
-        return true;
-    }
-    else
-    {
-        //alert("Please fill out form");
-        return false;
-    }
-}
-
 function register()
 {
+    $("#emailLabel").empty();
+    // alert("TEST");
+    removeRedBorder('name');
+    removeRedBorder('gender');
+    removeRedBorder('age');
+    removeRedBorder('email');
+    removeRedBorder('pwd');
+    var name = $("#name").val();
+    // alert(name)
+    var gender = $("#gender").find(":selected").text();
+    var age = $("#age").val();
+    var email = $("#email").val();
+    var pwd = $("#pwd").val();
+
+
+    if (name === ""){
+        $("#name").css("border","2px solid red");
+        return;
+    }
+    if (gender === ""){
+        $("#gender").css("border","2px solid red");
+        return;
+    }
+    if (age < 1){
+        $("#age").css("border","2px solid red");
+        return;
+    }
+    if (email === ""){
+        $("#email").css("border","2px solid red");
+        return;
+    }
+    if (pwd === ""){
+        $("#pwd").css("border","2px solid red");
+        return;
+    }
+
+    console.log(name + " " + gender + " " + age + " " + email + " " + pwd);
+    registerData = {
+        "name":name,
+        "gender":gender,
+        "age":age,
+        "email":email,
+        "pwd":pwd
+    };
+    // console.log(registerData)
     // This parses all the data from the form
-    var registerData = $('#registerForm').serialize();
-    var gender = $('#gender').val();
-    registerData += "&gender=" + gender;
-    // Stores it to a JSON type
-    registerData = toJSON(registerData);
+    // var registerData = $('#registerForm').serialize();
+    // var gender = $('#gender').val();
+    // registerData += "&gender=" + gender;
+    // // Stores it to a JSON type
+    // registerData = toJSON(registerData);
 
     $.ajax({
         type: "POST",
         url: "/registerUser",
-        data: registerData,
+        data: JSON.stringify(registerData),
         dataType: "json",
         contentType : "application/json"
     }).done(function (data, textStatus, jqXHR)
     {
         // data.login from main.py
-        data = $.parseJSON(JSON.stringify(data));
-        if (data.registered === "fail")
-        {
-            $("#registerContainer").append("<div style='color:red'> Incorrect info </div>")
+        // data = $.parseJSON(JSON.stringify(data));
+        // console.log(data)
+        // alert("TEST");
+        // console.log(data);
+        if (data.registered === "false")
+        {   
+            $("#emailLabel").append("<div style='color:red'> Email Address already in use </div>")
+            $("#email").css("border","2px solid red");
         }
         else if (data.registered === "true")
         {
             // localStorage.setItem("username", data.username);
-            window.location.href = "/home"
+            window.location.href = "/"
         }
     });
 
 }
 
-function toJSON(data)
-{
-  data = data.split("&");
-  var obj={};
-    for(i = 0; i < data.length; i++)
-    {
-        var x = data[i].split("=");
-        x[1] = x[1].replace(/%20/g," ");
-        obj[x[0]] = x[1].replace("%40","@");
-    }
-    console.log(obj);
-  // obj['username'] = localStorage['username']
-  return JSON.stringify(obj);
+
+function removeRedBorder(field){
+  $("#"+field).css("border","none");
+
 }

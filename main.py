@@ -68,6 +68,7 @@ def registerUser():
     email = registered_json['email']
     # Store password
     password = registered_json['pwd']
+    print(registered_json)
     returnValue = registerPassenger(name, gender, age, email, password)
     return str(json.dumps({"registered":"true"})) if returnValue else str(json.dumps({"registered":"false"}))
 
@@ -300,11 +301,14 @@ def addToCart():
 
     recvJson = request.get_json()
     x = session['cart']
-    # print(recvJson['item'])
-    x.append(recvJson['item'])
-    session['cart'] = x
-    print(session['cart'])
-    return str(json.dumps({"addToCart":"true"}))
+    if recvJson['item'] not in x:
+        # print(recvJson['item'])
+        x.append(recvJson['item'])
+        session['cart'] = x
+        print(session['cart'])
+        return str(json.dumps({"addToCart":"true"}))
+    else:
+        return str(json.dumps({"addToCart":"false"}))
 
 
 @app.route('/checkout')

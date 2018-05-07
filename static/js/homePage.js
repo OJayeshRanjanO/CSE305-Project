@@ -64,6 +64,12 @@ function addToCart(obj){
       dataType: "json",
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
+      console.log(data.addToCart)
+      if (data.addToCart === "true"){
+        $("#addedToCart").modal('show');
+      }else{
+        $("#duplicateItemInCart").modal('show');
+      }
 
     });
 
@@ -149,7 +155,7 @@ function searchFlights(){
                 <div class="cardBodyDeparture">Fare: $`+ data[i].Fare * flightPassengers +`</div>
                 <div class="cardBodyDeparture">`+ flightFrom + ' >>>>> ' + flightTo + `</div>
                 <div class=card-hover>
-                  <i onclick=addToCart(this); data-toggle="modal" data-target="#addedToCart" class="material-icons addToCartNonReview" style="font-size:50px">add_shopping_cart</i>
+                  <i onclick=addToCart(this); class="material-icons addToCartNonReview" style="font-size:50px">add_shopping_cart</i>
                 </div>
                 <div display=none value=Flight-`+ data[i].FlightID+`></div>
             </div>`
@@ -218,7 +224,7 @@ function searchCruises(){
                   <div class="cardBodyDeparture">Fare: $`+ data[i].Fare * cruisePassengers +`</div>
                   <div class="cardBodyDeparture">`+ cruiseFrom + ' >>>>> ' + cruiseTo + `</div>
                   <div class=card-hover>
-                    <i onclick=addToCart(this); data-toggle="modal" data-target="#addedToCart" class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i>
+                    <i onclick=addToCart(this); class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i>
                     <i data-target="#showCruiseReview" data-toggle="modal" onclick="reviewResource(this);" class="material-icons review" style="font-size:50px">speaker_notes</i>
                   </div>
                   <div display=none value=Cruise-`+ data[i].CruiseID+`></div>
@@ -302,7 +308,7 @@ function searchCars(){
                   <div class="cardBodyDeparture">Rate: $`+ data[i].Rent +`</div>
                   <div class="cardBodyDeparture"></div>
                   <div class=card-hover>
-                    <i onclick=addToCart(this); data-toggle="modal" data-target="#addedToCart" class="material-icons addToCartNonReview" style="font-size:50px">add_shopping_cart</i>
+                    <i onclick=addToCart(this); class="material-icons addToCartNonReview" style="font-size:50px">add_shopping_cart</i>
                   </div>
                   <div display=none value=Car-`+ data[i].CarID+`></div>
             </div>`
@@ -365,7 +371,7 @@ function searchHotels(){
                   <div class="cardBodyDeparture">Size: ` + data[i].Size +`</div>
                   <div class="cardBodyDeparture">Rate: $`+ (data[i].Rate * ((100.0 - data[i].Discount)/100.0)) +`</div>
                   <div class=card-hover>
-                    <i data-target="#addedToCart" data-toggle="modal" onclick="addToCart(this);" class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i>
+                    <i onclick="addToCart(this);" class="material-icons addToCart" style="font-size:50px">add_shopping_cart</i>
                     <i data-target="#showHotelReview" data-toggle="modal" onclick="reviewResource(this);" class="material-icons review" style="font-size:50px">speaker_notes</i>
                   </div>
                   <div display=none value=Accommodation-`+ data[i].AccommodationID+`></div>
@@ -541,8 +547,10 @@ function checkoutItems(){
       dataType: "json",
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
+      alert("TEST");
+      window.location.href = "/home";
 
-  });
+    });
 
 }
 
