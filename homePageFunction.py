@@ -3,6 +3,7 @@ import datetime
 
 def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers):
     # try:
+        print(flightFrom,flightTo,flightLeavingDate,flightClass,flightPassengers)
         connection = connect_db()
         query = "SELECT * FROM Location WHERE City = %s"
         cursor = connection.cursor()
@@ -18,11 +19,12 @@ def checkAvailableFlights(flightFrom,flightTo,flightLeavingDate,flightClass,flig
         connection.close()
 
         connection = connect_db()
-        query = "SELECT * FROM Flight WHERE Src_Location = " + str(src_location) + " AND Dst_Location = " + str(dst_location) + " AND Class = '" + str(flightClass) + "' AND (SELECT TransportationID FROM Transportation WHERE TransportationID = FlightID AND Active = 1);"
+        query = "SELECT * FROM Flight WHERE Src_Location = " + str(src_location) + " AND Dst_Location = " + str(dst_location) + " AND Class = '" + str(flightClass) + "' AND Schedule_Date >= \'"+flightLeavingDate+" 00:00:00' AND Schedule_Date <= \'"+flightLeavingDate+" 23:59:59' AND (SELECT TransportationID FROM Transportation WHERE TransportationID = FlightID AND Active = 1);"
         cursor = connection.cursor()
         cursor.execute(query)
         flightList = cursor.fetchall()
         connection.close()
+        print(query)
 
         # Use this loop to convert datetime
         for eachFlight in flightList:
@@ -86,7 +88,7 @@ def checkAvailableCrusies(cruiseFrom,cruiseTo,cruiseLeavingDate,cruisePassengers
 
 
     connection = connect_db()
-    query = "SELECT * FROM Cruise WHERE Src_Location = " + str(src_location) +" AND Dst_Location = " + str(dst_location) + " AND (SELECT TransportationID FROM Transportation WHERE TransportationID = CruiseID AND Active = 1);"
+    query = "SELECT * FROM Cruise WHERE Src_Location = " + str(src_location) +" AND Dst_Location = " + str(dst_location) + " AND Schedule_Date >= \'"+cruiseLeavingDate+" 00:00:00' AND Schedule_Date <= \'"+cruiseLeavingDate+" 23:59:59' AND (SELECT TransportationID FROM Transportation WHERE TransportationID = CruiseID AND Active = 1);"
     cursor = connection.cursor()
     cursor.execute(query)
     cruiseList = cursor.fetchall()
