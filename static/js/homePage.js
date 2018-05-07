@@ -148,7 +148,7 @@ function searchFlights(){
         var data = data.flightDetails;
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
-          stringToAppend = 
+          stringToAppend += 
             `<div class="card" >
                 <div class="cardBodyFlight">Carrier: ` + data[i].Flight_Carrier + " ("+ data[i].Flight_Number +`) </div>
                 <div class="cardBodyDeparture">Departure: ` + data[i].Schedule_Date +`</div>
@@ -217,7 +217,7 @@ function searchCruises(){
         stringToAppend = "";
         // {"cruiseDetails": [{"CruiseID": 9, "Cruise_Name": "Caribbean Princess", "Schedule_Date": "2018-03-31", "Src_Location": 1, "Dst_Location": 4, "Fare": 700.0}]}
         for (var i = 0; i < data.length; i++){
-          stringToAppend = 
+          stringToAppend += 
             `<div class="card" >
                   <div class="cardBodyFlight">Cruise: ` + data[i].Cruise_Name +`</div>
                   <div class="cardBodyDeparture">Departure: ` + data[i].Schedule_Date +`</div>
@@ -301,7 +301,7 @@ function searchCars(){
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           // alert(data[i].Car_Company + " " + data[i].Car_Type + " " + data[i].Rent);
-          stringToAppend = 
+          stringToAppend += 
             `<div class="card" >
                   <div class="cardBodyFlight">Company: ` + data[i].Car_Company +`</div>
                   <div class="cardBodyDeparture">Type: ` + data[i].Car_Type +`</div>
@@ -364,7 +364,7 @@ function searchHotels(){
         stringToAppend = "";
         for (var i = 0; i < data.length; i++){
           // alert(data[i].Car_Company + " " + data[i].Car_Type + " " + data[i].Rent);
-          stringToAppend = 
+          stringToAppend += 
             `<div class="card" >
                   <div class="cardBodyFlight">Location: ` + location +`</div>
                   <div class="cardBodyDeparture">Facilities: ` + data[i].Facilities +`</div>
@@ -547,7 +547,7 @@ function checkoutItems(){
       dataType: "json",
       contentType : "application/json"
     }).done(function (data, textStatus, jqXHR) {
-      alert("TEST");
+      // alert("TEST");
       window.location.href = "/home";
 
     });

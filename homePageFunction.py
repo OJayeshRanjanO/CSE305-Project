@@ -146,6 +146,7 @@ def checkAvailableHotel(Accommodation_Type,Location,Guests):
     cursor.execute(query)
     accommodation_list = cursor.fetchall()
     connection.close()
+    print("TEST",accommodation_list)
     return accommodation_list
 
 def generateCheckoutList(cartList):
